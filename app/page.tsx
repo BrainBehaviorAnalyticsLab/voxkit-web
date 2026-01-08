@@ -1,12 +1,10 @@
 "use client"
-import { useState } from 'react';
 import { Download, ChevronDown, Cpu, Users, Zap, Code } from 'lucide-react';
 import WaveSeparator from '../components/WaveSeparator';
-import { AppleIcon,  WindowsIcon, LinuxIcon } from '../components/OSIcons';
+import DownloadButton from '../components/DownloadButton';
 import { Footer, Navbar } from '../layout';
 
 export default function VoxKitLanding() {
-  const [selectedOS, setSelectedOS] = useState('');
 
   const features = [
     {
@@ -73,38 +71,7 @@ export default function VoxKitLanding() {
           </div>
 
           {/* Download Section */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-2xl mx-auto shadow-xl shadow-black/20 tile">
-            <h3 className="text-2xl font-semibold mb-6 flex items-center justify-center gap-2 text-white">
-              <Download className="w-6 h-6 text-cyan-400" />
-              Download VoxKit
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {['windows', 'macos', 'linux'].map((os) => (
-                <button
-                  key={os}
-                  onClick={() => setSelectedOS(os)}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white px-6 py-4 rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/30 text-center border border-blue-500/20"
-                >
-                  <div className="flex items-center justify-center mb-2">
-                    {os === 'windows' && <WindowsIcon />}
-                    {os === 'macos' && <AppleIcon />}
-                    {os === 'linux' && <LinuxIcon />}
-                  </div>
-                  <div className="text-sm mb-1 font-semibold sr-only">
-                    {os === 'macos' ? 'macOS' : os === 'windows' ? 'Windows' : 'Linux'}
-                  </div>
-                  <div className="text-xs text-blue-100">
-                    {os === 'windows' ? 'Windows 10/11' : os === 'macos' ? '10.15+' : 'Ubuntu/Debian'}
-                  </div>
-                </button>
-              ))}
-            </div>
-            {selectedOS && (
-              <div className="mt-6 text-sm text-cyan-400 text-center font-medium">
-                Download for {selectedOS === 'macos' ? 'macOS' : selectedOS.charAt(0).toUpperCase() + selectedOS.slice(1)} starting...
-              </div>
-            )}
-          </div>
+          <DownloadButton />
         </div>
         <div className="absolute bottom-0 left-0 right-0 -mb-1">
 
