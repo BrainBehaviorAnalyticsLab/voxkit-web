@@ -69,9 +69,6 @@ export default function VoxKitLanding() {
               Documentation
             </a>
           </div>
-
-          {/* Download Section */}
-          <DownloadButton />
         </div>
         <div className="absolute bottom-0 left-0 right-0 -mb-1">
 

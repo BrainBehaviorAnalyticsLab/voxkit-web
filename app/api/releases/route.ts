@@ -84,9 +84,9 @@ export async function GET() {
     console.log(`Fetched ${releases.length} releases from GitHub.`);
     // Parse and group releases
     const groupedReleases: GroupedReleases = {};
-    
+    console.log(`Processing releases... ${JSON.stringify(releases)}`);
     for (const release of releases) {
-        console.log(`Processing release: ${release}`);
+      console.log(`Processing release: ${JSON.stringify(release)}`);
 
       const parsed = parseTag(release.tag_name);
       

@@ -1,0 +1,501 @@
+{
+  "leverage-voxkit": {
+    "title": "Leverage VoxKit for your research",
+    "description": "Comprehensive guide to VoxKit's Pipeline Stackers for speech processing workflows",
+    "icon": "🚀",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit's Pipeline interface is built around Stackers—specialized workflow pages that guide you through multi-step speech processing tasks. This guide covers Engines, Analyzers, and Stackers that power your research workflows."
+      },
+      {
+        "type": "heading",
+        "content": "What are Stackers?"
+      },
+      {
+        "type": "text",
+        "content": "Stackers are the main workflow pages in VoxKit's Pipeline interface. Each stacker uses numbered steps (①②③④⑤⑥) to guide users through specific speech processing tasks in a logical sequence."
+      },
+      {
+        "type": "heading",
+        "content": "Available Stackers"
+      },
+      {
+        "type": "text",
+        "content": "VoxKit provides four main stackers for different speech processing workflows:"
+      },
+      {
+        "type": "heading",
+        "content": "① TrainingStacker"
+      },
+      {
+        "type": "text",
+        "content": "Train or fine-tune alignment models using existing datasets and alignments."
+      },
+      {
+        "type": "text",
+        "content": "Workflow Steps:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "① Engine Radio Buttons: Select alignment method (MFA, W2TG, etc.) with base model dropdown",
+          "② Base Model Dropdown: Choose which pre-trained model to fine-tune from (embedded in ① panel)",
+          "③ Dataset Dropdown: Select registered training dataset containing audio files",
+          "④ Alignment Dropdown: Choose alignment output to use as training TextGrids (auto-populated based on ③)",
+          "⑤ Model Name Input: Enter unique name for the new trained model",
+          "⑥ Start Training Button: Execute model training with selected configuration"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Key Features: Dynamic engine selection with exclusive radio buttons, base model dropdown per engine (shows/hides based on selection), alignment selection depends on chosen dataset, and settings accessible via gear icon (⚙️)."
+      },
+      {
+        "type": "heading",
+        "content": "② PredictionStacker"
+      },
+      {
+        "type": "text",
+        "content": "Generate forced alignments for datasets using trained models."
+      },
+      {
+        "type": "text",
+        "content": "Workflow Steps:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "① Engine Radio Buttons: Select alignment method (MFA, W2TG, etc.)",
+          "② Model Dropdown: Choose trained model for alignment (embedded in ① panel, per-engine)",
+          "③ Dataset Dropdown: Select registered dataset to align",
+          "④ Start Predicting Button: Execute alignment prediction on dataset"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Key Features: Similar engine selection pattern to TrainingStacker, each engine has its own model dropdown (visibility toggled), settings accessible via gear icon (⚙️), and no manual path inputs required."
+      },
+      {
+        "type": "heading",
+        "content": "③ PLLRStacker"
+      },
+      {
+        "type": "text",
+        "content": "Extract Goodness of Pronunciation (GOP) scores using phoneme log-likelihood ratios."
+      },
+      {
+        "type": "text",
+        "content": "Workflow Steps:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "① Dataset Dropdown: Select dataset containing speech data for PLLR extraction",
+          "② Alignment Dropdown: Choose alignment output to use for phoneme boundaries (auto-populated based on ①)",
+          "③ Output Path Browser: Specify directory where PLLR CSV files will be saved",
+          "④ Start GOP Extraction Button: Execute PLLR computation and export results"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Key Features: Alignment dropdown dynamically loads based on selected dataset, outputs two CSV files (phonewise_proba.csv and framewise_proba.csv), settings accessible via gear icon (⚙️) for acoustic model configuration, and uses pypllrcomputer library under the hood."
+      },
+      {
+        "type": "heading",
+        "content": "④ EvaluationStacker"
+      },
+      {
+        "type": "text",
+        "content": "Evaluate aligner performance against reference alignments. Status: 🚧 Not currently integrated (exists but not added to PipelineFormStack)."
+      },
+      {
+        "type": "text",
+        "content": "Intended Workflow Steps:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Ⓑ Evaluation Method Dropdown: Select evaluation strategy (Cross-Validation, Holdout Test, Custom)",
+          "Reference Path Browser: Specify ground-truth alignment directory",
+          "Predicted Path Browser: Specify predicted alignment directory to evaluate",
+          "Output Path Browser: Specify where evaluation results should be saved",
+          "Evaluate Aligner Button: Run evaluation script and generate metrics"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Note: This stacker is commented out in __init__.py and not currently accessible in the UI."
+      },
+      {
+        "type": "heading",
+        "content": "Navigation Structure"
+      },
+      {
+        "type": "text",
+        "content": "The PipelineFormStack container manages navigation between stackers:"
+      },
+      {
+        "type": "code",
+        "language": "text",
+        "content": "Menu Item                    → Stacker Class         → Index\n─────────────────────────────────────────────────────────────\nⒶ  Train Aligners           → TrainingStacker       → 0\nⒷ  Predict Alignments       → PredictionStacker     → 1\nⒸ  Extract GOP Scoring      → PLLRStacker           → 2\n(Ⓑ  Evaluate Aligner)        → EvaluationStacker    → (commented out)"
+      },
+      {
+        "type": "heading",
+        "content": "Common Patterns"
+      },
+      {
+        "type": "text",
+        "content": "Dynamic Dropdowns:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Alignment dropdowns auto-populate based on dataset selection",
+          "Model dropdowns filter by selected engine",
+          "Empty states show 'No X registered' placeholders"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Settings Integration:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "All stackers have gear icon (⚙️) that opens engine-specific settings",
+          "Settings stored in JSON files per engine/tool combination",
+          "Uses GenericDialog with SettingsConfig framework"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Status Feedback:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Status label shows: 'Ready' → 'Processing...' → '✓ Success' or '✗ Error'",
+          "Color-coded: Gray (ready), Orange (processing), Green (success), Red (error)",
+          "Uses WorkerThread for long-running operations to avoid UI blocking"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Button Styling:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Training: Blue (#4a90e2)",
+          "Prediction: Blue (#4a90e2)",
+          "GOP Extraction: Green (#27ae60)",
+          "Evaluation: Blue (#4a90e2)"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Step Number Conventions"
+      },
+      {
+        "type": "code",
+        "language": "text",
+        "content": "Symbol           Typical Usage\n─────────────────────────────────────\n①②③④⑤⑥          Sequential workflow steps\nⒶ Ⓑ Ⓒ           Major section identifiers (page titles)\n⚙️               Settings/configuration access\n✓ ✗             Success/error status indicators"
+      }
+    ]
+  },
+  "installation": {
+    "title": "Installation Guide",
+    "description": "Detailed instructions for installing VoxKit on different platforms",
+    "icon": "📦",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit supports macOS, Windows, and Linux. Choose your platform below for specific instructions."
+      },
+      {
+        "type": "heading",
+        "content": "System Requirements"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Python 3.8 or higher",
+          "4GB RAM minimum (8GB recommended)",
+          "50MB free disk space",
+          "Audio input device (for real-time analysis)"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "macOS Installation"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Using Homebrew\nbrew install voxkit\n\n# Or using pip\npip3 install voxkit"
+      },
+      {
+        "type": "heading",
+        "content": "Windows Installation"
+      },
+      {
+        "type": "text",
+        "content": "Download the Windows installer from our downloads page and run it. Alternatively, use pip:"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "pip install voxkit"
+      },
+      {
+        "type": "heading",
+        "content": "Linux Installation"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Ubuntu/Debian\nsudo apt-get update\nsudo apt-get install python3-voxkit\n\n# Or using pip\npip3 install voxkit"
+      },
+      {
+        "type": "heading",
+        "content": "Troubleshooting"
+      },
+      {
+        "type": "text",
+        "content": "If you encounter issues during installation, check that you have the latest version of pip:"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "pip install --upgrade pip"
+      }
+    ]
+  },
+  "configuration": {
+    "title": "Configuration Options",
+    "description": "Customize VoxKit to match your workflow and requirements",
+    "icon": "⚙️",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit can be configured through a configuration file or programmatically. This guide covers both approaches."
+      },
+      {
+        "type": "heading",
+        "content": "Configuration File"
+      },
+      {
+        "type": "text",
+        "content": "Create a voxkit.config.json file in your project root:"
+      },
+      {
+        "type": "code",
+        "language": "json",
+        "content": "{\n  \"analyzer\": {\n    \"sample_rate\": 16000,\n    \"channels\": 1,\n    \"bit_depth\": 16\n  },\n  \"models\": {\n    \"default\": \"base\",\n    \"path\": \"./models\"\n  },\n  \"output\": {\n    \"format\": \"json\",\n    \"verbose\": true\n  }\n}"
+      },
+      {
+        "type": "heading",
+        "content": "Programmatic Configuration"
+      },
+      {
+        "type": "text",
+        "content": "You can also configure VoxKit directly in your code:"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Config, Analyzer\n\n# Create custom configuration\nconfig = Config(\n    sample_rate=16000,\n    channels=1,\n    model='advanced'\n)\n\n# Initialize analyzer with config\nanalyzer = Analyzer(config=config)"
+      },
+      {
+        "type": "heading",
+        "content": "Available Options"
+      },
+      {
+        "type": "list",
+        "items": [
+          "sample_rate: Audio sampling rate (8000-48000 Hz)",
+          "channels: Number of audio channels (1 for mono, 2 for stereo)",
+          "bit_depth: Bit depth for audio processing (16, 24, or 32)",
+          "model: Analysis model to use (base, advanced, or custom)",
+          "output_format: Result format (json, csv, or xml)",
+          "verbose: Enable detailed logging (true/false)"
+        ]
+      }
+    ]
+  },
+  "api-reference": {
+    "title": "API Reference",
+    "description": "Complete reference for VoxKit's Python API",
+    "icon": "📚",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit provides a comprehensive API for voice analysis. This reference covers the core classes and methods."
+      },
+      {
+        "type": "heading",
+        "content": "Analyzer Class"
+      },
+      {
+        "type": "text",
+        "content": "The main interface for analyzing audio data."
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "class Analyzer:\n    def __init__(self, config=None):\n        \"\"\"Initialize analyzer with optional config.\"\"\"\n        pass\n    \n    def analyze(self, audio_path: str) -> dict:\n        \"\"\"Analyze audio file and return results.\"\"\"\n        pass\n    \n    def analyze_stream(self, stream) -> Iterator[dict]:\n        \"\"\"Analyze audio stream in real-time.\"\"\"\n        pass"
+      },
+      {
+        "type": "heading",
+        "content": "Methods"
+      },
+      {
+        "type": "list",
+        "items": [
+          "analyze(audio_path): Analyze a complete audio file",
+          "analyze_stream(stream): Analyze audio in real-time",
+          "set_config(config): Update analyzer configuration",
+          "get_features(): Extract audio features",
+          "export_results(format): Export analysis results"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Example Usage"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Analyzer\n\n# Basic analysis\nanalyzer = Analyzer()\nresult = analyzer.analyze('speech.wav')\n\n# Access results\nprint(f\"Duration: {result['duration']} seconds\")\nprint(f\"Confidence: {result['confidence']}\")\n\n# Stream analysis\nwith open_audio_stream() as stream:\n    for chunk_result in analyzer.analyze_stream(stream):\n        print(chunk_result)"
+      }
+    ]
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting",
+    "description": "Solutions to common issues and error messages",
+    "icon": "🔧",
+    "sections": [
+      {
+        "type": "text",
+        "content": "This guide helps you resolve common issues you might encounter while using VoxKit."
+      },
+      {
+        "type": "heading",
+        "content": "Common Issues"
+      },
+      {
+        "type": "heading",
+        "content": "Import Error: ModuleNotFoundError"
+      },
+      {
+        "type": "text",
+        "content": "If you see this error, VoxKit may not be properly installed in your Python environment."
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Solution: Reinstall VoxKit\npip uninstall voxkit\npip install voxkit\n\n# Verify installation\npython -c \"import voxkit; print(voxkit.__version__)\""
+      },
+      {
+        "type": "heading",
+        "content": "Audio File Not Supported"
+      },
+      {
+        "type": "text",
+        "content": "VoxKit supports WAV, MP3, FLAC, and OGG formats. If you're getting this error:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Check that your audio file has a supported extension",
+          "Verify the file is not corrupted",
+          "Convert the file to WAV format using an audio converter",
+          "Ensure the file has proper read permissions"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Performance Issues"
+      },
+      {
+        "type": "text",
+        "content": "If analysis is running slowly, try these optimizations:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use a lower sample rate (e.g., 16000 Hz instead of 44100 Hz)",
+          "Process shorter audio segments",
+          "Use the 'base' model instead of 'advanced'",
+          "Close other memory-intensive applications",
+          "Ensure you have sufficient RAM available"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Getting Help"
+      },
+      {
+        "type": "text",
+        "content": "If your issue persists, you can:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Check our GitHub issues for similar problems",
+          "Join our community Discord server",
+          "Email support at support@voxkit.dev",
+          "Review the detailed logs with verbose mode enabled"
+        ]
+      }
+    ]
+  },
+  "examples": {
+    "title": "Code Examples",
+    "description": "Practical examples demonstrating VoxKit features",
+    "icon": "💡",
+    "sections": [
+      {
+        "type": "text",
+        "content": "Explore these practical examples to learn how to use VoxKit effectively."
+      },
+      {
+        "type": "heading",
+        "content": "Basic Audio Analysis"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Analyzer\n\nanalyzer = Analyzer()\nresult = analyzer.analyze('recording.wav')\n\nprint(f\"Duration: {result['duration']}s\")\nprint(f\"Sample Rate: {result['sample_rate']} Hz\")\nprint(f\"Channels: {result['channels']}\")"
+      },
+      {
+        "type": "heading",
+        "content": "Real-time Stream Processing"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Analyzer, AudioStream\n\nanalyzer = Analyzer()\nstream = AudioStream(device_id=0)\n\ntry:\n    for chunk in analyzer.analyze_stream(stream):\n        if chunk['confidence'] > 0.8:\n            print(f\"Detected: {chunk['text']}\")\nexcept KeyboardInterrupt:\n    stream.close()"
+      },
+      {
+        "type": "heading",
+        "content": "Batch Processing Multiple Files"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Analyzer\nimport os\nimport json\n\nanalyzer = Analyzer()\naudio_dir = './audio_files'\nresults = []\n\nfor filename in os.listdir(audio_dir):\n    if filename.endswith('.wav'):\n        filepath = os.path.join(audio_dir, filename)\n        result = analyzer.analyze(filepath)\n        results.append({\n            'file': filename,\n            'result': result\n        })\n\n# Save results\nwith open('results.json', 'w') as f:\n    json.dump(results, f, indent=2)"
+      },
+      {
+        "type": "heading",
+        "content": "Custom Feature Extraction"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "content": "from voxkit import Analyzer, FeatureExtractor\n\nanalyzer = Analyzer()\nextractor = FeatureExtractor()\n\n# Analyze audio\nresult = analyzer.analyze('speech.wav')\n\n# Extract specific features\nfeatures = extractor.extract(result, features=[\n    'pitch',\n    'energy',\n    'mfcc',\n    'spectral_centroid'\n])\n\nprint(f\"Average Pitch: {features['pitch']['mean']} Hz\")\nprint(f\"Energy: {features['energy']['mean']} dB\")"
+      }
+    ]
+  }
+}
