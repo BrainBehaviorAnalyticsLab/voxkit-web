@@ -113,19 +113,20 @@
 
 <h2 id="directory-structure">Directory Structure</h2>
 
-<p>Each dataset follows a hierarchical structure:</p>
+<h6 id="each-dataset-follows-a-hierarchical-structure">Each dataset follows a hierarchical structure:</h6>
 
-<pre><code>my_dataset/
-├── voxkit_dataset.json       # Dataset metadata
-├── alignments/               # Alignment outputs storage
-└── cache/                    # Optional cached copy of dataset
-    ├── speaker_001/
-    │   ├── audio_001.wav
-    │   ├── audio_001.lab
-    │   └── ...
-    └── speaker_002/
-        └── ...
-</code></pre>
+<blockquote>
+  <p>my_dataset/
+  ├── voxkit_dataset.json       # Dataset metadata
+  ├── alignments/               # Alignment outputs storage
+  └── cache/                    # Optional cached copy of dataset
+      ├── speaker_001/
+      │   ├── audio_001.wav
+      │   ├── audio_001.lab
+      │   └── ...
+      └── speaker_002/
+          └── ...</p>
+</blockquote>
 
 <h2 id="api">API</h2>
 
@@ -833,16 +834,22 @@
 
             <div class="docstring"><p>Create a dataset metadata dictionary and create necessary directories.</p>
 
-<p>Args:
-    name: Name of the dataset
-    description: Description of the dataset
-    original_path: Original path to the dataset
-    cached: Whether the dataset is cached in storage
-    anonymize: Whether the dataset should be anonymized
-    transcribed: Whether the dataset includes transcription files</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, DatasetMetadata) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>name:</strong>  Name of the dataset</li>
+<li><strong>description:</strong>  Description of the dataset</li>
+<li><strong>original_path:</strong>  Original path to the dataset</li>
+<li><strong>cached:</strong>  Whether the dataset is cached in storage</li>
+<li><strong>anonymize:</strong>  Whether the dataset should be anonymized</li>
+<li><strong>transcribed:</strong>  Whether the dataset includes transcription files</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, DatasetMetadata) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -882,11 +889,17 @@
 
             <div class="docstring"><p>Get the metadata for a specific dataset.</p>
 
-<p>Args:
-    dataset_id: ID of the dataset to retrieve</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Dataset metadata dictionary or None if not found</p>
+<ul>
+<li><strong>dataset_id:</strong>  ID of the dataset to retrieve</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Dataset metadata dictionary or None if not found</p>
+</blockquote>
 </div>
 
 
@@ -929,8 +942,11 @@
 
             <div class="docstring"><p>List all existing datasets.</p>
 
-<p>Returns:
-    List of dataset metadata dictionaries</p>
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>List of dataset metadata dictionaries</p>
+</blockquote>
 </div>
 
 
@@ -992,12 +1008,18 @@
 
             <div class="docstring"><p>Update the metadata for a specific dataset.</p>
 
-<p>Args:
-    dataset_id: ID of the dataset to update
-    updates: Dictionary of metadata fields to update</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>dataset_id:</strong>  ID of the dataset to update</li>
+<li><strong>updates:</strong>  Dictionary of metadata fields to update</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -1044,11 +1066,17 @@
 
             <div class="docstring"><p>Delete a registered dataset.</p>
 
-<p>Args:
-    dataset_id: ID of the dataset to delete</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>dataset_id:</strong>  ID of the dataset to delete</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -1098,12 +1126,18 @@
 
             <div class="docstring"><p>Export an existing dataset to a specified output path.</p>
 
-<p>Args:
-    dataset_id: Identifier of the dataset to export
-    output_root: Path to the output directory where the dataset will be copied</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>dataset_id:</strong>  Identifier of the dataset to export</li>
+<li><strong>output_root:</strong>  Path to the output directory where the dataset will be copied</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -1190,11 +1224,17 @@
 
             <div class="docstring"><p>Import an existing dataset into VoxKit storage.</p>
 
-<p>Args:
-    dataset_path: Path to the dataset to import</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>dataset_path:</strong>  Path to the dataset to import</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -1293,24 +1333,31 @@
 
             <div class="docstring"><p>Validate if a dataset follows the expected organization pattern.</p>
 
-<p>Expected structure:</p>
+<h6 id="expected-structure">Expected structure:</h6>
 
-<pre><code>dataset_path/
-├── speaker_001/
-│   ├── audio_001.wav
-│   ├── audio_001.lab
-│   ├── audio_002.wav
-│   └── audio_002.lab
-└── speaker_002/
-    ├── audio_001.wav
-    └── audio_001.lab
-</code></pre>
+<blockquote>
+  <p>dataset_path/
+  ├── speaker_001/
+  │   ├── audio_001.wav
+  │   ├── audio_001.lab
+  │   ├── audio_002.wav
+  │   └── audio_002.lab
+  └── speaker_002/
+      ├── audio_001.wav
+      └── audio_001.lab</p>
+</blockquote>
 
-<p>Args:
-    dataset_path: Path to dataset root directory</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, validation_message) if valid or (False, error_description) if invalid</p>
+<ul>
+<li><strong>dataset_path:</strong>  Path to dataset root directory</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, validation_message) if valid or (False, error_description) if invalid</p>
+</blockquote>
 </div>
 
 

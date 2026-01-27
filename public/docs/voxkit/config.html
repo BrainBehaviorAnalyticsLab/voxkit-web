@@ -31,6 +31,126 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="class" href="#AppConfig">AppConfig</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#AppConfig.__init__">AppConfig</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.app_name">app_name</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.version">version</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.description">description</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.introduction">introduction</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.help_url">help_url</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.release_date">release_date</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.release_notes">release_notes</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#AppConfig.from_yaml">from_yaml</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#AppConfig.load_default">load_default</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="function" href="#get_app_config">get_app_config</a>
+            </li>
+            <li>
+                    <a class="class" href="#PipelineConfig">PipelineConfig</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PipelineConfig.__init__">PipelineConfig</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineConfig.steps">steps</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineConfig.ui_config">ui_config</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineConfig.enabled_steps">enabled_steps</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PipelineConfig.from_yaml">from_yaml</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PipelineConfig.load_default">load_default</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#PipelineStep">PipelineStep</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PipelineStep.__init__">PipelineStep</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.label">label</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.stacker_class">stacker_class</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.enabled">enabled</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.collapsible_sections">collapsible_sections</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PipelineStep.markdown_content">markdown_content</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PipelineStep.from_dict">from_dict</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#UIConfig">UIConfig</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#UIConfig.__init__">UIConfig</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#UIConfig.menu_max_width">menu_max_width</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#UIConfig.animation_duration">animation_duration</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#UIConfig.content_spacing">content_spacing</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#UIConfig.from_dict">from_dict</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="function" href="#get_pipeline_config">get_pipeline_config</a>
+            </li>
+            <li>
+                    <a class="variable" href="#HELP_URL">HELP_URL</a>
+            </li>
+            <li>
                     <a class="variable" href="#AppName">AppName</a>
             </li>
             <li>
@@ -43,7 +163,7 @@
                     <a class="variable" href="#Mode">Mode</a>
             </li>
             <li>
-                    <a class="variable" href="#HELP_URL">HELP_URL</a>
+                    <a class="function" href="#STARTUP_SCRIPT">STARTUP_SCRIPT</a>
             </li>
     </ul>
 
@@ -61,29 +181,1017 @@
                     <h1 class="modulename">
 <a href="./../voxkit.html">voxkit</a><wbr>.config    </h1>
 
-                
+                        <div class="docstring"><p>VoxKit configuration module.</p>
+
+<p>This module provides access to application and pipeline configurations.</p>
+</div>
+
                         <input id="mod-config-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
                         <label class="view-source-button" for="mod-config-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;VoxKit configuration module.</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="n">AppName</span> <span class="o">=</span> <span class="s2">&quot;VoxKit&quot;</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="n">Dimensions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;min_width&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;min_height&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">&quot;max_width&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">&quot;max_height&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="n">Defaults</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;W2TGENGINE&quot;</span><span class="p">,</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="s2">&quot;output_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/output&quot;</span><span class="p">,</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="s2">&quot;audio_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/audio&quot;</span><span class="p">,</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="s2">&quot;textgrid_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/textgrids&quot;</span><span class="p">,</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="s2">&quot;num_epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="p">}</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="n">Mode</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;MFAENGINE&quot;</span><span class="p">,</span> <span class="s2">&quot;W2TGENGINE&quot;</span><span class="p">]</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="n">HELP_URL</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">This module provides access to application and pipeline configurations.</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">voxkit.config.app_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppConfig</span><span class="p">,</span> <span class="n">get_app_config</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">voxkit.config.pipeline_config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">PipelineConfig</span><span class="p">,</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">PipelineStep</span><span class="p">,</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">UIConfig</span><span class="p">,</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">get_pipeline_config</span><span class="p">,</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="p">)</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">voxkit.config.startup_config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">HELP_URL</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">STARTUP_SCRIPT</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">AppName</span><span class="p">,</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">Defaults</span><span class="p">,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">Dimensions</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">Mode</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="p">)</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="s2">&quot;AppConfig&quot;</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="s2">&quot;get_app_config&quot;</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s2">&quot;PipelineConfig&quot;</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;PipelineStep&quot;</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;UIConfig&quot;</span><span class="p">,</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;get_pipeline_config&quot;</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;HELP_URL&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;AppName&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;Dimensions&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;Defaults&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;STARTUP_SCRIPT&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="p">]</span>
 </span></pre></div>
 
 
             </section>
+                <section id="AppConfig">
+                            <input id="AppConfig-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-dataclass">@dataclass</div>
+
+    <span class="def">class</span>
+    <span class="name">AppConfig</span>:
+
+                <label class="view-source-button" for="AppConfig-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#AppConfig"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig-35"><a href="#AppConfig-35"><span class="linenos">35</span></a><span class="nd">@dataclass</span>
+</span><span id="AppConfig-36"><a href="#AppConfig-36"><span class="linenos">36</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AppConfig</span><span class="p">:</span>
+</span><span id="AppConfig-37"><a href="#AppConfig-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Application configuration data class.&quot;&quot;&quot;</span>
+</span><span id="AppConfig-38"><a href="#AppConfig-38"><span class="linenos">38</span></a>
+</span><span id="AppConfig-39"><a href="#AppConfig-39"><span class="linenos">39</span></a>    <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="AppConfig-40"><a href="#AppConfig-40"><span class="linenos">40</span></a>    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="AppConfig-41"><a href="#AppConfig-41"><span class="linenos">41</span></a>    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="AppConfig-42"><a href="#AppConfig-42"><span class="linenos">42</span></a>    <span class="n">introduction</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="AppConfig-43"><a href="#AppConfig-43"><span class="linenos">43</span></a>    <span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span>
+</span><span id="AppConfig-44"><a href="#AppConfig-44"><span class="linenos">44</span></a>    <span class="n">release_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="AppConfig-45"><a href="#AppConfig-45"><span class="linenos">45</span></a>    <span class="n">release_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="AppConfig-46"><a href="#AppConfig-46"><span class="linenos">46</span></a>
+</span><span id="AppConfig-47"><a href="#AppConfig-47"><span class="linenos">47</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig-48"><a href="#AppConfig-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig-49"><a href="#AppConfig-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
+</span><span id="AppConfig-50"><a href="#AppConfig-50"><span class="linenos">50</span></a>
+</span><span id="AppConfig-51"><a href="#AppConfig-51"><span class="linenos">51</span></a><span class="sd">        Args:</span>
+</span><span id="AppConfig-52"><a href="#AppConfig-52"><span class="linenos">52</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
+</span><span id="AppConfig-53"><a href="#AppConfig-53"><span class="linenos">53</span></a>
+</span><span id="AppConfig-54"><a href="#AppConfig-54"><span class="linenos">54</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig-55"><a href="#AppConfig-55"><span class="linenos">55</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
+</span><span id="AppConfig-56"><a href="#AppConfig-56"><span class="linenos">56</span></a>
+</span><span id="AppConfig-57"><a href="#AppConfig-57"><span class="linenos">57</span></a><span class="sd">        Raises:</span>
+</span><span id="AppConfig-58"><a href="#AppConfig-58"><span class="linenos">58</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="AppConfig-59"><a href="#AppConfig-59"><span class="linenos">59</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="AppConfig-60"><a href="#AppConfig-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig-61"><a href="#AppConfig-61"><span class="linenos">61</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="AppConfig-62"><a href="#AppConfig-62"><span class="linenos">62</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="AppConfig-63"><a href="#AppConfig-63"><span class="linenos">63</span></a>
+</span><span id="AppConfig-64"><a href="#AppConfig-64"><span class="linenos">64</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="AppConfig-65"><a href="#AppConfig-65"><span class="linenos">65</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="AppConfig-66"><a href="#AppConfig-66"><span class="linenos">66</span></a>
+</span><span id="AppConfig-67"><a href="#AppConfig-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="AppConfig-68"><a href="#AppConfig-68"><span class="linenos">68</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-69"><a href="#AppConfig-69"><span class="linenos">69</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-70"><a href="#AppConfig-70"><span class="linenos">70</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-71"><a href="#AppConfig-71"><span class="linenos">71</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-72"><a href="#AppConfig-72"><span class="linenos">72</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-73"><a href="#AppConfig-73"><span class="linenos">73</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-74"><a href="#AppConfig-74"><span class="linenos">74</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-75"><a href="#AppConfig-75"><span class="linenos">75</span></a>        <span class="p">)</span>
+</span><span id="AppConfig-76"><a href="#AppConfig-76"><span class="linenos">76</span></a>
+</span><span id="AppConfig-77"><a href="#AppConfig-77"><span class="linenos">77</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig-78"><a href="#AppConfig-78"><span class="linenos">78</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig-79"><a href="#AppConfig-79"><span class="linenos">79</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the default application configuration.</span>
+</span><span id="AppConfig-80"><a href="#AppConfig-80"><span class="linenos">80</span></a>
+</span><span id="AppConfig-81"><a href="#AppConfig-81"><span class="linenos">81</span></a><span class="sd">        Looks for config/app_info.yaml relative to the project root.</span>
+</span><span id="AppConfig-82"><a href="#AppConfig-82"><span class="linenos">82</span></a>
+</span><span id="AppConfig-83"><a href="#AppConfig-83"><span class="linenos">83</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig-84"><a href="#AppConfig-84"><span class="linenos">84</span></a><span class="sd">            AppConfig instance</span>
+</span><span id="AppConfig-85"><a href="#AppConfig-85"><span class="linenos">85</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig-86"><a href="#AppConfig-86"><span class="linenos">86</span></a>        <span class="c1"># Get the project root (3 levels up from this file)</span>
+</span><span id="AppConfig-87"><a href="#AppConfig-87"><span class="linenos">87</span></a>        <span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+</span><span id="AppConfig-88"><a href="#AppConfig-88"><span class="linenos">88</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">project_root</span> <span class="o">/</span> <span class="s2">&quot;config&quot;</span> <span class="o">/</span> <span class="s2">&quot;app_info.yaml&quot;</span>
+</span><span id="AppConfig-89"><a href="#AppConfig-89"><span class="linenos">89</span></a>
+</span><span id="AppConfig-90"><a href="#AppConfig-90"><span class="linenos">90</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Application configuration data class.</p>
+</div>
+
+
+                            <div id="AppConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">AppConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">version</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">description</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">introduction</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:3000/help&#39;</span>,</span><span class="param">	<span class="n">release_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">release_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.app_name" class="classattr">
+                                <div class="attr variable">
+            <span class="name">app_name</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.app_name"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.version" class="classattr">
+                                <div class="attr variable">
+            <span class="name">version</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.version"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.description" class="classattr">
+                                <div class="attr variable">
+            <span class="name">description</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.description"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.introduction" class="classattr">
+                                <div class="attr variable">
+            <span class="name">introduction</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.introduction"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.help_url" class="classattr">
+                                <div class="attr variable">
+            <span class="name">help_url</span><span class="annotation">: str</span>        =
+<span class="default_value">&#39;http://localhost:3000/help&#39;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.help_url"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.release_date" class="classattr">
+                                <div class="attr variable">
+            <span class="name">release_date</span><span class="annotation">: Optional[str]</span>        =
+<span class="default_value">None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.release_date"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.release_notes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">release_notes</span><span class="annotation">: Optional[str]</span>        =
+<span class="default_value">None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.release_notes"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.from_yaml" class="classattr">
+                                        <input id="AppConfig.from_yaml-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_yaml</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">config_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></span><span class="return-annotation">) -> <span class="n"><a href="#AppConfig">AppConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="AppConfig.from_yaml-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#AppConfig.from_yaml"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.from_yaml-47"><a href="#AppConfig.from_yaml-47"><span class="linenos">47</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig.from_yaml-48"><a href="#AppConfig.from_yaml-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig.from_yaml-49"><a href="#AppConfig.from_yaml-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
+</span><span id="AppConfig.from_yaml-50"><a href="#AppConfig.from_yaml-50"><span class="linenos">50</span></a>
+</span><span id="AppConfig.from_yaml-51"><a href="#AppConfig.from_yaml-51"><span class="linenos">51</span></a><span class="sd">        Args:</span>
+</span><span id="AppConfig.from_yaml-52"><a href="#AppConfig.from_yaml-52"><span class="linenos">52</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
+</span><span id="AppConfig.from_yaml-53"><a href="#AppConfig.from_yaml-53"><span class="linenos">53</span></a>
+</span><span id="AppConfig.from_yaml-54"><a href="#AppConfig.from_yaml-54"><span class="linenos">54</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig.from_yaml-55"><a href="#AppConfig.from_yaml-55"><span class="linenos">55</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
+</span><span id="AppConfig.from_yaml-56"><a href="#AppConfig.from_yaml-56"><span class="linenos">56</span></a>
+</span><span id="AppConfig.from_yaml-57"><a href="#AppConfig.from_yaml-57"><span class="linenos">57</span></a><span class="sd">        Raises:</span>
+</span><span id="AppConfig.from_yaml-58"><a href="#AppConfig.from_yaml-58"><span class="linenos">58</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="AppConfig.from_yaml-59"><a href="#AppConfig.from_yaml-59"><span class="linenos">59</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="AppConfig.from_yaml-60"><a href="#AppConfig.from_yaml-60"><span class="linenos">60</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig.from_yaml-61"><a href="#AppConfig.from_yaml-61"><span class="linenos">61</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="AppConfig.from_yaml-62"><a href="#AppConfig.from_yaml-62"><span class="linenos">62</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="AppConfig.from_yaml-63"><a href="#AppConfig.from_yaml-63"><span class="linenos">63</span></a>
+</span><span id="AppConfig.from_yaml-64"><a href="#AppConfig.from_yaml-64"><span class="linenos">64</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="AppConfig.from_yaml-65"><a href="#AppConfig.from_yaml-65"><span class="linenos">65</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="AppConfig.from_yaml-66"><a href="#AppConfig.from_yaml-66"><span class="linenos">66</span></a>
+</span><span id="AppConfig.from_yaml-67"><a href="#AppConfig.from_yaml-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="AppConfig.from_yaml-68"><a href="#AppConfig.from_yaml-68"><span class="linenos">68</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-69"><a href="#AppConfig.from_yaml-69"><span class="linenos">69</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-70"><a href="#AppConfig.from_yaml-70"><span class="linenos">70</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-71"><a href="#AppConfig.from_yaml-71"><span class="linenos">71</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-72"><a href="#AppConfig.from_yaml-72"><span class="linenos">72</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-73"><a href="#AppConfig.from_yaml-73"><span class="linenos">73</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-74"><a href="#AppConfig.from_yaml-74"><span class="linenos">74</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-75"><a href="#AppConfig.from_yaml-75"><span class="linenos">75</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Load application configuration from YAML file.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>config_path:</strong>  Path to the app_info.yaml file</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>AppConfig instance with loaded configuration</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>FileNotFoundError:</strong>  If config file doesn't exist</li>
+<li><strong>yaml.YAMLError:</strong>  If YAML parsing fails</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="AppConfig.load_default" class="classattr">
+                                        <input id="AppConfig.load_default-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">load_default</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="n"><a href="#AppConfig">AppConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="AppConfig.load_default-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#AppConfig.load_default"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.load_default-77"><a href="#AppConfig.load_default-77"><span class="linenos">77</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig.load_default-78"><a href="#AppConfig.load_default-78"><span class="linenos">78</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig.load_default-79"><a href="#AppConfig.load_default-79"><span class="linenos">79</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the default application configuration.</span>
+</span><span id="AppConfig.load_default-80"><a href="#AppConfig.load_default-80"><span class="linenos">80</span></a>
+</span><span id="AppConfig.load_default-81"><a href="#AppConfig.load_default-81"><span class="linenos">81</span></a><span class="sd">        Looks for config/app_info.yaml relative to the project root.</span>
+</span><span id="AppConfig.load_default-82"><a href="#AppConfig.load_default-82"><span class="linenos">82</span></a>
+</span><span id="AppConfig.load_default-83"><a href="#AppConfig.load_default-83"><span class="linenos">83</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig.load_default-84"><a href="#AppConfig.load_default-84"><span class="linenos">84</span></a><span class="sd">            AppConfig instance</span>
+</span><span id="AppConfig.load_default-85"><a href="#AppConfig.load_default-85"><span class="linenos">85</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig.load_default-86"><a href="#AppConfig.load_default-86"><span class="linenos">86</span></a>        <span class="c1"># Get the project root (3 levels up from this file)</span>
+</span><span id="AppConfig.load_default-87"><a href="#AppConfig.load_default-87"><span class="linenos">87</span></a>        <span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+</span><span id="AppConfig.load_default-88"><a href="#AppConfig.load_default-88"><span class="linenos">88</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">project_root</span> <span class="o">/</span> <span class="s2">&quot;config&quot;</span> <span class="o">/</span> <span class="s2">&quot;app_info.yaml&quot;</span>
+</span><span id="AppConfig.load_default-89"><a href="#AppConfig.load_default-89"><span class="linenos">89</span></a>
+</span><span id="AppConfig.load_default-90"><a href="#AppConfig.load_default-90"><span class="linenos">90</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Load the default application configuration.</p>
+
+<p>Looks for config/app_info.yaml relative to the project root.</p>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>AppConfig instance</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="get_app_config">
+                            <input id="get_app_config-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_app_config</span><span class="signature pdoc-code condensed">(<span class="return-annotation">) -> <span class="n"><a href="#AppConfig">AppConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="get_app_config-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#get_app_config"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_app_config-93"><a href="#get_app_config-93"><span class="linenos"> 93</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_app_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
+</span><span id="get_app_config-94"><a href="#get_app_config-94"><span class="linenos"> 94</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the application configuration.</span>
+</span><span id="get_app_config-95"><a href="#get_app_config-95"><span class="linenos"> 95</span></a>
+</span><span id="get_app_config-96"><a href="#get_app_config-96"><span class="linenos"> 96</span></a><span class="sd">    Convenience function to load the default configuration.</span>
+</span><span id="get_app_config-97"><a href="#get_app_config-97"><span class="linenos"> 97</span></a>
+</span><span id="get_app_config-98"><a href="#get_app_config-98"><span class="linenos"> 98</span></a><span class="sd">    Returns:</span>
+</span><span id="get_app_config-99"><a href="#get_app_config-99"><span class="linenos"> 99</span></a><span class="sd">        AppConfig instance</span>
+</span><span id="get_app_config-100"><a href="#get_app_config-100"><span class="linenos">100</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="get_app_config-101"><a href="#get_app_config-101"><span class="linenos">101</span></a>    <span class="k">return</span> <span class="n">AppConfig</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Get the application configuration.</p>
+
+<p>Convenience function to load the default configuration.</p>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>AppConfig instance</p>
+</blockquote>
+</div>
+
+
+                </section>
+                <section id="PipelineConfig">
+                            <input id="PipelineConfig-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-dataclass">@dataclass</div>
+
+    <span class="def">class</span>
+    <span class="name">PipelineConfig</span>:
+
+                <label class="view-source-button" for="PipelineConfig-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineConfig"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineConfig-85"><a href="#PipelineConfig-85"><span class="linenos"> 85</span></a><span class="nd">@dataclass</span>
+</span><span id="PipelineConfig-86"><a href="#PipelineConfig-86"><span class="linenos"> 86</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PipelineConfig</span><span class="p">:</span>
+</span><span id="PipelineConfig-87"><a href="#PipelineConfig-87"><span class="linenos"> 87</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Pipeline configuration data class.&quot;&quot;&quot;</span>
+</span><span id="PipelineConfig-88"><a href="#PipelineConfig-88"><span class="linenos"> 88</span></a>
+</span><span id="PipelineConfig-89"><a href="#PipelineConfig-89"><span class="linenos"> 89</span></a>    <span class="n">steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStep</span><span class="p">]</span>
+</span><span id="PipelineConfig-90"><a href="#PipelineConfig-90"><span class="linenos"> 90</span></a>    <span class="n">ui_config</span><span class="p">:</span> <span class="n">UIConfig</span>
+</span><span id="PipelineConfig-91"><a href="#PipelineConfig-91"><span class="linenos"> 91</span></a>
+</span><span id="PipelineConfig-92"><a href="#PipelineConfig-92"><span class="linenos"> 92</span></a>    <span class="nd">@property</span>
+</span><span id="PipelineConfig-93"><a href="#PipelineConfig-93"><span class="linenos"> 93</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">enabled_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStep</span><span class="p">]:</span>
+</span><span id="PipelineConfig-94"><a href="#PipelineConfig-94"><span class="linenos"> 94</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get only the enabled pipeline steps.</span>
+</span><span id="PipelineConfig-95"><a href="#PipelineConfig-95"><span class="linenos"> 95</span></a>
+</span><span id="PipelineConfig-96"><a href="#PipelineConfig-96"><span class="linenos"> 96</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig-97"><a href="#PipelineConfig-97"><span class="linenos"> 97</span></a><span class="sd">            List of enabled PipelineStep instances</span>
+</span><span id="PipelineConfig-98"><a href="#PipelineConfig-98"><span class="linenos"> 98</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig-99"><a href="#PipelineConfig-99"><span class="linenos"> 99</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">step</span> <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">enabled</span><span class="p">]</span>
+</span><span id="PipelineConfig-100"><a href="#PipelineConfig-100"><span class="linenos">100</span></a>
+</span><span id="PipelineConfig-101"><a href="#PipelineConfig-101"><span class="linenos">101</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineConfig-102"><a href="#PipelineConfig-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineConfig&quot;</span><span class="p">:</span>
+</span><span id="PipelineConfig-103"><a href="#PipelineConfig-103"><span class="linenos">103</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load pipeline configuration from YAML file.</span>
+</span><span id="PipelineConfig-104"><a href="#PipelineConfig-104"><span class="linenos">104</span></a>
+</span><span id="PipelineConfig-105"><a href="#PipelineConfig-105"><span class="linenos">105</span></a><span class="sd">        Args:</span>
+</span><span id="PipelineConfig-106"><a href="#PipelineConfig-106"><span class="linenos">106</span></a><span class="sd">            config_path: Path to the pipeline_definitions.yaml file</span>
+</span><span id="PipelineConfig-107"><a href="#PipelineConfig-107"><span class="linenos">107</span></a>
+</span><span id="PipelineConfig-108"><a href="#PipelineConfig-108"><span class="linenos">108</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig-109"><a href="#PipelineConfig-109"><span class="linenos">109</span></a><span class="sd">            PipelineConfig instance with loaded configuration</span>
+</span><span id="PipelineConfig-110"><a href="#PipelineConfig-110"><span class="linenos">110</span></a>
+</span><span id="PipelineConfig-111"><a href="#PipelineConfig-111"><span class="linenos">111</span></a><span class="sd">        Raises:</span>
+</span><span id="PipelineConfig-112"><a href="#PipelineConfig-112"><span class="linenos">112</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="PipelineConfig-113"><a href="#PipelineConfig-113"><span class="linenos">113</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="PipelineConfig-114"><a href="#PipelineConfig-114"><span class="linenos">114</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig-115"><a href="#PipelineConfig-115"><span class="linenos">115</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="PipelineConfig-116"><a href="#PipelineConfig-116"><span class="linenos">116</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pipeline config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="PipelineConfig-117"><a href="#PipelineConfig-117"><span class="linenos">117</span></a>
+</span><span id="PipelineConfig-118"><a href="#PipelineConfig-118"><span class="linenos">118</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="PipelineConfig-119"><a href="#PipelineConfig-119"><span class="linenos">119</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="PipelineConfig-120"><a href="#PipelineConfig-120"><span class="linenos">120</span></a>
+</span><span id="PipelineConfig-121"><a href="#PipelineConfig-121"><span class="linenos">121</span></a>        <span class="c1"># Parse pipeline steps</span>
+</span><span id="PipelineConfig-122"><a href="#PipelineConfig-122"><span class="linenos">122</span></a>        <span class="n">steps</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="PipelineConfig-123"><a href="#PipelineConfig-123"><span class="linenos">123</span></a>        <span class="k">for</span> <span class="n">step_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pipeline&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+</span><span id="PipelineConfig-124"><a href="#PipelineConfig-124"><span class="linenos">124</span></a>            <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PipelineStep</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">step_data</span><span class="p">))</span>
+</span><span id="PipelineConfig-125"><a href="#PipelineConfig-125"><span class="linenos">125</span></a>
+</span><span id="PipelineConfig-126"><a href="#PipelineConfig-126"><span class="linenos">126</span></a>        <span class="c1"># Parse UI config</span>
+</span><span id="PipelineConfig-127"><a href="#PipelineConfig-127"><span class="linenos">127</span></a>        <span class="n">ui_config</span> <span class="o">=</span> <span class="n">UIConfig</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">))</span>
+</span><span id="PipelineConfig-128"><a href="#PipelineConfig-128"><span class="linenos">128</span></a>
+</span><span id="PipelineConfig-129"><a href="#PipelineConfig-129"><span class="linenos">129</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">ui_config</span><span class="o">=</span><span class="n">ui_config</span><span class="p">)</span>
+</span><span id="PipelineConfig-130"><a href="#PipelineConfig-130"><span class="linenos">130</span></a>
+</span><span id="PipelineConfig-131"><a href="#PipelineConfig-131"><span class="linenos">131</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineConfig-132"><a href="#PipelineConfig-132"><span class="linenos">132</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineConfig&quot;</span><span class="p">:</span>
+</span><span id="PipelineConfig-133"><a href="#PipelineConfig-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the default pipeline configuration.</span>
+</span><span id="PipelineConfig-134"><a href="#PipelineConfig-134"><span class="linenos">134</span></a>
+</span><span id="PipelineConfig-135"><a href="#PipelineConfig-135"><span class="linenos">135</span></a><span class="sd">        Looks for config/pipeline_definitions.yaml relative to the project root.</span>
+</span><span id="PipelineConfig-136"><a href="#PipelineConfig-136"><span class="linenos">136</span></a>
+</span><span id="PipelineConfig-137"><a href="#PipelineConfig-137"><span class="linenos">137</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig-138"><a href="#PipelineConfig-138"><span class="linenos">138</span></a><span class="sd">            PipelineConfig instance</span>
+</span><span id="PipelineConfig-139"><a href="#PipelineConfig-139"><span class="linenos">139</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig-140"><a href="#PipelineConfig-140"><span class="linenos">140</span></a>        <span class="c1"># Get the project root (3 levels up from this file)</span>
+</span><span id="PipelineConfig-141"><a href="#PipelineConfig-141"><span class="linenos">141</span></a>        <span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+</span><span id="PipelineConfig-142"><a href="#PipelineConfig-142"><span class="linenos">142</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">project_root</span> <span class="o">/</span> <span class="s2">&quot;config&quot;</span> <span class="o">/</span> <span class="s2">&quot;pipeline_definitions.yaml&quot;</span>
+</span><span id="PipelineConfig-143"><a href="#PipelineConfig-143"><span class="linenos">143</span></a>
+</span><span id="PipelineConfig-144"><a href="#PipelineConfig-144"><span class="linenos">144</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Pipeline configuration data class.</p>
+</div>
+
+
+                            <div id="PipelineConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">PipelineConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">steps</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="#PipelineStep">PipelineStep</a></span><span class="p">]</span>,</span><span class="param">	<span class="n">ui_config</span><span class="p">:</span> <span class="n"><a href="#UIConfig">UIConfig</a></span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineConfig.steps" class="classattr">
+                                <div class="attr variable">
+            <span class="name">steps</span><span class="annotation">: List[<a href="#PipelineStep">PipelineStep</a>]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineConfig.steps"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineConfig.ui_config" class="classattr">
+                                <div class="attr variable">
+            <span class="name">ui_config</span><span class="annotation">: <a href="#UIConfig">UIConfig</a></span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineConfig.ui_config"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineConfig.enabled_steps" class="classattr">
+                                        <input id="PipelineConfig.enabled_steps-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">enabled_steps</span><span class="annotation">: List[<a href="#PipelineStep">PipelineStep</a>]</span>
+
+                <label class="view-source-button" for="PipelineConfig.enabled_steps-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineConfig.enabled_steps"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineConfig.enabled_steps-92"><a href="#PipelineConfig.enabled_steps-92"><span class="linenos">92</span></a>    <span class="nd">@property</span>
+</span><span id="PipelineConfig.enabled_steps-93"><a href="#PipelineConfig.enabled_steps-93"><span class="linenos">93</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">enabled_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PipelineStep</span><span class="p">]:</span>
+</span><span id="PipelineConfig.enabled_steps-94"><a href="#PipelineConfig.enabled_steps-94"><span class="linenos">94</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get only the enabled pipeline steps.</span>
+</span><span id="PipelineConfig.enabled_steps-95"><a href="#PipelineConfig.enabled_steps-95"><span class="linenos">95</span></a>
+</span><span id="PipelineConfig.enabled_steps-96"><a href="#PipelineConfig.enabled_steps-96"><span class="linenos">96</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig.enabled_steps-97"><a href="#PipelineConfig.enabled_steps-97"><span class="linenos">97</span></a><span class="sd">            List of enabled PipelineStep instances</span>
+</span><span id="PipelineConfig.enabled_steps-98"><a href="#PipelineConfig.enabled_steps-98"><span class="linenos">98</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig.enabled_steps-99"><a href="#PipelineConfig.enabled_steps-99"><span class="linenos">99</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">step</span> <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="k">if</span> <span class="n">step</span><span class="o">.</span><span class="n">enabled</span><span class="p">]</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Get only the enabled pipeline steps.</p>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>List of enabled PipelineStep instances</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="PipelineConfig.from_yaml" class="classattr">
+                                        <input id="PipelineConfig.from_yaml-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_yaml</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">config_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></span><span class="return-annotation">) -> <span class="n"><a href="#PipelineConfig">PipelineConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="PipelineConfig.from_yaml-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineConfig.from_yaml"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineConfig.from_yaml-101"><a href="#PipelineConfig.from_yaml-101"><span class="linenos">101</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineConfig.from_yaml-102"><a href="#PipelineConfig.from_yaml-102"><span class="linenos">102</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineConfig&quot;</span><span class="p">:</span>
+</span><span id="PipelineConfig.from_yaml-103"><a href="#PipelineConfig.from_yaml-103"><span class="linenos">103</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load pipeline configuration from YAML file.</span>
+</span><span id="PipelineConfig.from_yaml-104"><a href="#PipelineConfig.from_yaml-104"><span class="linenos">104</span></a>
+</span><span id="PipelineConfig.from_yaml-105"><a href="#PipelineConfig.from_yaml-105"><span class="linenos">105</span></a><span class="sd">        Args:</span>
+</span><span id="PipelineConfig.from_yaml-106"><a href="#PipelineConfig.from_yaml-106"><span class="linenos">106</span></a><span class="sd">            config_path: Path to the pipeline_definitions.yaml file</span>
+</span><span id="PipelineConfig.from_yaml-107"><a href="#PipelineConfig.from_yaml-107"><span class="linenos">107</span></a>
+</span><span id="PipelineConfig.from_yaml-108"><a href="#PipelineConfig.from_yaml-108"><span class="linenos">108</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig.from_yaml-109"><a href="#PipelineConfig.from_yaml-109"><span class="linenos">109</span></a><span class="sd">            PipelineConfig instance with loaded configuration</span>
+</span><span id="PipelineConfig.from_yaml-110"><a href="#PipelineConfig.from_yaml-110"><span class="linenos">110</span></a>
+</span><span id="PipelineConfig.from_yaml-111"><a href="#PipelineConfig.from_yaml-111"><span class="linenos">111</span></a><span class="sd">        Raises:</span>
+</span><span id="PipelineConfig.from_yaml-112"><a href="#PipelineConfig.from_yaml-112"><span class="linenos">112</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="PipelineConfig.from_yaml-113"><a href="#PipelineConfig.from_yaml-113"><span class="linenos">113</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="PipelineConfig.from_yaml-114"><a href="#PipelineConfig.from_yaml-114"><span class="linenos">114</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig.from_yaml-115"><a href="#PipelineConfig.from_yaml-115"><span class="linenos">115</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="PipelineConfig.from_yaml-116"><a href="#PipelineConfig.from_yaml-116"><span class="linenos">116</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pipeline config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="PipelineConfig.from_yaml-117"><a href="#PipelineConfig.from_yaml-117"><span class="linenos">117</span></a>
+</span><span id="PipelineConfig.from_yaml-118"><a href="#PipelineConfig.from_yaml-118"><span class="linenos">118</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="PipelineConfig.from_yaml-119"><a href="#PipelineConfig.from_yaml-119"><span class="linenos">119</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="PipelineConfig.from_yaml-120"><a href="#PipelineConfig.from_yaml-120"><span class="linenos">120</span></a>
+</span><span id="PipelineConfig.from_yaml-121"><a href="#PipelineConfig.from_yaml-121"><span class="linenos">121</span></a>        <span class="c1"># Parse pipeline steps</span>
+</span><span id="PipelineConfig.from_yaml-122"><a href="#PipelineConfig.from_yaml-122"><span class="linenos">122</span></a>        <span class="n">steps</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="PipelineConfig.from_yaml-123"><a href="#PipelineConfig.from_yaml-123"><span class="linenos">123</span></a>        <span class="k">for</span> <span class="n">step_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pipeline&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+</span><span id="PipelineConfig.from_yaml-124"><a href="#PipelineConfig.from_yaml-124"><span class="linenos">124</span></a>            <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PipelineStep</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">step_data</span><span class="p">))</span>
+</span><span id="PipelineConfig.from_yaml-125"><a href="#PipelineConfig.from_yaml-125"><span class="linenos">125</span></a>
+</span><span id="PipelineConfig.from_yaml-126"><a href="#PipelineConfig.from_yaml-126"><span class="linenos">126</span></a>        <span class="c1"># Parse UI config</span>
+</span><span id="PipelineConfig.from_yaml-127"><a href="#PipelineConfig.from_yaml-127"><span class="linenos">127</span></a>        <span class="n">ui_config</span> <span class="o">=</span> <span class="n">UIConfig</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">))</span>
+</span><span id="PipelineConfig.from_yaml-128"><a href="#PipelineConfig.from_yaml-128"><span class="linenos">128</span></a>
+</span><span id="PipelineConfig.from_yaml-129"><a href="#PipelineConfig.from_yaml-129"><span class="linenos">129</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">ui_config</span><span class="o">=</span><span class="n">ui_config</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Load pipeline configuration from YAML file.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>config_path:</strong>  Path to the pipeline_definitions.yaml file</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>PipelineConfig instance with loaded configuration</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>FileNotFoundError:</strong>  If config file doesn't exist</li>
+<li><strong>yaml.YAMLError:</strong>  If YAML parsing fails</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="PipelineConfig.load_default" class="classattr">
+                                        <input id="PipelineConfig.load_default-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">load_default</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="n"><a href="#PipelineConfig">PipelineConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="PipelineConfig.load_default-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineConfig.load_default"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineConfig.load_default-131"><a href="#PipelineConfig.load_default-131"><span class="linenos">131</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineConfig.load_default-132"><a href="#PipelineConfig.load_default-132"><span class="linenos">132</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineConfig&quot;</span><span class="p">:</span>
+</span><span id="PipelineConfig.load_default-133"><a href="#PipelineConfig.load_default-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the default pipeline configuration.</span>
+</span><span id="PipelineConfig.load_default-134"><a href="#PipelineConfig.load_default-134"><span class="linenos">134</span></a>
+</span><span id="PipelineConfig.load_default-135"><a href="#PipelineConfig.load_default-135"><span class="linenos">135</span></a><span class="sd">        Looks for config/pipeline_definitions.yaml relative to the project root.</span>
+</span><span id="PipelineConfig.load_default-136"><a href="#PipelineConfig.load_default-136"><span class="linenos">136</span></a>
+</span><span id="PipelineConfig.load_default-137"><a href="#PipelineConfig.load_default-137"><span class="linenos">137</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineConfig.load_default-138"><a href="#PipelineConfig.load_default-138"><span class="linenos">138</span></a><span class="sd">            PipelineConfig instance</span>
+</span><span id="PipelineConfig.load_default-139"><a href="#PipelineConfig.load_default-139"><span class="linenos">139</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineConfig.load_default-140"><a href="#PipelineConfig.load_default-140"><span class="linenos">140</span></a>        <span class="c1"># Get the project root (3 levels up from this file)</span>
+</span><span id="PipelineConfig.load_default-141"><a href="#PipelineConfig.load_default-141"><span class="linenos">141</span></a>        <span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+</span><span id="PipelineConfig.load_default-142"><a href="#PipelineConfig.load_default-142"><span class="linenos">142</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">project_root</span> <span class="o">/</span> <span class="s2">&quot;config&quot;</span> <span class="o">/</span> <span class="s2">&quot;pipeline_definitions.yaml&quot;</span>
+</span><span id="PipelineConfig.load_default-143"><a href="#PipelineConfig.load_default-143"><span class="linenos">143</span></a>
+</span><span id="PipelineConfig.load_default-144"><a href="#PipelineConfig.load_default-144"><span class="linenos">144</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Load the default pipeline configuration.</p>
+
+<p>Looks for config/pipeline_definitions.yaml relative to the project root.</p>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>PipelineConfig instance</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="PipelineStep">
+                            <input id="PipelineStep-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-dataclass">@dataclass</div>
+
+    <span class="def">class</span>
+    <span class="name">PipelineStep</span>:
+
+                <label class="view-source-button" for="PipelineStep-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineStep"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineStep-15"><a href="#PipelineStep-15"><span class="linenos">15</span></a><span class="nd">@dataclass</span>
+</span><span id="PipelineStep-16"><a href="#PipelineStep-16"><span class="linenos">16</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PipelineStep</span><span class="p">:</span>
+</span><span id="PipelineStep-17"><a href="#PipelineStep-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a single step in the pipeline.&quot;&quot;&quot;</span>
+</span><span id="PipelineStep-18"><a href="#PipelineStep-18"><span class="linenos">18</span></a>
+</span><span id="PipelineStep-19"><a href="#PipelineStep-19"><span class="linenos">19</span></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="PipelineStep-20"><a href="#PipelineStep-20"><span class="linenos">20</span></a>    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="PipelineStep-21"><a href="#PipelineStep-21"><span class="linenos">21</span></a>    <span class="n">stacker_class</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="PipelineStep-22"><a href="#PipelineStep-22"><span class="linenos">22</span></a>    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="PipelineStep-23"><a href="#PipelineStep-23"><span class="linenos">23</span></a>    <span class="n">collapsible_sections</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># {header: content} pairs</span>
+</span><span id="PipelineStep-24"><a href="#PipelineStep-24"><span class="linenos">24</span></a>    <span class="n">markdown_content</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># For MarkdownStacker</span>
+</span><span id="PipelineStep-25"><a href="#PipelineStep-25"><span class="linenos">25</span></a>
+</span><span id="PipelineStep-26"><a href="#PipelineStep-26"><span class="linenos">26</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineStep-27"><a href="#PipelineStep-27"><span class="linenos">27</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineStep&quot;</span><span class="p">:</span>
+</span><span id="PipelineStep-28"><a href="#PipelineStep-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a PipelineStep from a dictionary.</span>
+</span><span id="PipelineStep-29"><a href="#PipelineStep-29"><span class="linenos">29</span></a>
+</span><span id="PipelineStep-30"><a href="#PipelineStep-30"><span class="linenos">30</span></a><span class="sd">        Args:</span>
+</span><span id="PipelineStep-31"><a href="#PipelineStep-31"><span class="linenos">31</span></a><span class="sd">            data: Dictionary containing step configuration</span>
+</span><span id="PipelineStep-32"><a href="#PipelineStep-32"><span class="linenos">32</span></a>
+</span><span id="PipelineStep-33"><a href="#PipelineStep-33"><span class="linenos">33</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineStep-34"><a href="#PipelineStep-34"><span class="linenos">34</span></a><span class="sd">            PipelineStep instance</span>
+</span><span id="PipelineStep-35"><a href="#PipelineStep-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineStep-36"><a href="#PipelineStep-36"><span class="linenos">36</span></a>        <span class="c1"># Handle both old format (description/info) and new format (collapsible_sections)</span>
+</span><span id="PipelineStep-37"><a href="#PipelineStep-37"><span class="linenos">37</span></a>        <span class="n">collapsible_sections</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible_sections&quot;</span><span class="p">)</span>
+</span><span id="PipelineStep-38"><a href="#PipelineStep-38"><span class="linenos">38</span></a>
+</span><span id="PipelineStep-39"><a href="#PipelineStep-39"><span class="linenos">39</span></a>        <span class="c1"># Backwards compatibility: convert old description/info fields to collapsible_sections</span>
+</span><span id="PipelineStep-40"><a href="#PipelineStep-40"><span class="linenos">40</span></a>        <span class="k">if</span> <span class="n">collapsible_sections</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">or</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">):</span>
+</span><span id="PipelineStep-41"><a href="#PipelineStep-41"><span class="linenos">41</span></a>            <span class="n">collapsible_sections</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PipelineStep-42"><a href="#PipelineStep-42"><span class="linenos">42</span></a>            <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]:</span>
+</span><span id="PipelineStep-43"><a href="#PipelineStep-43"><span class="linenos">43</span></a>                <span class="n">collapsible_sections</span><span class="p">[</span><span class="s2">&quot;Step Instructions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+</span><span id="PipelineStep-44"><a href="#PipelineStep-44"><span class="linenos">44</span></a>            <span class="k">if</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
+</span><span id="PipelineStep-45"><a href="#PipelineStep-45"><span class="linenos">45</span></a>                <span class="n">collapsible_sections</span><span class="p">[</span><span class="s2">&quot;Additional Info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]</span>
+</span><span id="PipelineStep-46"><a href="#PipelineStep-46"><span class="linenos">46</span></a>
+</span><span id="PipelineStep-47"><a href="#PipelineStep-47"><span class="linenos">47</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="PipelineStep-48"><a href="#PipelineStep-48"><span class="linenos">48</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep-49"><a href="#PipelineStep-49"><span class="linenos">49</span></a>            <span class="n">label</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep-50"><a href="#PipelineStep-50"><span class="linenos">50</span></a>            <span class="n">stacker_class</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;stacker_class&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep-51"><a href="#PipelineStep-51"><span class="linenos">51</span></a>            <span class="n">enabled</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+</span><span id="PipelineStep-52"><a href="#PipelineStep-52"><span class="linenos">52</span></a>            <span class="n">collapsible_sections</span><span class="o">=</span><span class="n">collapsible_sections</span><span class="p">,</span>
+</span><span id="PipelineStep-53"><a href="#PipelineStep-53"><span class="linenos">53</span></a>            <span class="n">markdown_content</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;markdown_content&quot;</span><span class="p">),</span>
+</span><span id="PipelineStep-54"><a href="#PipelineStep-54"><span class="linenos">54</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Represents a single step in the pipeline.</p>
+</div>
+
+
+                            <div id="PipelineStep.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">PipelineStep</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">label</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">stacker_class</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>,</span><span class="param">	<span class="n">collapsible_sections</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">markdown_content</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">id</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.id"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.label" class="classattr">
+                                <div class="attr variable">
+            <span class="name">label</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.label"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.stacker_class" class="classattr">
+                                <div class="attr variable">
+            <span class="name">stacker_class</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.stacker_class"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.enabled" class="classattr">
+                                <div class="attr variable">
+            <span class="name">enabled</span><span class="annotation">: bool</span>        =
+<span class="default_value">True</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.enabled"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.collapsible_sections" class="classattr">
+                                <div class="attr variable">
+            <span class="name">collapsible_sections</span><span class="annotation">: Optional[Dict[str, str]]</span>        =
+<span class="default_value">None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.collapsible_sections"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.markdown_content" class="classattr">
+                                <div class="attr variable">
+            <span class="name">markdown_content</span><span class="annotation">: Optional[str]</span>        =
+<span class="default_value">None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PipelineStep.markdown_content"></a>
+    
+    
+
+                            </div>
+                            <div id="PipelineStep.from_dict" class="classattr">
+                                        <input id="PipelineStep.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="n"><a href="#PipelineStep">PipelineStep</a></span>:</span></span>
+
+                <label class="view-source-button" for="PipelineStep.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PipelineStep.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PipelineStep.from_dict-26"><a href="#PipelineStep.from_dict-26"><span class="linenos">26</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PipelineStep.from_dict-27"><a href="#PipelineStep.from_dict-27"><span class="linenos">27</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;PipelineStep&quot;</span><span class="p">:</span>
+</span><span id="PipelineStep.from_dict-28"><a href="#PipelineStep.from_dict-28"><span class="linenos">28</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a PipelineStep from a dictionary.</span>
+</span><span id="PipelineStep.from_dict-29"><a href="#PipelineStep.from_dict-29"><span class="linenos">29</span></a>
+</span><span id="PipelineStep.from_dict-30"><a href="#PipelineStep.from_dict-30"><span class="linenos">30</span></a><span class="sd">        Args:</span>
+</span><span id="PipelineStep.from_dict-31"><a href="#PipelineStep.from_dict-31"><span class="linenos">31</span></a><span class="sd">            data: Dictionary containing step configuration</span>
+</span><span id="PipelineStep.from_dict-32"><a href="#PipelineStep.from_dict-32"><span class="linenos">32</span></a>
+</span><span id="PipelineStep.from_dict-33"><a href="#PipelineStep.from_dict-33"><span class="linenos">33</span></a><span class="sd">        Returns:</span>
+</span><span id="PipelineStep.from_dict-34"><a href="#PipelineStep.from_dict-34"><span class="linenos">34</span></a><span class="sd">            PipelineStep instance</span>
+</span><span id="PipelineStep.from_dict-35"><a href="#PipelineStep.from_dict-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="PipelineStep.from_dict-36"><a href="#PipelineStep.from_dict-36"><span class="linenos">36</span></a>        <span class="c1"># Handle both old format (description/info) and new format (collapsible_sections)</span>
+</span><span id="PipelineStep.from_dict-37"><a href="#PipelineStep.from_dict-37"><span class="linenos">37</span></a>        <span class="n">collapsible_sections</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collapsible_sections&quot;</span><span class="p">)</span>
+</span><span id="PipelineStep.from_dict-38"><a href="#PipelineStep.from_dict-38"><span class="linenos">38</span></a>
+</span><span id="PipelineStep.from_dict-39"><a href="#PipelineStep.from_dict-39"><span class="linenos">39</span></a>        <span class="c1"># Backwards compatibility: convert old description/info fields to collapsible_sections</span>
+</span><span id="PipelineStep.from_dict-40"><a href="#PipelineStep.from_dict-40"><span class="linenos">40</span></a>        <span class="k">if</span> <span class="n">collapsible_sections</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">or</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">):</span>
+</span><span id="PipelineStep.from_dict-41"><a href="#PipelineStep.from_dict-41"><span class="linenos">41</span></a>            <span class="n">collapsible_sections</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PipelineStep.from_dict-42"><a href="#PipelineStep.from_dict-42"><span class="linenos">42</span></a>            <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]:</span>
+</span><span id="PipelineStep.from_dict-43"><a href="#PipelineStep.from_dict-43"><span class="linenos">43</span></a>                <span class="n">collapsible_sections</span><span class="p">[</span><span class="s2">&quot;Step Instructions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+</span><span id="PipelineStep.from_dict-44"><a href="#PipelineStep.from_dict-44"><span class="linenos">44</span></a>            <span class="k">if</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
+</span><span id="PipelineStep.from_dict-45"><a href="#PipelineStep.from_dict-45"><span class="linenos">45</span></a>                <span class="n">collapsible_sections</span><span class="p">[</span><span class="s2">&quot;Additional Info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]</span>
+</span><span id="PipelineStep.from_dict-46"><a href="#PipelineStep.from_dict-46"><span class="linenos">46</span></a>
+</span><span id="PipelineStep.from_dict-47"><a href="#PipelineStep.from_dict-47"><span class="linenos">47</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="PipelineStep.from_dict-48"><a href="#PipelineStep.from_dict-48"><span class="linenos">48</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep.from_dict-49"><a href="#PipelineStep.from_dict-49"><span class="linenos">49</span></a>            <span class="n">label</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep.from_dict-50"><a href="#PipelineStep.from_dict-50"><span class="linenos">50</span></a>            <span class="n">stacker_class</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;stacker_class&quot;</span><span class="p">],</span>
+</span><span id="PipelineStep.from_dict-51"><a href="#PipelineStep.from_dict-51"><span class="linenos">51</span></a>            <span class="n">enabled</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+</span><span id="PipelineStep.from_dict-52"><a href="#PipelineStep.from_dict-52"><span class="linenos">52</span></a>            <span class="n">collapsible_sections</span><span class="o">=</span><span class="n">collapsible_sections</span><span class="p">,</span>
+</span><span id="PipelineStep.from_dict-53"><a href="#PipelineStep.from_dict-53"><span class="linenos">53</span></a>            <span class="n">markdown_content</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;markdown_content&quot;</span><span class="p">),</span>
+</span><span id="PipelineStep.from_dict-54"><a href="#PipelineStep.from_dict-54"><span class="linenos">54</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Create a PipelineStep from a dictionary.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>data:</strong>  Dictionary containing step configuration</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>PipelineStep instance</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="UIConfig">
+                            <input id="UIConfig-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator decorator-dataclass">@dataclass</div>
+
+    <span class="def">class</span>
+    <span class="name">UIConfig</span>:
+
+                <label class="view-source-button" for="UIConfig-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#UIConfig"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="UIConfig-57"><a href="#UIConfig-57"><span class="linenos">57</span></a><span class="nd">@dataclass</span>
+</span><span id="UIConfig-58"><a href="#UIConfig-58"><span class="linenos">58</span></a><span class="k">class</span><span class="w"> </span><span class="nc">UIConfig</span><span class="p">:</span>
+</span><span id="UIConfig-59"><a href="#UIConfig-59"><span class="linenos">59</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;UI-related configuration.&quot;&quot;&quot;</span>
+</span><span id="UIConfig-60"><a href="#UIConfig-60"><span class="linenos">60</span></a>
+</span><span id="UIConfig-61"><a href="#UIConfig-61"><span class="linenos">61</span></a>    <span class="n">menu_max_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span>
+</span><span id="UIConfig-62"><a href="#UIConfig-62"><span class="linenos">62</span></a>    <span class="n">animation_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span>
+</span><span id="UIConfig-63"><a href="#UIConfig-63"><span class="linenos">63</span></a>    <span class="n">content_spacing</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span id="UIConfig-64"><a href="#UIConfig-64"><span class="linenos">64</span></a>
+</span><span id="UIConfig-65"><a href="#UIConfig-65"><span class="linenos">65</span></a>    <span class="nd">@classmethod</span>
+</span><span id="UIConfig-66"><a href="#UIConfig-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="s2">&quot;UIConfig&quot;</span><span class="p">:</span>
+</span><span id="UIConfig-67"><a href="#UIConfig-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a UIConfig from a dictionary.</span>
+</span><span id="UIConfig-68"><a href="#UIConfig-68"><span class="linenos">68</span></a>
+</span><span id="UIConfig-69"><a href="#UIConfig-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
+</span><span id="UIConfig-70"><a href="#UIConfig-70"><span class="linenos">70</span></a><span class="sd">            data: Dictionary containing UI configuration or None</span>
+</span><span id="UIConfig-71"><a href="#UIConfig-71"><span class="linenos">71</span></a>
+</span><span id="UIConfig-72"><a href="#UIConfig-72"><span class="linenos">72</span></a><span class="sd">        Returns:</span>
+</span><span id="UIConfig-73"><a href="#UIConfig-73"><span class="linenos">73</span></a><span class="sd">            UIConfig instance with values from dict or defaults</span>
+</span><span id="UIConfig-74"><a href="#UIConfig-74"><span class="linenos">74</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="UIConfig-75"><a href="#UIConfig-75"><span class="linenos">75</span></a>        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="UIConfig-76"><a href="#UIConfig-76"><span class="linenos">76</span></a>            <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="UIConfig-77"><a href="#UIConfig-77"><span class="linenos">77</span></a>
+</span><span id="UIConfig-78"><a href="#UIConfig-78"><span class="linenos">78</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="UIConfig-79"><a href="#UIConfig-79"><span class="linenos">79</span></a>            <span class="n">menu_max_width</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;menu_max_width&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+</span><span id="UIConfig-80"><a href="#UIConfig-80"><span class="linenos">80</span></a>            <span class="n">animation_duration</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;animation_duration&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+</span><span id="UIConfig-81"><a href="#UIConfig-81"><span class="linenos">81</span></a>            <span class="n">content_spacing</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content_spacing&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+</span><span id="UIConfig-82"><a href="#UIConfig-82"><span class="linenos">82</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>UI-related configuration.</p>
+</div>
+
+
+                            <div id="UIConfig.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">UIConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">menu_max_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span>,</span><span class="param">	<span class="n">animation_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span>,</span><span class="param">	<span class="n">content_spacing</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UIConfig.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="UIConfig.menu_max_width" class="classattr">
+                                <div class="attr variable">
+            <span class="name">menu_max_width</span><span class="annotation">: int</span>        =
+<span class="default_value">500</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UIConfig.menu_max_width"></a>
+    
+    
+
+                            </div>
+                            <div id="UIConfig.animation_duration" class="classattr">
+                                <div class="attr variable">
+            <span class="name">animation_duration</span><span class="annotation">: int</span>        =
+<span class="default_value">300</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UIConfig.animation_duration"></a>
+    
+    
+
+                            </div>
+                            <div id="UIConfig.content_spacing" class="classattr">
+                                <div class="attr variable">
+            <span class="name">content_spacing</span><span class="annotation">: int</span>        =
+<span class="default_value">20</span>
+
+        
+    </div>
+    <a class="headerlink" href="#UIConfig.content_spacing"></a>
+    
+    
+
+                            </div>
+                            <div id="UIConfig.from_dict" class="classattr">
+                                        <input id="UIConfig.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n"><a href="#UIConfig">UIConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="UIConfig.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#UIConfig.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="UIConfig.from_dict-65"><a href="#UIConfig.from_dict-65"><span class="linenos">65</span></a>    <span class="nd">@classmethod</span>
+</span><span id="UIConfig.from_dict-66"><a href="#UIConfig.from_dict-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="s2">&quot;UIConfig&quot;</span><span class="p">:</span>
+</span><span id="UIConfig.from_dict-67"><a href="#UIConfig.from_dict-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a UIConfig from a dictionary.</span>
+</span><span id="UIConfig.from_dict-68"><a href="#UIConfig.from_dict-68"><span class="linenos">68</span></a>
+</span><span id="UIConfig.from_dict-69"><a href="#UIConfig.from_dict-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
+</span><span id="UIConfig.from_dict-70"><a href="#UIConfig.from_dict-70"><span class="linenos">70</span></a><span class="sd">            data: Dictionary containing UI configuration or None</span>
+</span><span id="UIConfig.from_dict-71"><a href="#UIConfig.from_dict-71"><span class="linenos">71</span></a>
+</span><span id="UIConfig.from_dict-72"><a href="#UIConfig.from_dict-72"><span class="linenos">72</span></a><span class="sd">        Returns:</span>
+</span><span id="UIConfig.from_dict-73"><a href="#UIConfig.from_dict-73"><span class="linenos">73</span></a><span class="sd">            UIConfig instance with values from dict or defaults</span>
+</span><span id="UIConfig.from_dict-74"><a href="#UIConfig.from_dict-74"><span class="linenos">74</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="UIConfig.from_dict-75"><a href="#UIConfig.from_dict-75"><span class="linenos">75</span></a>        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="UIConfig.from_dict-76"><a href="#UIConfig.from_dict-76"><span class="linenos">76</span></a>            <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="UIConfig.from_dict-77"><a href="#UIConfig.from_dict-77"><span class="linenos">77</span></a>
+</span><span id="UIConfig.from_dict-78"><a href="#UIConfig.from_dict-78"><span class="linenos">78</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="UIConfig.from_dict-79"><a href="#UIConfig.from_dict-79"><span class="linenos">79</span></a>            <span class="n">menu_max_width</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;menu_max_width&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+</span><span id="UIConfig.from_dict-80"><a href="#UIConfig.from_dict-80"><span class="linenos">80</span></a>            <span class="n">animation_duration</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;animation_duration&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+</span><span id="UIConfig.from_dict-81"><a href="#UIConfig.from_dict-81"><span class="linenos">81</span></a>            <span class="n">content_spacing</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content_spacing&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+</span><span id="UIConfig.from_dict-82"><a href="#UIConfig.from_dict-82"><span class="linenos">82</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Create a UIConfig from a dictionary.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>data:</strong>  Dictionary containing UI configuration or None</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>UIConfig instance with values from dict or defaults</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="get_pipeline_config">
+                            <input id="get_pipeline_config-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_pipeline_config</span><span class="signature pdoc-code condensed">(<span class="return-annotation">) -> <span class="n"><a href="#PipelineConfig">PipelineConfig</a></span>:</span></span>
+
+                <label class="view-source-button" for="get_pipeline_config-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#get_pipeline_config"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_pipeline_config-147"><a href="#get_pipeline_config-147"><span class="linenos">147</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_pipeline_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">PipelineConfig</span><span class="p">:</span>
+</span><span id="get_pipeline_config-148"><a href="#get_pipeline_config-148"><span class="linenos">148</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the pipeline configuration.</span>
+</span><span id="get_pipeline_config-149"><a href="#get_pipeline_config-149"><span class="linenos">149</span></a>
+</span><span id="get_pipeline_config-150"><a href="#get_pipeline_config-150"><span class="linenos">150</span></a><span class="sd">    Convenience function to load the default configuration.</span>
+</span><span id="get_pipeline_config-151"><a href="#get_pipeline_config-151"><span class="linenos">151</span></a>
+</span><span id="get_pipeline_config-152"><a href="#get_pipeline_config-152"><span class="linenos">152</span></a><span class="sd">    Returns:</span>
+</span><span id="get_pipeline_config-153"><a href="#get_pipeline_config-153"><span class="linenos">153</span></a><span class="sd">        PipelineConfig instance</span>
+</span><span id="get_pipeline_config-154"><a href="#get_pipeline_config-154"><span class="linenos">154</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="get_pipeline_config-155"><a href="#get_pipeline_config-155"><span class="linenos">155</span></a>    <span class="k">return</span> <span class="n">PipelineConfig</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Get the pipeline configuration.</p>
+
+<p>Convenience function to load the default configuration.</p>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>PipelineConfig instance</p>
+</blockquote>
+</div>
+
+
+                </section>
+                <section id="HELP_URL">
+                    <div class="attr variable">
+            <span class="name">HELP_URL</span>        =
+<span class="default_value">&#39;http://localhost:3000/help&#39;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#HELP_URL"></a>
+    
+    
+
+                </section>
                 <section id="AppName">
                     <div class="attr variable">
             <span class="name">AppName</span>        =
@@ -133,16 +1241,97 @@
     
 
                 </section>
-                <section id="HELP_URL">
-                    <div class="attr variable">
-            <span class="name">HELP_URL</span>        =
-<span class="default_value">&#39;http://localhost:3000/help&#39;</span>
+                <section id="STARTUP_SCRIPT">
+                            <input id="STARTUP_SCRIPT-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">STARTUP_SCRIPT</span><span class="signature pdoc-code condensed">(<span class="return-annotation">):</span></span>
 
-        
+                <label class="view-source-button" for="STARTUP_SCRIPT-view-source"><span>View Source</span></label>
+
     </div>
-    <a class="headerlink" href="#HELP_URL"></a>
-    
-    
+    <a class="headerlink" href="#STARTUP_SCRIPT"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="STARTUP_SCRIPT-25"><a href="#STARTUP_SCRIPT-25"><span class="linenos">25</span></a><span class="k">def</span><span class="w"> </span><span class="nf">startup_routine</span><span class="p">():</span>
+</span><span id="STARTUP_SCRIPT-26"><a href="#STARTUP_SCRIPT-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Example startup routine to be executed on first launch.&quot;&quot;&quot;</span>
+</span><span id="STARTUP_SCRIPT-27"><a href="#STARTUP_SCRIPT-27"><span class="linenos">27</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Initializing VoxKit...&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-28"><a href="#STARTUP_SCRIPT-28"><span class="linenos">28</span></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Simulate initialization</span>
+</span><span id="STARTUP_SCRIPT-29"><a href="#STARTUP_SCRIPT-29"><span class="linenos">29</span></a>
+</span><span id="STARTUP_SCRIPT-30"><a href="#STARTUP_SCRIPT-30"><span class="linenos">30</span></a>    <span class="n">storage_root</span> <span class="o">=</span> <span class="n">get_storage_root</span><span class="p">()</span>
+</span><span id="STARTUP_SCRIPT-31"><a href="#STARTUP_SCRIPT-31"><span class="linenos">31</span></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Storage root: </span><span class="si">{</span><span class="n">storage_root</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-32"><a href="#STARTUP_SCRIPT-32"><span class="linenos">32</span></a>
+</span><span id="STARTUP_SCRIPT-33"><a href="#STARTUP_SCRIPT-33"><span class="linenos">33</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Creating required directories...&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-34"><a href="#STARTUP_SCRIPT-34"><span class="linenos">34</span></a>    <span class="p">(</span><span class="n">storage_root</span> <span class="o">/</span> <span class="s2">&quot;computed-likelihoods&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-35"><a href="#STARTUP_SCRIPT-35"><span class="linenos">35</span></a>    <span class="p">(</span><span class="n">storage_root</span> <span class="o">/</span> <span class="s2">&quot;custom-likelihoods&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-36"><a href="#STARTUP_SCRIPT-36"><span class="linenos">36</span></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Simulate directory setup</span>
+</span><span id="STARTUP_SCRIPT-37"><a href="#STARTUP_SCRIPT-37"><span class="linenos">37</span></a>
+</span><span id="STARTUP_SCRIPT-38"><a href="#STARTUP_SCRIPT-38"><span class="linenos">38</span></a>    <span class="c1"># Download MFA models</span>
+</span><span id="STARTUP_SCRIPT-39"><a href="#STARTUP_SCRIPT-39"><span class="linenos">39</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Downloading MFA models...&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-40"><a href="#STARTUP_SCRIPT-40"><span class="linenos">40</span></a>    <span class="n">mfa_models</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="STARTUP_SCRIPT-41"><a href="#STARTUP_SCRIPT-41"><span class="linenos">41</span></a>        <span class="s2">&quot;acoustic-english_us_arpa-v3.0.0/english_us_arpa.zip&quot;</span><span class="p">,</span>
+</span><span id="STARTUP_SCRIPT-42"><a href="#STARTUP_SCRIPT-42"><span class="linenos">42</span></a>        <span class="s2">&quot;acoustic-spanish_mfa-v3.3.0/spanish_mfa.zip&quot;</span><span class="p">,</span>
+</span><span id="STARTUP_SCRIPT-43"><a href="#STARTUP_SCRIPT-43"><span class="linenos">43</span></a>    <span class="p">]</span>
+</span><span id="STARTUP_SCRIPT-44"><a href="#STARTUP_SCRIPT-44"><span class="linenos">44</span></a>    <span class="n">mfa_models_path</span> <span class="o">=</span> <span class="n">storage_root</span> <span class="o">/</span> <span class="s2">&quot;MFAENGINE&quot;</span> <span class="o">/</span> <span class="n">MODELS_ROOT</span>
+</span><span id="STARTUP_SCRIPT-45"><a href="#STARTUP_SCRIPT-45"><span class="linenos">45</span></a>    <span class="n">mfa_models_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-46"><a href="#STARTUP_SCRIPT-46"><span class="linenos">46</span></a>    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">mfa_models</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-47"><a href="#STARTUP_SCRIPT-47"><span class="linenos">47</span></a>        <span class="n">success</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span>
+</span><span id="STARTUP_SCRIPT-48"><a href="#STARTUP_SCRIPT-48"><span class="linenos">48</span></a>            <span class="s2">&quot;MFAENGINE&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-49"><a href="#STARTUP_SCRIPT-49"><span class="linenos">49</span></a>        <span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-50"><a href="#STARTUP_SCRIPT-50"><span class="linenos">50</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-51"><a href="#STARTUP_SCRIPT-51"><span class="linenos">51</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Failed to create model metadata for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">metadata</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-52"><a href="#STARTUP_SCRIPT-52"><span class="linenos">52</span></a>            <span class="k">continue</span>
+</span><span id="STARTUP_SCRIPT-53"><a href="#STARTUP_SCRIPT-53"><span class="linenos">53</span></a>        <span class="n">model_dest</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model_path&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-54"><a href="#STARTUP_SCRIPT-54"><span class="linenos">54</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">model_dest</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-55"><a href="#STARTUP_SCRIPT-55"><span class="linenos">55</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Model path not found in metadata for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-56"><a href="#STARTUP_SCRIPT-56"><span class="linenos">56</span></a>            <span class="k">continue</span>
+</span><span id="STARTUP_SCRIPT-57"><a href="#STARTUP_SCRIPT-57"><span class="linenos">57</span></a>
+</span><span id="STARTUP_SCRIPT-58"><a href="#STARTUP_SCRIPT-58"><span class="linenos">58</span></a>        <span class="c1"># Remove last part of path and relace with .zip</span>
+</span><span id="STARTUP_SCRIPT-59"><a href="#STARTUP_SCRIPT-59"><span class="linenos">59</span></a>        <span class="n">output_file</span> <span class="o">=</span> <span class="n">model_dest</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="STARTUP_SCRIPT-60"><a href="#STARTUP_SCRIPT-60"><span class="linenos">60</span></a>
+</span><span id="STARTUP_SCRIPT-61"><a href="#STARTUP_SCRIPT-61"><span class="linenos">61</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-62"><a href="#STARTUP_SCRIPT-62"><span class="linenos">62</span></a>            <span class="n">download_acoustic_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_file</span><span class="p">))</span>
+</span><span id="STARTUP_SCRIPT-63"><a href="#STARTUP_SCRIPT-63"><span class="linenos">63</span></a>            <span class="c1"># Update metadata to reflect downloaded file</span>
+</span><span id="STARTUP_SCRIPT-64"><a href="#STARTUP_SCRIPT-64"><span class="linenos">64</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] MFA model </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2"> downloaded to: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-65"><a href="#STARTUP_SCRIPT-65"><span class="linenos">65</span></a>            <span class="n">success</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">update_model_metadata</span><span class="p">(</span>
+</span><span id="STARTUP_SCRIPT-66"><a href="#STARTUP_SCRIPT-66"><span class="linenos">66</span></a>                <span class="s2">&quot;MFAENGINE&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="p">{</span><span class="s2">&quot;model_path&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_file</span><span class="p">)}</span>
+</span><span id="STARTUP_SCRIPT-67"><a href="#STARTUP_SCRIPT-67"><span class="linenos">67</span></a>            <span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-68"><a href="#STARTUP_SCRIPT-68"><span class="linenos">68</span></a>
+</span><span id="STARTUP_SCRIPT-69"><a href="#STARTUP_SCRIPT-69"><span class="linenos">69</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-70"><a href="#STARTUP_SCRIPT-70"><span class="linenos">70</span></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Failed to update model metadata for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-71"><a href="#STARTUP_SCRIPT-71"><span class="linenos">71</span></a>
+</span><span id="STARTUP_SCRIPT-72"><a href="#STARTUP_SCRIPT-72"><span class="linenos">72</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] MFA model downloaded to: </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-73"><a href="#STARTUP_SCRIPT-73"><span class="linenos">73</span></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-74"><a href="#STARTUP_SCRIPT-74"><span class="linenos">74</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Failed to download MFA model </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-75"><a href="#STARTUP_SCRIPT-75"><span class="linenos">75</span></a>
+</span><span id="STARTUP_SCRIPT-76"><a href="#STARTUP_SCRIPT-76"><span class="linenos">76</span></a>    <span class="c1"># Download W2TG model from HuggingFace</span>
+</span><span id="STARTUP_SCRIPT-77"><a href="#STARTUP_SCRIPT-77"><span class="linenos">77</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Downloading W2TG model from HuggingFace...&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-78"><a href="#STARTUP_SCRIPT-78"><span class="linenos">78</span></a>    <span class="c1"># Create folder for W2TG model</span>
+</span><span id="STARTUP_SCRIPT-79"><a href="#STARTUP_SCRIPT-79"><span class="linenos">79</span></a>    <span class="n">w2tg_path</span> <span class="o">=</span> <span class="n">storage_root</span> <span class="o">/</span> <span class="s2">&quot;W2TGENGINE&quot;</span> <span class="o">/</span> <span class="n">MODELS_ROOT</span>
+</span><span id="STARTUP_SCRIPT-80"><a href="#STARTUP_SCRIPT-80"><span class="linenos">80</span></a>    <span class="n">w2tg_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-81"><a href="#STARTUP_SCRIPT-81"><span class="linenos">81</span></a>    <span class="n">success</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="s2">&quot;W2TGENGINE&quot;</span><span class="p">,</span> <span class="s2">&quot;prads_model&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-82"><a href="#STARTUP_SCRIPT-82"><span class="linenos">82</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-83"><a href="#STARTUP_SCRIPT-83"><span class="linenos">83</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] Failed to create model metadata. </span><span class="si">{</span><span class="n">metadata</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-84"><a href="#STARTUP_SCRIPT-84"><span class="linenos">84</span></a>        <span class="k">return</span>
+</span><span id="STARTUP_SCRIPT-85"><a href="#STARTUP_SCRIPT-85"><span class="linenos">85</span></a>    <span class="n">model_dest</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model_path&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-86"><a href="#STARTUP_SCRIPT-86"><span class="linenos">86</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">model_dest</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-87"><a href="#STARTUP_SCRIPT-87"><span class="linenos">87</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Model path not found in metadata.&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-88"><a href="#STARTUP_SCRIPT-88"><span class="linenos">88</span></a>        <span class="k">return</span>
+</span><span id="STARTUP_SCRIPT-89"><a href="#STARTUP_SCRIPT-89"><span class="linenos">89</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">download_and_copy_huggingface_model</span><span class="p">(</span>
+</span><span id="STARTUP_SCRIPT-90"><a href="#STARTUP_SCRIPT-90"><span class="linenos">90</span></a>        <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;pkadambi/Wav2TextGrid&quot;</span><span class="p">,</span>
+</span><span id="STARTUP_SCRIPT-91"><a href="#STARTUP_SCRIPT-91"><span class="linenos">91</span></a>        <span class="n">destination</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">model_dest</span><span class="p">),</span>
+</span><span id="STARTUP_SCRIPT-92"><a href="#STARTUP_SCRIPT-92"><span class="linenos">92</span></a>    <span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-93"><a href="#STARTUP_SCRIPT-93"><span class="linenos">93</span></a>    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-94"><a href="#STARTUP_SCRIPT-94"><span class="linenos">94</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[STARTUP] W2TG model downloaded to: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-95"><a href="#STARTUP_SCRIPT-95"><span class="linenos">95</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="STARTUP_SCRIPT-96"><a href="#STARTUP_SCRIPT-96"><span class="linenos">96</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Failed to download W2TG model.&quot;</span><span class="p">)</span>
+</span><span id="STARTUP_SCRIPT-97"><a href="#STARTUP_SCRIPT-97"><span class="linenos">97</span></a>
+</span><span id="STARTUP_SCRIPT-98"><a href="#STARTUP_SCRIPT-98"><span class="linenos">98</span></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[STARTUP] Initialization complete!&quot;</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Example startup routine to be executed on first launch.</p>
+</div>
+
 
                 </section>
     </main>

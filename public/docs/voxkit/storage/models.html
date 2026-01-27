@@ -107,20 +107,21 @@
 
 <h2 id="directory-structure">Directory Structure</h2>
 
-<p>Each model follows a hierarchical structure:</p>
+<h6 id="each-model-follows-a-hierarchical-structure">Each model follows a hierarchical structure:</h6>
 
-<pre><code>chosen_engine/
-├── train/
-│   ├── model_id_1/
-│   │   ├── entrypoint.model      # Model file
-│   │   ├── data/                 # Data directory
-│   │   ├── eval/                 # Evaluation directory
-│   │   ├── train/                # Training directory
-│   │   └── voxkit_model.json     # Model metadata
-│   ├── model_id_2/
-│   │   └── ...
-│   └── ...
-</code></pre>
+<blockquote>
+  <p>chosen_engine/
+  ├── train/
+  │   ├── model_id_1/
+  │   │   ├── entrypoint.model      # Model file
+  │   │   ├── data/                 # Data directory
+  │   │   ├── eval/                 # Evaluation directory
+  │   │   ├── train/                # Training directory
+  │   │   └── voxkit_model.json     # Model metadata
+  │   ├── model_id_2/
+  │   │   └── ...
+  │   └── ...</p>
+</blockquote>
 
 <h2 id="api">API</h2>
 
@@ -692,12 +693,18 @@
 
             <div class="docstring"><p>Create a new model entry in the storage.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine the model belongs to
-    model_name: Human-readable name for the model</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, ModelMetadata) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine the model belongs to</li>
+<li><strong>model_name:</strong>  Human-readable name for the model</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, ModelMetadata) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -751,13 +758,19 @@
 
             <div class="docstring"><p>Update metadata for an existing model.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine the model belongs to
-    model_id: Identifier of the model to update
-    updates: Dictionary of fields to update in the model metadata</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine the model belongs to</li>
+<li><strong>model_id:</strong>  Identifier of the model to update</li>
+<li><strong>updates:</strong>  Dictionary of fields to update in the model metadata</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -810,11 +823,17 @@
 
             <div class="docstring"><p>List available models for the given engine.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine to list models for</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    List of ModelMetadata dictionaries</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine to list models for</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>List of ModelMetadata dictionaries</p>
+</blockquote>
 </div>
 
 
@@ -857,15 +876,24 @@
 
             <div class="docstring"><p>Get metadata for a specific model by its ID.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine the model belongs to
-    model_id: Identifier of the model</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    ModelMetadata dictionary</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine the model belongs to</li>
+<li><strong>model_id:</strong>  Identifier of the model</li>
+</ul>
 
-<p>Raises:
-    FileNotFoundError: If the model or metadata file is not found</p>
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>ModelMetadata dictionary</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>FileNotFoundError:</strong>  If the model or metadata file is not found</li>
+</ul>
 </div>
 
 
@@ -906,12 +934,18 @@
 
             <div class="docstring"><p>Delete a model given its engine ID and model ID.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine the model belongs to
-    model_id: Identifier of the model to delete</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine the model belongs to</li>
+<li><strong>model_id:</strong>  Identifier of the model to delete</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
@@ -1013,12 +1047,18 @@
 
             <div class="docstring"><p>Import models into the storage system.</p>
 
-<p>Args:
-    engine_id: Identifier of the engine
-    new_models_root: Source directory containing models to import</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+<ul>
+<li><strong>engine_id:</strong>  Identifier of the engine</li>
+<li><strong>new_models_root:</strong>  Source directory containing models to import</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Tuple of (True, success_message) on success or (False, error_message) on failure</p>
+</blockquote>
 </div>
 
 
