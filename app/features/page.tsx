@@ -272,7 +272,7 @@ export default function FeaturesPage() {
               API Documentation
             </a>
             <a
-              href="/foundation"
+              href="/foundations"
               className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-semibold transition-all"
             >
               <Workflow className="w-5 h-5" />

@@ -63,7 +63,7 @@ export default function VoxKitLanding() {
               Get Started Today
             </a>
             <a
-              href="/foundation"
+              href="/foundations"
               className="inline-flex items-center gap-2 bg-transparent border-2 border-slate-500 text-slate-300 hover:border-slate-400 hover:text-white px-6 py-3 rounded-lg font-semibold transition-all"
             >
               Research Foundations
