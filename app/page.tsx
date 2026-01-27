@@ -20,12 +20,12 @@ export default function VoxKitLanding() {
     {
       icon: <Code className="w-8 h-8" />,
       title: "Highly Extensible API",
-      description: "Seamlessly integrate additional low-level alignment toolkits through our flexible API. Extend custom functionality to multifunctional teams."
+      description: "Seamlessly integrate additional low-level alignment toolkits through our flexible API and extend custom functionality to multifunctional teams."
     },
     {
       icon: <Cpu className="w-8 h-8" />,
-      title: "Professional-Grade Tools",
-      description: "Access advanced phonetic alignment, acoustic analysis, and speech processing tools through an intuitive graphical interface."
+      title: "Provenance and Reliability",
+      description: "Built with research integrity in mind, VoxKit ensures reproducible results and robust data handling for trustworthy speech analysis."
     }
   ];
 
@@ -41,32 +41,32 @@ export default function VoxKitLanding() {
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight relative z-10">
     <span className="block overflow-visible">
       <span className="fall-in hero-font text-depth bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
-        Advanced Speech Analysis
+        Stop Fighting Tools
       </span>
     </span>
     <span className="block mt-0 overflow-visible">
       <span className="fall-in delay-1 hero-font text-depth bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
-        Made Accessible
+        Start Driving Research
       </span>
     </span>
   </h1>
           <p className="text-xl sm:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            A flexible app and framework for speech pathology researchers. Access cutting-edge alignment and analysis tools without the technical complexity.
+            A flexible, researcher-first platform for speech pathology. Harness cutting-edge alignment and analysis tools to build powerful, fully customized workflows—without friction.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
             <a
-              href="/features"
+              href="/help/getting-started"
               className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
             >
-              Learn More
+              Get Started Today
             </a>
             <a
-              href="/docs"
+              href="/foundation"
               className="inline-flex items-center gap-2 bg-transparent border-2 border-slate-500 text-slate-300 hover:border-slate-400 hover:text-white px-6 py-3 rounded-lg font-semibold transition-all"
             >
-              Documentation
+              Research Foundations
             </a>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function VoxKitLanding() {
         Built for <span className="text-cyan-400">Researchers</span>
       </h2>
       <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-        Higher-level access to powerful speech analysis tools, designed specifically for speech pathology research
+        Higher-level access to powerful forced alignment & speech analysis tools.
       </p>
     </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -113,7 +113,7 @@ export default function VoxKitLanding() {
         href="/features"
         className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
       >
-        View All Features
+        View the Capability
         <ChevronDown className="w-5 h-5 -rotate-90" />
       </a>
     </div>
@@ -130,14 +130,14 @@ export default function VoxKitLanding() {
               Powered by Industry-Standard Tools
             </h2>
             <p className="text-lg text-slate-100 max-w-3xl mx-auto mb-8">
-              VoxKit provides a unified interface to tools like the Montreal Forced Aligner (MFA), with the flexibility to integrate additional alignment toolkits through our extensible API architecture.
+              VoxKit integrates state-of-the-art machine learning algorithms and speech processing libraries, including the renowned Montreal Forced Aligner (MFA). This ensures that all researchers have access to reliable, accurate, and cutting-edge technology for their speech pathology studies.
             </p>
             <a
               href="/docs"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
             >
               <Code className="w-5 h-5" />
-              Explore the API
+              Explore the Code
             </a>
           </div>
         </div>
@@ -151,28 +151,28 @@ export default function VoxKitLanding() {
             Ready to Get Started?
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-            Download VoxKit today and join researchers advancing speech pathology with accessible, powerful analysis tools.
+            Download VoxKit today and join researchers advancing speech pathology by streamlining speech analysis and processing.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/help/getting-started"
+              className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-semibold transition-all"
+            >
+              Getting Started Guide
+            </a>
+            <a
+              href="/help/expected-workflow"
+              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-semibold transition-all"
+            >
+              <Code className="w-5 h-5" />
+              Expected Workflow
+            </a>
             <a
               href="/download"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
             >
               <Download className="w-5 h-5" />
               Download Now
-            </a>
-            <a
-              href="/features"
-              className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-              Explore Features
-            </a>
-            <a
-              href="/docs"
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-              <Code className="w-5 h-5" />
-              API Docs
             </a>
           </div>
         </div>

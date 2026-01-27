@@ -66,7 +66,7 @@ export async function GET() {
           Authorization: `Bearer ${token}`,
           Accept: 'application/vnd.github+json',
         },
-        next: { revalidate: 300 }, // Cache for 5 minutes
+        next: { revalidate: 5000 }, // Cache for about ~1 hour
       }
     );
 

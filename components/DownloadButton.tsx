@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { AppleIcon, WindowsIcon, LinuxIcon } from "./OSIcons";

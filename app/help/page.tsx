@@ -2,7 +2,6 @@
 import { Footer, Navbar } from '../../layout';
 import helpContent from '../../data/help-content.json';
 import Link from 'next/link';
-import HelpChat from '../../components/HelpChat';
 
 interface HelpTopic {
   title: string;
@@ -145,8 +144,6 @@ export default function HelpPage() {
           </div>
         </div>
       </div>
-
-      <HelpChat />
       <Footer />
     </div>
   );

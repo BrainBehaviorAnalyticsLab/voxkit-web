@@ -34,7 +34,7 @@ export default function Footer() {
             <div aria-hidden="true" className="hidden md:block border-l border-slate-700/50 mx-4"></div>
 
             <div className="w-full md:w-1/3 text-slate-400 text-center px-4 mb-0 md:mb-0 flex items-center justify-center">
-              © 2025 BrainBehaviorAnalyticsLab
+              © 2026 WiscLab x BrainBehaviorAnalyticsLab
             </div>
 
             {/* vertical separator */}
