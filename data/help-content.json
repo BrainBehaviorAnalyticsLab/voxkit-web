@@ -1,7 +1,7 @@
 {
   "getting-started": {
-    "title": "Getting Started with VoxKit",
-    "description": "Explore applicability in your research setting.",
+    "title": "Getting Started",
+    "description": "Quickstart guide to install and set up the VoxKit application",
     "icon": "🚀",
     "sections": [
       {
@@ -15,10 +15,9 @@
       {
         "type": "list",
         "items": [
-          "Python 3.8 or higher",
+          "Python 3.11 or higher",
           "4GB RAM minimum (8GB recommended)",
-          "50MB free disk space",
-          "Audio input device (for real-time analysis)"
+          "50MB free disk space"
         ]
       },
       {
@@ -148,7 +147,7 @@
   },
     "high-level-terms": {
     "title": "High Level Terminology",
-    "description": "The medium by which the developer can communicate capability with the PI.",
+    "description": "The medium by which the developer can communicate capability with the PI",
     "icon": "📚",
     "sections": [
       {
@@ -169,15 +168,15 @@
       },
       {
         "type": "text",
-        "content": "A higher-level component that orchestrates one or more Engines to produce research-oriented outputs (e.g., pitch contours, prosody metrics, transcription summaries). Analyzers normalize and pre-process datasets into a canonical result schema consumed by downstream steps or the UI."
+        "content": "A higher-level component that analyzes datasets, generates reports, or computes summary statistics. Analyzers are implemented by developers and documented for pipeline use."
       },
       {
         "type": "heading",
-        "content": "Stacker (Pipeline Stacker)"
+        "content": "Stacker"
       },
       {
         "type": "text",
-        "content": "The orchestration layer that composes Engines and Analyzers into ordered workflow steps. The Stacker reads pipeline definitions, runs steps in sequence (or parallel where safe), passes outputs between steps, and records artifacts and provenance. Stacker configs are intentionally declarative so non-developers can modify workflows via JSON."
+        "content": "The orchestration layer that composes Engines and Analyzers into an ordered step with a GUI. The Stacker reads pipeline definitions and displays them for tailored context. Stacker configs are intentionally declarative so non-developers can modify workflows via JSON."
       },
       {
         "type": "heading",
@@ -185,7 +184,7 @@
       },
       {
         "type": "text",
-        "content": "A named sequence of steps (each referencing an Engine or Analyzer) that implements a study-specific processing flow. Pipelines are defined in `config/pipeline_definitions.json` and outline the guidance and order of opertions."
+        "content": "A named sequence of steps that implements a study-specific processing flow. Pipelines are defined in `config/pipeline_definitions.json` and outline the guidance and order of opertions."
       },
       {
         "type": "heading",
@@ -193,7 +192,7 @@
       },
       {
         "type": "text",
-        "content": "A developer-provided routine that runs once (or on first launch) to prepare the runtime: verify or download model files, fetch large datasets, and perform one-time initialization. Startup behavior is configured in `config/startup.json`."
+        "content": "A developer-provided routine that runs once (or on first launch) to prepare the applications assets: verify or download model files, fetch large datasets, and perform one-time initialization. (In the future) Startup behavior can be configured in `config/startup.json`."
       },
       {
         "type": "heading",
@@ -383,62 +382,6 @@
     "icon": "🔧",
     "sections": [
       {
-        "type": "text",
-        "content": "This guide helps you resolve common issues you might encounter while using VoxKit."
-      },
-      {
-        "type": "heading",
-        "content": "Common Issues"
-      },
-      {
-        "type": "heading",
-        "content": "Import Error: ModuleNotFoundError"
-      },
-      {
-        "type": "text",
-        "content": "If you see this error, VoxKit may not be properly installed in your Python environment."
-      },
-      {
-        "type": "code",
-        "language": "bash",
-        "content": "# Solution: Reinstall VoxKit\npip uninstall voxkit\npip install voxkit\n\n# Verify installation\npython -c \"import voxkit; print(voxkit.__version__)\""
-      },
-      {
-        "type": "heading",
-        "content": "Audio File Not Supported"
-      },
-      {
-        "type": "text",
-        "content": "VoxKit supports WAV, MP3, FLAC, and OGG formats. If you're getting this error:"
-      },
-      {
-        "type": "list",
-        "items": [
-          "Check that your audio file has a supported extension",
-          "Verify the file is not corrupted",
-          "Convert the file to WAV format using an audio converter",
-          "Ensure the file has proper read permissions"
-        ]
-      },
-      {
-        "type": "heading",
-        "content": "Performance Issues"
-      },
-      {
-        "type": "text",
-        "content": "If analysis is running slowly, try these optimizations:"
-      },
-      {
-        "type": "list",
-        "items": [
-          "Use a lower sample rate (e.g., 16000 Hz instead of 44100 Hz)",
-          "Process shorter audio segments",
-          "Use the 'base' model instead of 'advanced'",
-          "Close other memory-intensive applications",
-          "Ensure you have sufficient RAM available"
-        ]
-      },
-      {
         "type": "heading",
         "content": "Getting Help"
       },
@@ -450,59 +393,10 @@
         "type": "list",
         "items": [
           "Check our GitHub issues for similar problems",
-          "Join our community Discord server",
-          "Email support at support@voxkit.dev",
-          "Review the detailed logs with verbose mode enabled"
+          "Email support at bfrey6@wisc.edu",
+          "Clone the repository and debug locally"
         ]
       }
     ]
-  },
-  "examples": {
-    "title": "Code Examples",
-    "description": "Practical examples demonstrating VoxKit features",
-    "icon": "💡",
-    "sections": [
-      {
-        "type": "text",
-        "content": "Explore these practical examples to learn how to use VoxKit effectively."
-      },
-      {
-        "type": "heading",
-        "content": "Basic Audio Analysis"
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "content": "from voxkit import Analyzer\n\nanalyzer = Analyzer()\nresult = analyzer.analyze('recording.wav')\n\nprint(f\"Duration: {result['duration']}s\")\nprint(f\"Sample Rate: {result['sample_rate']} Hz\")\nprint(f\"Channels: {result['channels']}\")"
-      },
-      {
-        "type": "heading",
-        "content": "Real-time Stream Processing"
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "content": "from voxkit import Analyzer, AudioStream\n\nanalyzer = Analyzer()\nstream = AudioStream(device_id=0)\n\ntry:\n    for chunk in analyzer.analyze_stream(stream):\n        if chunk['confidence'] > 0.8:\n            print(f\"Detected: {chunk['text']}\")\nexcept KeyboardInterrupt:\n    stream.close()"
-      },
-      {
-        "type": "heading",
-        "content": "Batch Processing Multiple Files"
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "content": "from voxkit import Analyzer\nimport os\nimport json\n\nanalyzer = Analyzer()\naudio_dir = './audio_files'\nresults = []\n\nfor filename in os.listdir(audio_dir):\n    if filename.endswith('.wav'):\n        filepath = os.path.join(audio_dir, filename)\n        result = analyzer.analyze(filepath)\n        results.append({\n            'file': filename,\n            'result': result\n        })\n\n# Save results\nwith open('results.json', 'w') as f:\n    json.dump(results, f, indent=2)"
-      },
-      {
-        "type": "heading",
-        "content": "Custom Feature Extraction"
-      },
-      {
-        "type": "code",
-        "language": "python",
-        "content": "from voxkit import Analyzer, FeatureExtractor\n\nanalyzer = Analyzer()\nextractor = FeatureExtractor()\n\n# Analyze audio\nresult = analyzer.analyze('speech.wav')\n\n# Extract specific features\nfeatures = extractor.extract(result, features=[\n    'pitch',\n    'energy',\n    'mfcc',\n    'spectral_centroid'\n])\n\nprint(f\"Average Pitch: {features['pitch']['mean']} Hz\")\nprint(f\"Energy: {features['energy']['mean']} dB\")"
-      }
-    ]
   }
-
 }

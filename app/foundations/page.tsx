@@ -48,9 +48,9 @@ export default function InspirationPage() {
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
             Research Foundations
           </h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            VoxKit operationalizes findings from peer-reviewed research on forced alignment accuracy and responsible clinical AI development.
-          </p>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            VoxKit acts on (and interprets) findings from key research studies in speech pathology to <span className="text-blue-300">support research teams</span> and <span className="text-blue-300">reduce technical barriers</span>.
+            </p>
         </div>
 
         {/* Research Findings Grid */}
@@ -58,7 +58,7 @@ export default function InspirationPage() {
           {researchFindings.map((item, index) => (
             <div
               key={index}
-              className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 hover:border-cyan-400/50 transition-all hover:shadow-xl hover:shadow-cyan-400/10 tile"
+              className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile"
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="text-cyan-400 flex-shrink-0 mt-1">
@@ -95,22 +95,21 @@ export default function InspirationPage() {
           <h2 className="text-2xl font-bold mb-4 text-white">VoxKit's Research-Driven Design</h2>
           <div className="space-y-3 text-slate-200">
             <p>
-              <span className="text-cyan-400 font-semibold">Transparent workflows:</span> Semi-automatic alignment with manual inspection for sound classes with lower reliability
+              <span className="text-cyan-400 font-semibold">Guided workflows:</span> Guidance and layout can be customized to fit the direction and use case for specific studies/research
             </p>
             <p>
-              <span className="text-cyan-400 font-semibold">Flexible architecture:</span> Engine-agnostic design allows comparative studies and integration of domain-specific models
+              <span className="text-cyan-400 font-semibold">Flexible architecture:</span> Base classes and modular components allow developers to extend and adapt VoxKit
             </p>
             <p>
-              <span className="text-cyan-400 font-semibold">Metadata-rich outputs:</span> Comprehensive tracking of dataset characteristics, alignment provenance, and speaker demographics
+              <span className="text-cyan-400 font-semibold">Metadata-rich outputs:</span> Metadata tracking enables reportable results and and reduces overhead
             </p>
             <p>
-              <span className="text-cyan-400 font-semibold">Honest positioning:</span> VoxKit is research infrastructure, not a clinical decision-support system—it reduces technical barriers while maintaining scientific rigor
+              <span className="text-cyan-400 font-semibold">Honest positioning:</span> VoxKit is research infrastructure, not a clinical decision-support system, it reduces technical barriers while maintaining scientific rigor
             </p>
-          </div>
-          
+          </div> 
           <div className="mt-8 pt-6 border-t border-slate-600">
             <p className="text-sm text-slate-300 italic">
-              VoxKit prioritizes interpretable phonetic analysis over black-box predictions, acknowledging that forced alignment is most valuable for structural and motor speech conditions where articulatory precision directly affects phoneme boundaries.
+              VoxKit prioritizes usability, flexibility, and transparency to empower researchers to utilize the cutting edge.
             </p>
           </div>
         </div>

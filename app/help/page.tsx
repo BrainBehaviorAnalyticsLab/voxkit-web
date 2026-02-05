@@ -102,7 +102,7 @@ export default function HelpPage() {
           <h2 className="text-3xl font-bold mb-6 text-center">Quick Access</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <a 
-              href="https://github.com/BrainBehaviorAnalyticsLab/voxkit"
+              href="https://github.com/BrainBehaviorAnalyticsLab/voxkit-desktop"
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-center text-center p-6 bg-slate-800/50 rounded-xl hover:bg-slate-800 transition-all group"
@@ -117,7 +117,7 @@ export default function HelpPage() {
             </a>
 
             <a 
-              href="mailto:support@voxkit.dev"
+              href="mailto:bfrey6@wisc.edu"
               className="flex flex-col items-center text-center p-6 bg-slate-800/50 rounded-xl hover:bg-slate-800 transition-all group"
             >
               <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">

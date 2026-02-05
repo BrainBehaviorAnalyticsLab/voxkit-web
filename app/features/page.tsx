@@ -9,19 +9,19 @@ export default function FeaturesPage() {
       name: "Montreal Forced Aligner (MFA)",
       status: "production",
       description: "Industry-standard forced alignment with speaker-adaptive training. Achieves human-level reliability on diverse speech samples.",
-      capabilities: ["Phoneme-level alignment", "Speaker adaptation", "Multi-language support"]
+      capabilities: ["Forced Alignment", "Model Training"]
     },
     {
       name: "Wav2TextGrid (W2TG)",
       status: "production",
-      description: "Alternative alignment engine providing complementary approaches to forced alignment workflows.",
-      capabilities: ["Fast alignment", "Lightweight models", "TextGrid output"]
+      description: "Alternative alignment engine implementing state-of-the-art Wav2Vec2 based phonetic alignment.",
+      capabilities: ["Forced Alignment", "Model Training"]
     },
     {
-      name: "WhisperX",
+      name: "Faster Whisper",
       status: "development",
-      description: "ASR-based alignment leveraging OpenAI's Whisper for emerging use cases in clinical research.",
-      capabilities: ["Multilingual ASR", "Word-level timestamps", "Low-resource languages"]
+      description: "Lightweight automatic speech recognition (ASR) engine for transcription tasks, optimized for speed and efficiency.",
+      capabilities: ["Transcription"]
     }
   ];
 
@@ -29,58 +29,64 @@ export default function FeaturesPage() {
   const analyzers = [
     {
       name: "Default Analyzer",
-      description: "Extracts core dataset metadata including file counts, speaker demographics, and total duration.",
-      outputs: ["Speaker counts", "Audio duration", "File inventory"]
+      description: "Extracts core dataset metadata including file counts, and speaker count.",
+      outputs: ["CSV summary", "Bar chart"]
     },
     {
       name: "Custom Analyzers",
-      description: "Extensible analyzer system allows researchers to implement domain-specific metadata extraction.",
-      outputs: ["User-defined metrics", "CSV summaries", "Dataset validation"]
+      description: "Extensible analyzer system allows researchers to add more...",
+      outputs: ["CSV Summary", "Bar chart"]
     }
   ];
 
   // Easy to add/remove pipeline stackers
   const stackers = [
     {
-      name: "Training Pipeline",
-      icon: <Zap className="w-6 h-6" />,
-      description: "Train custom acoustic models on your datasets with configurable hyperparameters and evaluation metrics.",
-      workflow: ["Dataset selection", "Model configuration", "Training execution", "Performance evaluation"]
+      name: 'Transcription',
+      icon: <Cpu className="w-6 h-6" />,
+      description: "Generate text transcriptions from audio datasets using integrated ASR engines.",
+      workflow: ["Dataset selection", "ASR engine configuration", "Transcription execution"] 
     },
     {
-      name: "Prediction Pipeline",
+      name: "Training",
+      icon: <Zap className="w-6 h-6" />,
+      description: "Train custom acoustic models on your datasets with configurable hyperparameters.",
+      workflow: ["Dataset selection", "Model configuration", "Training execution"]
+    },
+    {
+      name: "Predicting",
       icon: <Cpu className="w-6 h-6" />,
-      description: "Generate phoneme-level alignments using trained or pretrained models with comprehensive output tracking.",
-      workflow: ["Model selection", "Dataset alignment", "TextGrid generation", "Quality assessment"]
+      description: "Generate phoneme-level alignments using trained or pretrained models.",
+      workflow: ["Model selection", "Dataset alignment", "TextGrid generation"]
     },
     {
       name: "GOP Extraction",
       icon: <BarChart3 className="w-6 h-6" />,
       description: "Extract Goodness of Pronunciation scores for pronunciation assessment and speech disorder analysis.",
-      workflow: ["Alignment input", "GOP computation", "Score aggregation", "Result export"]
+      workflow: ["Dataset selection", "Alignment selection", "GOP computation"]
     }
   ];
 
   const coreFeatures = [
+    {
+      icon: <Puzzle className="w-8 h-8" />,
+      title: "Low level Abstraction",
+      description: "Abstract base class patterns allow for the rapid addition of new alignment toolkits and graphical components."
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: "High Level Configuration",
+      description: "Quickly adjust visual flow and guidance to fit the needs of specific research studies and user groups."
+    },
     {
       icon: <Layers className="w-8 h-8" />,
       title: "Layered Architecture",
       description: "Clean separation between GUI, storage, engine, and analyzer layers enables independent development and testing of each component."
     },
     {
-      icon: <Puzzle className="w-8 h-8" />,
-      title: "Modular Engine System",
-      description: "Abstract base class pattern allows seamless integration of new alignment toolkits without modifying core application logic."
-    },
-    {
       icon: <Lock className="w-8 h-8" />,
-      title: "Comprehensive Metadata",
-      description: "Every dataset, model, and alignment stores complete provenance information for reproducible research workflows."
-    },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Extensible Analyzers",
-      description: "Plugin-based analyzer system supports custom metadata extraction without touching the core codebase."
+      title: "Metadata Tracking",
+      description: "Every dataset, model, and alignment stores provenance information for reproducibility and data sharing."
     }
   ];
 
@@ -95,7 +101,7 @@ export default function FeaturesPage() {
             VoxKit Features
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            A modular platform designed for speech pathology research, bridging the gap between advanced ML tools and clinical applications.
+            Enabling cross-functional teams to conduct phonetic research with ease.
           </p>
         </div>
 
@@ -103,18 +109,18 @@ export default function FeaturesPage() {
         <div className="mb-20 bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
           <h2 className="text-3xl font-bold mb-4 text-white text-center">Mission</h2>
           <p className="text-lg text-slate-200 text-center max-w-4xl mx-auto leading-relaxed">
-            VoxKit democratizes access to state-of-the-art forced alignment and speech analysis tools, enabling speech-language pathology researchers to conduct rigorous phonetic research without requiring deep technical expertise. By abstracting away infrastructure complexity while maintaining full analytical transparency, VoxKit reduces barriers between clinical questions and computational answers.
+            To accelerate discovery and improve care in speech-language pathology by providing an intuitive, transparent platform for advanced forced alignment, pronunciation assessment, and phonetic research. Accessible to every researcher, not just programmers.
           </p>
         </div>
 
         {/* Core Features Grid */}
         <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-8 text-center">Core Capabilities</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Bridging Complexity</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {coreFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 hover:border-cyan-400/50 transition-all tile"
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile"
               >
                 <div className="text-cyan-400 mb-4">
                   {feature.icon}
@@ -129,9 +135,9 @@ export default function FeaturesPage() {
         {/* Alignment Engines */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-4">Alignment Engines</h2>
+            <h2 className="text-3xl font-bold mb-4">Speech Engines</h2>
             <p className="text-slate-300 max-w-2xl mx-auto">
-              VoxKit's engine abstraction layer supports multiple forced alignment backends, allowing researchers to compare performance across toolkits or switch engines as their needs evolve.
+              VoxKit's modular api enables seamless integration of speech processing engines (toolkits), from established libraries at the cutting edge and beyond.
             </p>
           </div>
           <div className="space-y-6">
@@ -153,15 +159,19 @@ export default function FeaturesPage() {
                   </div>
                 </div>
                 <p className="text-slate-200 mb-4 leading-relaxed">{engine.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {engine.capabilities.map((capability, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-300 text-sm"
-                    >
-                      {capability}
-                    </span>
-                  ))}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-cyan-300">Tools:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {engine.capabilities.map((capability, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-300 text-sm flex items-center gap-1"
+                      >
+                        <span className="text-cyan-400">⚙</span>
+                        {capability}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -171,16 +181,16 @@ export default function FeaturesPage() {
         {/* Pipeline Stackers */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-4">Pipeline Workflows</h2>
+            <h2 className="text-3xl font-bold mb-4">UI Stackers</h2>
             <p className="text-slate-300 max-w-2xl mx-auto">
-              Guided multi-step workflows for common research tasks, from model training to alignment generation and pronunciation assessment.
+              Multi-step capabilities for common research tasks, from model training to alignment generation and pronunciation assessment. Stackers are ordered, added and removed to build custom pipelines.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {stackers.map((stacker, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 hover:border-cyan-400/50 transition-all tile"
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile"
               >
                 <div className="text-cyan-400 mb-4">
                   {stacker.icon}
@@ -208,14 +218,14 @@ export default function FeaturesPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">Dataset Analyzers</h2>
             <p className="text-slate-300 max-w-2xl mx-auto">
-              Extract structured metadata from datasets at registration time, enabling quality assurance and dataset characterization without manual inspection.
+              Extract structured metadata from datasets at registration time, enabling quality assurance and a tailored method of visualization.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {analyzers.map((analyzer, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 hover:border-cyan-400/50 transition-all tile"
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile"
               >
                 <h3 className="text-xl font-semibold mb-3 text-white">{analyzer.name}</h3>
                 <p className="text-slate-200 mb-4 leading-relaxed">{analyzer.description}</p>
@@ -237,7 +247,7 @@ export default function FeaturesPage() {
 
         {/* Key Differentiators */}
         <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
-          <h2 className="text-2xl font-bold mb-6 text-white text-center">What Makes VoxKit Different</h2>
+          <h2 className="text-2xl font-bold mb-6 text-white text-center">Key Differentiators</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-200">
             <div>
               <h3 className="text-cyan-400 font-semibold mb-2">For Non-Technical Researchers</h3>
@@ -246,14 +256,6 @@ export default function FeaturesPage() {
             <div>
               <h3 className="text-cyan-400 font-semibold mb-2">For Technical Teams</h3>
               <p>Extensible architecture with well-documented APIs enables integration of proprietary tools and custom analysis pipelines.</p>
-            </div>
-            <div>
-              <h3 className="text-cyan-400 font-semibold mb-2">Reproducibility First</h3>
-              <p>Every operation is versioned with complete provenance tracking, from dataset registration through alignment generation.</p>
-            </div>
-            <div>
-              <h3 className="text-cyan-400 font-semibold mb-2">Clinical Grounding</h3>
-              <p>Designed around established research methodologies in speech pathology rather than generic audio processing workflows.</p>
             </div>
           </div>
         </div>
@@ -266,14 +268,14 @@ export default function FeaturesPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="/docs"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform shadow-lg"
             >
               <Code className="w-5 h-5" />
               API Documentation
             </a>
             <a
               href="/foundations"
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-semibold transition-all"
+              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 px-8 py-4 rounded-lg font-semibold transition-all"
             >
               <Workflow className="w-5 h-5" />
               Research Foundations
