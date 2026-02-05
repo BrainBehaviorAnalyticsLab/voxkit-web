@@ -442,24 +442,15 @@
 
             <div class="docstring"><p>Load application configuration from YAML file.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    config_path: Path to the app_info.yaml file</p>
 
-<ul>
-<li><strong>config_path:</strong>  Path to the app_info.yaml file</li>
-</ul>
+<p>Returns:
+    AppConfig instance with loaded configuration</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>AppConfig instance with loaded configuration</p>
-</blockquote>
-
-<h6 id="raises">Raises:</h6>
-
-<ul>
-<li><strong>FileNotFoundError:</strong>  If config file doesn't exist</li>
-<li><strong>yaml.YAMLError:</strong>  If YAML parsing fails</li>
-</ul>
+<p>Raises:
+    FileNotFoundError: If config file doesn't exist
+    yaml.YAMLError: If YAML parsing fails</p>
 </div>
 
 
@@ -497,11 +488,8 @@
 
 <p>Looks for config/app_info.yaml relative to the project root.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>AppConfig instance</p>
-</blockquote>
+<p>Returns:
+    AppConfig instance</p>
 </div>
 
 
@@ -534,11 +522,8 @@
 
 <p>Convenience function to load the default configuration.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>AppConfig instance</p>
-</blockquote>
+<p>Returns:
+    AppConfig instance</p>
 </div>
 
 
@@ -678,11 +663,8 @@
 
             <div class="docstring"><p>Get only the enabled pipeline steps.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>List of enabled PipelineStep instances</p>
-</blockquote>
+<p>Returns:
+    List of enabled PipelineStep instances</p>
 </div>
 
 
@@ -733,24 +715,15 @@
 
             <div class="docstring"><p>Load pipeline configuration from YAML file.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    config_path: Path to the pipeline_definitions.yaml file</p>
 
-<ul>
-<li><strong>config_path:</strong>  Path to the pipeline_definitions.yaml file</li>
-</ul>
+<p>Returns:
+    PipelineConfig instance with loaded configuration</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>PipelineConfig instance with loaded configuration</p>
-</blockquote>
-
-<h6 id="raises">Raises:</h6>
-
-<ul>
-<li><strong>FileNotFoundError:</strong>  If config file doesn't exist</li>
-<li><strong>yaml.YAMLError:</strong>  If YAML parsing fails</li>
-</ul>
+<p>Raises:
+    FileNotFoundError: If config file doesn't exist
+    yaml.YAMLError: If YAML parsing fails</p>
 </div>
 
 
@@ -788,11 +761,8 @@
 
 <p>Looks for config/pipeline_definitions.yaml relative to the project root.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>PipelineConfig instance</p>
-</blockquote>
+<p>Returns:
+    PipelineConfig instance</p>
 </div>
 
 
@@ -984,17 +954,11 @@
 
             <div class="docstring"><p>Create a PipelineStep from a dictionary.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    data: Dictionary containing step configuration</p>
 
-<ul>
-<li><strong>data:</strong>  Dictionary containing step configuration</li>
-</ul>
-
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>PipelineStep instance</p>
-</blockquote>
+<p>Returns:
+    PipelineStep instance</p>
 </div>
 
 
@@ -1128,17 +1092,11 @@
 
             <div class="docstring"><p>Create a UIConfig from a dictionary.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    data: Dictionary containing UI configuration or None</p>
 
-<ul>
-<li><strong>data:</strong>  Dictionary containing UI configuration or None</li>
-</ul>
-
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>UIConfig instance with values from dict or defaults</p>
-</blockquote>
+<p>Returns:
+    UIConfig instance with values from dict or defaults</p>
 </div>
 
 
@@ -1171,11 +1129,8 @@
 
 <p>Convenience function to load the default configuration.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>PipelineConfig instance</p>
-</blockquote>
+<p>Returns:
+    PipelineConfig instance</p>
 </div>
 
 

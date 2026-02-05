@@ -84,40 +84,28 @@ with extensible storage and analysis capabilities.</p>
 
 <h2 id="quick-start">Quick Start</h2>
 
-<h6 id="list-available-engines">List available engines:</h6>
+<p>List available engines:</p>
 
-<blockquote>
-  <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn"><a href="voxkit/engines.html">voxkit.engines</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">engines</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">engines</span><span class="o">.</span><span class="n">list_engines</span><span class="p">()</span>
-<span class="go">[&#39;W2TGENGINE&#39;, &#39;MFAENGINE&#39;]</span>
+<pre><code>&gt;&gt;&gt; from <a href="voxkit/engines.html">voxkit.engines</a> import engines
+&gt;&gt;&gt; engines.list_engines()
+['W2TGENGINE', 'MFAENGINE']
 </code></pre>
-  </div>
-</blockquote>
 
-<h6 id="get-a-specific-engine">Get a specific engine:</h6>
+<p>Get a specific engine:</p>
 
-<blockquote>
-  <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span> <span class="o">=</span> <span class="n">engines</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s1">&#39;MFAENGINE&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="s1">&#39;align&#39;</span><span class="p">)</span>
-<span class="go">True</span>
+<pre><code>&gt;&gt;&gt; engine = engines.get_engine('MFAENGINE')
+&gt;&gt;&gt; engine.has_tool('align')
+True
 </code></pre>
-  </div>
-</blockquote>
 
-<h6 id="work-with-storage">Work with storage:</h6>
+<p>Work with storage:</p>
 
-<blockquote>
-  <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">voxkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">storage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Dataset&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">audio_path</span><span class="o">=</span><span class="s2">&quot;/path/to/audio&quot;</span>
-<span class="gp">... </span><span class="p">)</span>
+<pre><code>&gt;&gt;&gt; from voxkit import storage
+&gt;&gt;&gt; dataset = storage.datasets.create_dataset(
+...     name="My Dataset",
+...     audio_path="/path/to/audio"
+... )
 </code></pre>
-  </div>
-</blockquote>
 
 <h2 id="notes">Notes</h2>
 

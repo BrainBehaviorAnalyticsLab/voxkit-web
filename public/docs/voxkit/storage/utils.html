@@ -220,17 +220,11 @@ including path management and unique identifier generation.</p>
 
             <div class="docstring"><p>Get the root directory for storing VoxKit data.</p>
 
-<h6 id="returns">Returns:</h6>
+<p>Returns:
+    Path to the storage root directory (expanded from tilde notation)</p>
 
-<blockquote>
-  <p>Path to the storage root directory (expanded from tilde notation)</p>
-</blockquote>
-
-<h6 id="raises">Raises:</h6>
-
-<ul>
-<li><strong>ValueError:</strong>  If STORAGE_ROOT does not start with tilde (~)</li>
-</ul>
+<p>Raises:
+    ValueError: If STORAGE_ROOT does not start with tilde (~)</p>
 </div>
 
 
@@ -264,17 +258,11 @@ including path management and unique identifier generation.</p>
 
             <div class="docstring"><p>Generate a unique identifier with the given prefix and current timestamp.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    prefix: Optional prefix to prepend to the timestamp</p>
 
-<ul>
-<li><strong>prefix:</strong>  Optional prefix to prepend to the timestamp</li>
-</ul>
-
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>Unique identifier string in format: [prefix_]YYYYMMDD_HHMMSS_ffffff</p>
-</blockquote>
+<p>Returns:
+    Unique identifier string in format: [prefix_]YYYYMMDD_HHMMSS_ffffff</p>
 </div>
 
 
@@ -306,17 +294,11 @@ including path management and unique identifier generation.</p>
 
             <div class="docstring"><p>Convert a unique ID timestamp to a human-readable format.</p>
 
-<h6 id="arguments">Arguments:</h6>
+<p>Args:
+    date_str: Timestamp string in format YYYYMMDD_HHMMSS_ffffff</p>
 
-<ul>
-<li><strong>date_str:</strong>  Timestamp string in format YYYYMMDD_HHMMSS_ffffff</li>
-</ul>
-
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>Human-readable date string (e.g., "January 01, 2024 at 12:00:00 PM")</p>
-</blockquote>
+<p>Returns:
+    Human-readable date string (e.g., "January 01, 2024 at 12:00:00 PM")</p>
 </div>
 
 
@@ -346,11 +328,8 @@ including path management and unique identifier generation.</p>
 
             <div class="docstring"><p>Check if this is the first launch of the application.</p>
 
-<h6 id="returns">Returns:</h6>
-
-<blockquote>
-  <p>True if this is the first launch, False otherwise</p>
-</blockquote>
+<p>Returns:
+    True if this is the first launch, False otherwise</p>
 </div>
 
 
