@@ -1,0 +1,402 @@
+{
+  "getting-started": {
+    "title": "Getting Started",
+    "description": "Quickstart guide to install and set up the VoxKit application",
+    "icon": "🚀",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit is a powerful forced alignment and voice analysis toolkit designed to conduct guided workflows in research environments. This guide will help you get started quickly."
+      },
+      {
+        "type": "heading",
+        "content": "System Requirements"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Python 3.11 or higher",
+          "4GB RAM minimum (8GB recommended)",
+          "50MB free disk space"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Installation"
+      },
+      {
+        "type": "text",
+        "content": "Follow these steps to install VoxKit on your system:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Download the appropriate bundle for your operating system from the VoxKit website (This Website).",
+          "If you plan to use Montreal Forced Aligner, be sure it is set up see https://montreal-forced-aligner.readthedocs.io/en/latest/reference/index.html.",
+          "Once the correct version is downloaded, follow the installation instructions below for any additional steps."
+        ]
+      },
+      {
+        "type": "text",
+        "content": "Choose your platform below for specific instructions."
+      },
+      {
+        "type": "heading",
+        "content": "macOS Installation"
+      },
+      {
+        "type": "text",
+        "content": "Open the dmg and drag voxkit to your Applications folder."
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Disable quarantine mode for apps downloaded from the internet\nxattr -cr ../VoxKit.app"
+      },
+      {
+        "type": "heading",
+        "content": "Windows Installation"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Testing in the works"
+      },
+      {
+        "type": "heading",
+        "content": "Linux Installation"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "content": "# Testing in the works"
+      }
+    ]
+  },
+  "expected-workflow": {
+    "title": "Expected Workflow",
+    "description": "Outline of roles and configuration layers for deploying VoxKit",
+    "icon": "📘",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit separates developer-level integration from research workflow configuration. This guide outlines the expected collaboration and deployment workflow."
+      },
+      {
+        "type": "heading",
+        "content": "1. Collaboration: PI and Developers"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A Principal Investigator (PI) or research lead defines scientific goals and desired workflow.",
+          "Developers implement low-level capabilities: pipeline stackers, engines (toolkits), analyzers (dataset analysis functions), and a startup routine to download models, datasets, and other assets."
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "2. Two Levels of Configuration"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Developer-level: modify code and the API to implement compatible pipelines, toolkits, analyzers, and startup routines (requires coding).",
+          "Researcher-level: edit configuration JSON files in the bundled `config` folder to define specific workflow steps and guidance (no coding required). A future CLI will simplify this process."
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "3. Bundling and Post-build Configuration"
+      },
+      {
+        "type": "text",
+        "content": "The app is bundled with developer-provided code and a configuration folder. The JSON configuration can be changed after bundling to adapt to a specific study; most workflow changes do not require code edits."
+      },
+      {
+        "type": "heading",
+        "content": "4. Distribution"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Distribute the configured executable via a secure network drive or a secure web location.",
+          "If the generic version satisfies your needs, download it from the website and configure via JSON only—no developer interaction required."
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "5. Researcher Onboarding"
+      },
+      {
+        "type": "text",
+        "content": "The initial configuration guides users through setup and the steps of the workflow. Once configured and distributed, researchers can run the app without writing code."
+      },
+      {
+        "type": "heading",
+        "content": "Notes"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Startup routines handle one-time setup tasks such as downloading models and large datasets.",
+          "Maintain versioned configuration files in the config folder to support reproducible workflows.",
+          "Developers should provide clear documentation of any custom pipeline components so research staff can configure workflows correctly."
+        ]
+      }
+    ]
+  },
+    "high-level-terms": {
+    "title": "High Level Terminology",
+    "description": "The medium by which the developer can communicate capability with the PI",
+    "icon": "📚",
+    "sections": [
+      {
+        "type": "text",
+        "content": "This section defines core concepts used throughout VoxKit so developers and researchers share a common vocabulary."
+      },
+      {
+        "type": "heading",
+        "content": "Engine"
+      },
+      {
+        "type": "text",
+        "content": "A low-level processing component that implements a specific algorithm or toolkit (for example: forced alignment, voice activity detection, feature extraction, or model inference). Engines load models/assets, expose a simple run API, and produce machine-readable artifacts (JSON, arrays, files). Engines are intended to be implemented by developers and documented so pipelines can reference them declaratively."
+      },
+      {
+        "type": "heading",
+        "content": "Analyzer"
+      },
+      {
+        "type": "text",
+        "content": "A higher-level component that analyzes datasets, generates reports, or computes summary statistics. Analyzers are implemented by developers and documented for pipeline use."
+      },
+      {
+        "type": "heading",
+        "content": "Stacker"
+      },
+      {
+        "type": "text",
+        "content": "The orchestration layer that composes Engines and Analyzers into an ordered step with a GUI. The Stacker reads pipeline definitions and displays them for tailored context. Stacker configs are intentionally declarative so non-developers can modify workflows via JSON."
+      },
+      {
+        "type": "heading",
+        "content": "Pipeline"
+      },
+      {
+        "type": "text",
+        "content": "A named sequence of steps that implements a study-specific processing flow. Pipelines are defined in `config/pipeline_definitions.json` and outline the guidance and order of opertions."
+      },
+      {
+        "type": "heading",
+        "content": "Startup Routine"
+      },
+      {
+        "type": "text",
+        "content": "A developer-provided routine that runs once (or on first launch) to prepare the applications assets: verify or download model files, fetch large datasets, and perform one-time initialization. (In the future) Startup behavior can be configured in `config/startup.json`."
+      },
+      {
+        "type": "heading",
+        "content": "Configuration (config files)"
+      },
+      {
+        "type": "text",
+        "content": "Human-editable JSON/YAML files in the `config` folder that drive behavior without changing code. Researcher teams can customize definitions like (pipeline selection, step parameters, study metadata)."
+      },
+      {
+        "type": "heading",
+        "content": "Artifact & Provenance"
+      },
+      {
+        "type": "text",
+        "content": "Artifacts are outputs produced by steps (alignment files, feature arrays, plots). Provenance is metadata that records which pipeline, config version, component versions, and timestamps produced those artifacts; recording provenance is essential for reproducibility and auditability."
+      }
+    ]
+  },
+"configuration": {
+    "title": "Configuration Options",
+    "description": "Customize VoxKit to match your workflow and requirements",
+    "icon": "⚙️",
+    "sections": [
+      {
+        "type": "text",
+        "content": "VoxKit uses YAML configuration files in the config folder to define workflows, pipelines, and app settings. Configuration can be modified post-build without requiring code changes, enabling researchers to adapt workflows to specific studies."
+      },
+      {
+        "type": "heading",
+        "content": "Configuration Architecture"
+      },
+      {
+        "type": "text",
+        "content": "VoxKit separates configuration into two files in the config folder:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "app_info.yaml: Application metadata, version info, and introduction text",
+          "pipeline_definitions.yaml: Workflow steps, stacker classes, and UI settings"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Application Configuration (app_info.yaml)"
+      },
+      {
+        "type": "text",
+        "content": "This file contains metadata about the application:"
+      },
+      {
+        "type": "code",
+        "language": "yaml",
+        "content": "app_name: \"VoxKit\"\nversion: \"0.1.0\"\ndescription: \"AI/ML Research -> Clinical Applications (Speech Pathology)\"\nhelp_url: \"http://localhost:3000/help\"\n\nintroduction: |\n  VoxKit is a comprehensive speech alignment and analysis toolkit designed for \n  clinical speech pathology applications. This version provides tools for training \n  acoustic models, generating forced alignments, and computing Goodness of \n  Pronunciation (GOP) scores for speech assessment.\n\nrelease_date: \"2026-01-14\"\nrelease_notes: |\n  - Initial configurable release\n  - Support for custom pipeline configurations"
+      },
+      {
+        "type": "list",
+        "items": [
+          "app_name: Display name shown in the application window",
+          "version: Semantic version number (e.g., 0.1.0)",
+          "description: Brief description of the application purpose",
+          "help_url: URL to documentation/help resources",
+          "introduction: Multi-line text shown to users on first launch",
+          "release_date: ISO date of the current release",
+          "release_notes: Multi-line changelog for this version"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Pipeline Configuration (pipeline_definitions.yaml)"
+      },
+      {
+        "type": "text",
+        "content": "This file defines the workflow steps and their display configuration:"
+      },
+      {
+        "type": "code",
+        "language": "yaml",
+        "content": "pipeline:\n  - id: \"training\"\n    label: \"Ⓐ Train Aligners\"\n    stacker_class: \"TrainingStacker\"\n    enabled: true\n    collapsible_sections:\n      \"Step Instructions\": \"Train custom alignment models on your datasets\"\n      \"Additional Info\": \"Training creates acoustic models that learn from your labeled audio data.\"\n      \"Requirements\": \"Ensure your dataset is properly formatted with aligned text transcriptions.\"\n\nui:\n  menu_max_width: 500\n  animation_duration: 300\n  content_spacing: 20"
+      },
+      {
+        "type": "heading",
+        "content": "Pipeline Step Configuration"
+      },
+      {
+        "type": "text",
+        "content": "Each step in the pipeline array supports these fields:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "id: Unique identifier for the step (e.g., 'training', 'prediction')",
+          "label: Display text shown in navigation menu (supports Unicode symbols like Ⓐ Ⓑ Ⓒ)",
+          "stacker_class: Name of the Python class to instantiate (must be in STACKER_REGISTRY)",
+          "enabled: Boolean to show/hide this step (true/false)",
+          "collapsible_sections: Dictionary of expandable help sections (header: content)",
+          "markdown_content: Markdown text for MarkdownStacker (optional)"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Collapsible Sections"
+      },
+      {
+        "type": "text",
+        "content": "Collapsible sections appear at the top of each stacker page as expandable help text:"
+      },
+      {
+        "type": "code",
+        "language": "yaml",
+        "content": "collapsible_sections:\n  \"Step Instructions\": \"Brief guidance on what this step does\"\n  \"Additional Info\": \"Detailed explanation or warnings\"\n  \"Requirements\": \"Prerequisites or system requirements\"\n  \"Misc\": \"Any other helpful information\""
+      },
+      {
+        "type": "text",
+        "content": "Users click the ▶ arrow to expand each section. The header text becomes ▼ when expanded."
+      },
+      {
+        "type": "heading",
+        "content": "Available Stacker Classes"
+      },
+      {
+        "type": "list",
+        "items": [
+          "TrainingStacker: Model training workflow (⑥ steps)",
+          "PredictionStacker: Alignment prediction workflow (④ steps)",
+          "PLLRStacker: GOP score extraction workflow (④ steps)",
+          "MarkdownStacker: Display formatted markdown content (requires markdown_content field)"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "MarkdownStacker Example"
+      },
+      {
+        "type": "text",
+        "content": "For introduction or documentation pages, use MarkdownStacker:"
+      },
+      {
+        "type": "code",
+        "language": "yaml",
+        "content": "- id: \"introduction\"\n  label: \"Introduction\"\n  stacker_class: \"MarkdownStacker\"\n  enabled: true\n  markdown_content: |\n    # Welcome to VoxKit\n    \n    ## Key Features:\n    - Train custom alignment models\n    - Generate forced alignments\n    - Extract GOP scores\n    \n  collapsible_sections:\n    \"References\": \"For more info, visit the [Help Page](http://localhost:3000/help)\""
+      },
+      {
+        "type": "heading",
+        "content": "UI Configuration"
+      },
+      {
+        "type": "text",
+        "content": "The ui section controls interface appearance:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "menu_max_width: Maximum width in pixels for navigation menu (default: 500)",
+          "animation_duration: Slide transition time in milliseconds (default: 300)",
+          "content_spacing: Padding between content elements in pixels (default: 20)"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Best Practices"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use Unicode symbols (Ⓐ Ⓑ Ⓒ or ①②③) in labels to create visual hierarchy",
+          "Keep collapsible section content concise (1-3 sentences per section)",
+          "Set enabled: false to temporarily hide steps without deleting configuration",
+          "Version control your YAML files to track workflow changes across studies",
+          "Test configuration changes in a development environment before distribution"
+        ]
+      },
+      {
+        "type": "heading",
+        "content": "Configuration Workflow"
+      },
+      {
+        "type": "text",
+        "content": "1. Developer creates Python stackers and registers them in STACKER_REGISTRY\n2. Researcher edits pipeline_definitions.yaml to add/remove/reorder steps\n3. Researcher customizes collapsible_sections for study-specific guidance\n4. Application is bundled with updated configuration\n5. No code changes required - just edit YAML and redistribute"
+      }
+    ]
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting",
+    "description": "Solutions to common issues and error messages",
+    "icon": "🔧",
+    "sections": [
+      {
+        "type": "heading",
+        "content": "Getting Help"
+      },
+      {
+        "type": "text",
+        "content": "If your issue persists, you can:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Check our GitHub issues for similar problems",
+          "Email support at bfrey6@wisc.edu",
+          "Clone the repository and debug locally"
+        ]
+      }
+    ]
+  }
+}
