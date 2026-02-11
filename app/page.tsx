@@ -73,7 +73,7 @@ export default function VoxKitLanding() {
     </span>
     <span className="block mt-0 overflow-visible">
       <span className="fall-in delay-1 hero-font text-depth bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
-        Start Driving Research
+        Start Driving Progress
       </span>
     </span>
   </h1>
