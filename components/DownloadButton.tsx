@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Download } from "lucide-react";
+import { Download, AlertTriangle } from "lucide-react";
 import { AppleIcon, WindowsIcon, LinuxIcon } from "./OSIcons";
+import { PRE_RELEASE_DISCLAIMER } from "../lib/fakeReleases";
 import type {
   ReleaseAsset,
   ReleaseByWorkflow,
@@ -9,6 +10,14 @@ import type {
 } from "../types/releases";
 
 type OS = OperatingSystem | null;
+
+// Check if a version string is below 1.0.0
+const isPreReleaseVersion = (version: string): boolean => {
+  const match = version.match(/^v?(\d+)\.(\d+)\.(\d+)/);
+  if (!match) return false;
+  const major = parseInt(match[1], 10);
+  return major < 1;
+};
 
 export default function DownloadButton() {
   const [releasesData, setReleasesData] = useState<ReleasesAPIResponse | null>(null);
@@ -115,9 +124,19 @@ export default function DownloadButton() {
 
   const currentReleases = getReleasesForOS();
   const availableOSes = Object.keys(releasesData.releases);
+  const hasPreReleaseVersion = currentReleases.some((release) =>
+    isPreReleaseVersion(release.version)
+  );
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl shadow-black/20">
+    <>
+      {hasPreReleaseVersion && (
+        <div className="bg-amber-900/30 border border-amber-600/50 rounded-xl p-4 max-w-4xl mx-auto mb-4 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <p className="text-amber-200 text-sm">{PRE_RELEASE_DISCLAIMER}</p>
+        </div>
+      )}
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl shadow-black/20">
       <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center gap-2 text-white">
         <Download className="w-6 h-6 text-cyan-400" />
         Download VoxKit
@@ -243,5 +262,6 @@ export default function DownloadButton() {
         </a>
       </div>
     </div>
+    </>
   );
 }

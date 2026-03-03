@@ -6,6 +6,7 @@ import type {
   GroupedReleases,
   ReleasesAPIResponse,
 } from '../../../types/releases';
+import { fakeGitHubReleases } from '../../../lib/fakeReleases';
 
 // Parse tag format: vX.X.X-OS-WORKFLOW
 function parseTag(tag: string): ParsedTag | null {
@@ -40,46 +41,54 @@ function compareVersions(v1: string, v2: string): number {
 
 export async function GET() {
   try {
-    const token = process.env.PyPLLR_GUI_CI;
-    const owner = process.env.GITHUB_OWNER;
-    const repo = process.env.GITHUB_REPO;
+    let releases: GitHubRelease[];
 
-    // Validate environment variables
-    if (!token) {
-      return NextResponse.json(
-        { error: 'PyPLLR_GUI_CI is not configured' },
-        { status: 500 }
-      );
-    }
-    if (!owner || !repo) {
-      return NextResponse.json(
-        { error: 'GITHUB_OWNER or GITHUB_REPO is not configured' },
-        { status: 500 }
-      );
-    }
+    // Use fake data for local development
+    if (process.env.USE_FAKE_RELEASES === 'true') {
+      console.log('Using fake release data for development');
+      releases = fakeGitHubReleases;
+    } else {
+      const token = process.env.PyPLLR_GUI_CI;
+      const owner = process.env.GITHUB_OWNER;
+      const repo = process.env.GITHUB_REPO;
 
-    // Fetch all releases from GitHub
-    const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/releases`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/vnd.github+json',
-        },
-        next: { revalidate: 5000 }, // Cache for about ~1 hour
+      // Validate environment variables
+      if (!token) {
+        return NextResponse.json(
+          { error: 'PyPLLR_GUI_CI is not configured' },
+          { status: 500 }
+        );
       }
-    );
+      if (!owner || !repo) {
+        return NextResponse.json(
+          { error: 'GITHUB_OWNER or GITHUB_REPO is not configured' },
+          { status: 500 }
+        );
+      }
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('GitHub API error:', response.status, errorText);
-      return NextResponse.json(
-        { error: `Failed to fetch releases from GitHub: ${response.status}` },
-        { status: response.status }
+      // Fetch all releases from GitHub
+      const response = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/releases`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+          },
+          next: { revalidate: 5000 }, // Cache for about ~1 hour
+        }
       );
-    }
 
-    const releases: GitHubRelease[] = await response.json();
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('GitHub API error:', response.status, errorText);
+        return NextResponse.json(
+          { error: `Failed to fetch releases from GitHub: ${response.status}` },
+          { status: response.status }
+        );
+      }
+
+      releases = await response.json();
+    }
     
     console.log(`Fetched ${releases.length} releases from GitHub.`);
     // Parse and group releases
