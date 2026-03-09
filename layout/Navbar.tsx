@@ -10,8 +10,8 @@ export default function Navbar({view='Home'}) {
     let selectedView;
 
     if (view === 'Home') {
-        desktopViews = ['Download', 'Features', 'Foundations', 'Docs', 'Help'];
-        mobileViews = ['Features', 'Docs', 'Help'];
+        desktopViews = ['Download', 'Features', 'Foundations', 'Docs', 'Help', 'Feedback'];
+        mobileViews = ['Features', 'Docs', 'Help', 'Feedback'];
         selectedView = ''
     } else {
         desktopViews = ['Home', view];
