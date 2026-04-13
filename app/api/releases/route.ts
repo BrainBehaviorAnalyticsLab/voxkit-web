@@ -48,17 +48,10 @@ export async function GET() {
       console.log('Using fake release data for development');
       releases = fakeGitHubReleases;
     } else {
-      const token = process.env.PyPLLR_GUI_CI;
       const owner = process.env.GITHUB_OWNER;
       const repo = process.env.GITHUB_REPO;
 
       // Validate environment variables
-      if (!token) {
-        return NextResponse.json(
-          { error: 'PyPLLR_GUI_CI is not configured' },
-          { status: 500 }
-        );
-      }
       if (!owner || !repo) {
         return NextResponse.json(
           { error: 'GITHUB_OWNER or GITHUB_REPO is not configured' },
@@ -71,7 +64,6 @@ export async function GET() {
         `https://api.github.com/repos/${owner}/${repo}/releases`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             Accept: 'application/vnd.github+json',
           },
           next: { revalidate: 5000 }, // Cache for about ~1 hour
