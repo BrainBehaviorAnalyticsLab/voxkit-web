@@ -8,8 +8,8 @@ import React, {
   ReactNode,
 } from "react";
 
-type CommonProps = {
-  children: ReactNode;
+type GridBackgroundProps = {
+  children?: ReactNode;
   cellSize?: number;
   cellColor?: string;
   rippleColor?: string;
@@ -18,39 +18,30 @@ type CommonProps = {
   className?: string;
 };
 
-type GridButtonProps = CommonProps &
-  (
-    | (React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined })
-    | (React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string })
-  );
-
 type Ripple = { id: number; cx: number; cy: number };
 
-export default function GridButton({
+export default function GridBackground({
   children,
-  cellSize = 14,
-  cellColor = "rgba(103, 232, 249, 0.12)",
-  rippleColor = "rgba(103, 232, 249, 0.65)",
-  hoverRadius = 65,
-  waveSpeed = 1.1,
+  cellSize = 32,
+  cellColor = "rgba(255, 255, 255, 0.06)",
+  rippleColor = "rgba(103, 232, 249, 0.55)",
+  hoverRadius = 120,
+  waveSpeed = 0.9,
   className = "",
-  ...rest
-}: GridButtonProps) {
-  const buttonRef = useRef<HTMLElement>(null);
+}: GridBackgroundProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   const [hover, setHover] = useState<{ x: number; y: number } | null>(null);
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const nextId = useRef(0);
 
   useLayoutEffect(() => {
-    const el = buttonRef.current;
+    const el = ref.current;
     if (!el) return;
-
     const update = () => {
       const rect = el.getBoundingClientRect();
       setSize({ w: rect.width, h: rect.height });
     };
-
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
@@ -62,45 +53,30 @@ export default function GridButton({
   const cellW = size.w / cols;
   const cellH = size.h / rows;
 
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    const rect = buttonRef.current?.getBoundingClientRect();
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
-
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const id = nextId.current++;
-    setRipples((prev) => [...prev, { id, cx: x, cy: y }]);
-
+    setRipples((r) => [...r, { id, cx: x, cy: y }]);
     const maxDist = Math.hypot(
       Math.max(x, rect.width - x),
       Math.max(y, rect.height - y)
     );
-    const lifetime = maxDist / waveSpeed + 650;
-
+    const lifetime = maxDist / waveSpeed + 400;
     setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.id !== id));
+      setRipples((r) => r.filter((rp) => rp.id !== id));
     }, lifetime);
-
-    (rest.onClick as any)?.(e);
   };
 
-  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const rect = buttonRef.current?.getBoundingClientRect();
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     setHover({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  const cells: Array<{
-    key: string;
-    left: number;
-    top: number;
-    w: number;
-    h: number;
-    cx: number;
-    cy: number;
-  }> = [];
-
+  const cells: { key: string; left: number; top: number; w: number; h: number; cx: number; cy: number }[] = [];
   if (size.w > 0 && size.h > 0) {
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
@@ -119,55 +95,31 @@ export default function GridButton({
     }
   }
 
-  const isLink = "href" in rest && rest.href !== undefined;
-  const Element = isLink ? "a" : "button";
-
   return (
-    <Element
-      ref={buttonRef as React.Ref<HTMLElement>}
+    <div
+      ref={ref}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setHover(null)}
-      className={`
-        relative overflow-hidden isolate inline-flex items-center justify-center
-        px-8 py-4 rounded-2xl font-semibold text-base tracking-wide
-        bg-slate-900/90 border border-cyan-400/70 text-cyan-300
-        hover:shadow-cyan-400/30
-
-        ${className}
-      `}
-      {...rest}
+      className={`relative overflow-hidden ${className}`}
     >
-      {/* Grid overlay - now sits behind the border */}
-      <span aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <span aria-hidden className="pointer-events-none absolute inset-0">
         {cells.map((cell) => {
           let opacity = 0;
           if (hover) {
             const d = Math.hypot(cell.cx - hover.x, cell.cy - hover.y);
             if (d < hoverRadius) {
-              opacity = Math.max(opacity, (1 - d / hoverRadius) * 0.6);
+              opacity = Math.max(opacity, (1 - d / hoverRadius) * 0.55);
             }
           }
-
-          const rippleLayers = ripples.map((rp) => {
+          const rippleDelays = ripples.map((rp) => {
             const d = Math.hypot(cell.cx - rp.cx, cell.cy - rp.cy);
-            const delay = d / waveSpeed;
-            return (
-              <span
-                key={rp.id}
-                className="grid-cell-flash absolute inset-0"
-                style={{
-                  background: rippleColor,
-                  animationDelay: `${delay}ms`,
-                }}
-              />
-            );
+            return { id: rp.id, delay: d / waveSpeed };
           });
-
           return (
             <span
               key={cell.key}
-              className="absolute pointer-events-none"
+              className="absolute"
               style={{
                 left: cell.left,
                 top: cell.top,
@@ -181,31 +133,38 @@ export default function GridButton({
                 style={{
                   background: rippleColor,
                   opacity,
-                  transition: "opacity 100ms ease-out",
+                  transition: "opacity 120ms ease-out",
                 }}
               />
-              {rippleLayers}
+              {rippleDelays.map((rd) => (
+                <span
+                  key={rd.id}
+                  className="absolute inset-0 grid-cell-flash"
+                  style={{
+                    background: rippleColor,
+                    animationDelay: `${rd.delay}ms`,
+                  }}
+                />
+              ))}
             </span>
           );
         })}
       </span>
 
-      {/* Button content */}
-      <span className="relative z-10 flex items-center gap-2">{children}</span>
+      {children}
 
-      {/* Animation styles */}
-      <style jsx global>{`
+      <style jsx>{`
         @keyframes gridCellFlash {
           0% { opacity: 0; }
-          12% { opacity: 0.85; }
-          55% { opacity: 0.25; }
+          15% { opacity: 0.9; }
+          60% { opacity: 0.3; }
           100% { opacity: 0; }
         }
-        .grid-cell-flash {
+        :global(.grid-cell-flash) {
           opacity: 0;
-          animation: gridCellFlash 520ms ease-out forwards;
+          animation: gridCellFlash 500ms ease-out forwards;
         }
       `}</style>
-    </Element>
+    </div>
   );
 }
