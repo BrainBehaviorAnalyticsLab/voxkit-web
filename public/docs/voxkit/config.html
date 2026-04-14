@@ -75,6 +75,12 @@
                                 <a class="variable" href="#AppConfig.release_notes">release_notes</a>
                         </li>
                         <li>
+                                <a class="variable" href="#AppConfig.log_max_bytes">log_max_bytes</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AppConfig.log_backup_count">log_backup_count</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#AppConfig.from_yaml">from_yaml</a>
                         </li>
                         <li>
@@ -484,52 +490,56 @@ override the files they need to change.</p>
 </span><span id="AppConfig-129"><a href="#AppConfig-129"><span class="linenos">129</span></a>    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
 </span><span id="AppConfig-130"><a href="#AppConfig-130"><span class="linenos">130</span></a>    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
 </span><span id="AppConfig-131"><a href="#AppConfig-131"><span class="linenos">131</span></a>    <span class="n">introduction</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="AppConfig-132"><a href="#AppConfig-132"><span class="linenos">132</span></a>    <span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span>
+</span><span id="AppConfig-132"><a href="#AppConfig-132"><span class="linenos">132</span></a>    <span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://voxkit-web.vercel.app/help&quot;</span>
 </span><span id="AppConfig-133"><a href="#AppConfig-133"><span class="linenos">133</span></a>    <span class="n">release_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </span><span id="AppConfig-134"><a href="#AppConfig-134"><span class="linenos">134</span></a>    <span class="n">release_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="AppConfig-135"><a href="#AppConfig-135"><span class="linenos">135</span></a>
-</span><span id="AppConfig-136"><a href="#AppConfig-136"><span class="linenos">136</span></a>    <span class="nd">@classmethod</span>
-</span><span id="AppConfig-137"><a href="#AppConfig-137"><span class="linenos">137</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
-</span><span id="AppConfig-138"><a href="#AppConfig-138"><span class="linenos">138</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
-</span><span id="AppConfig-139"><a href="#AppConfig-139"><span class="linenos">139</span></a>
-</span><span id="AppConfig-140"><a href="#AppConfig-140"><span class="linenos">140</span></a><span class="sd">        Args:</span>
-</span><span id="AppConfig-141"><a href="#AppConfig-141"><span class="linenos">141</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
-</span><span id="AppConfig-142"><a href="#AppConfig-142"><span class="linenos">142</span></a>
-</span><span id="AppConfig-143"><a href="#AppConfig-143"><span class="linenos">143</span></a><span class="sd">        Returns:</span>
-</span><span id="AppConfig-144"><a href="#AppConfig-144"><span class="linenos">144</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
-</span><span id="AppConfig-145"><a href="#AppConfig-145"><span class="linenos">145</span></a>
-</span><span id="AppConfig-146"><a href="#AppConfig-146"><span class="linenos">146</span></a><span class="sd">        Raises:</span>
-</span><span id="AppConfig-147"><a href="#AppConfig-147"><span class="linenos">147</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
-</span><span id="AppConfig-148"><a href="#AppConfig-148"><span class="linenos">148</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
-</span><span id="AppConfig-149"><a href="#AppConfig-149"><span class="linenos">149</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AppConfig-150"><a href="#AppConfig-150"><span class="linenos">150</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span id="AppConfig-151"><a href="#AppConfig-151"><span class="linenos">151</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="AppConfig-152"><a href="#AppConfig-152"><span class="linenos">152</span></a>
-</span><span id="AppConfig-153"><a href="#AppConfig-153"><span class="linenos">153</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="AppConfig-154"><a href="#AppConfig-154"><span class="linenos">154</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</span><span id="AppConfig-155"><a href="#AppConfig-155"><span class="linenos">155</span></a>
-</span><span id="AppConfig-156"><a href="#AppConfig-156"><span class="linenos">156</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
-</span><span id="AppConfig-157"><a href="#AppConfig-157"><span class="linenos">157</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-158"><a href="#AppConfig-158"><span class="linenos">158</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-159"><a href="#AppConfig-159"><span class="linenos">159</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-160"><a href="#AppConfig-160"><span class="linenos">160</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-161"><a href="#AppConfig-161"><span class="linenos">161</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-162"><a href="#AppConfig-162"><span class="linenos">162</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-163"><a href="#AppConfig-163"><span class="linenos">163</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
-</span><span id="AppConfig-164"><a href="#AppConfig-164"><span class="linenos">164</span></a>        <span class="p">)</span>
-</span><span id="AppConfig-165"><a href="#AppConfig-165"><span class="linenos">165</span></a>
-</span><span id="AppConfig-166"><a href="#AppConfig-166"><span class="linenos">166</span></a>    <span class="nd">@classmethod</span>
-</span><span id="AppConfig-167"><a href="#AppConfig-167"><span class="linenos">167</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
-</span><span id="AppConfig-168"><a href="#AppConfig-168"><span class="linenos">168</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the application configuration from the active profile.</span>
+</span><span id="AppConfig-135"><a href="#AppConfig-135"><span class="linenos">135</span></a>    <span class="n">log_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+</span><span id="AppConfig-136"><a href="#AppConfig-136"><span class="linenos">136</span></a>    <span class="n">log_backup_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span id="AppConfig-137"><a href="#AppConfig-137"><span class="linenos">137</span></a>
+</span><span id="AppConfig-138"><a href="#AppConfig-138"><span class="linenos">138</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig-139"><a href="#AppConfig-139"><span class="linenos">139</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig-140"><a href="#AppConfig-140"><span class="linenos">140</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
+</span><span id="AppConfig-141"><a href="#AppConfig-141"><span class="linenos">141</span></a>
+</span><span id="AppConfig-142"><a href="#AppConfig-142"><span class="linenos">142</span></a><span class="sd">        Args:</span>
+</span><span id="AppConfig-143"><a href="#AppConfig-143"><span class="linenos">143</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
+</span><span id="AppConfig-144"><a href="#AppConfig-144"><span class="linenos">144</span></a>
+</span><span id="AppConfig-145"><a href="#AppConfig-145"><span class="linenos">145</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig-146"><a href="#AppConfig-146"><span class="linenos">146</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
+</span><span id="AppConfig-147"><a href="#AppConfig-147"><span class="linenos">147</span></a>
+</span><span id="AppConfig-148"><a href="#AppConfig-148"><span class="linenos">148</span></a><span class="sd">        Raises:</span>
+</span><span id="AppConfig-149"><a href="#AppConfig-149"><span class="linenos">149</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="AppConfig-150"><a href="#AppConfig-150"><span class="linenos">150</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="AppConfig-151"><a href="#AppConfig-151"><span class="linenos">151</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig-152"><a href="#AppConfig-152"><span class="linenos">152</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="AppConfig-153"><a href="#AppConfig-153"><span class="linenos">153</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="AppConfig-154"><a href="#AppConfig-154"><span class="linenos">154</span></a>
+</span><span id="AppConfig-155"><a href="#AppConfig-155"><span class="linenos">155</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="AppConfig-156"><a href="#AppConfig-156"><span class="linenos">156</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="AppConfig-157"><a href="#AppConfig-157"><span class="linenos">157</span></a>
+</span><span id="AppConfig-158"><a href="#AppConfig-158"><span class="linenos">158</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="AppConfig-159"><a href="#AppConfig-159"><span class="linenos">159</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-160"><a href="#AppConfig-160"><span class="linenos">160</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-161"><a href="#AppConfig-161"><span class="linenos">161</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-162"><a href="#AppConfig-162"><span class="linenos">162</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-163"><a href="#AppConfig-163"><span class="linenos">163</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;https://voxkit-web.vercel.app/help&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-164"><a href="#AppConfig-164"><span class="linenos">164</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-165"><a href="#AppConfig-165"><span class="linenos">165</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
+</span><span id="AppConfig-166"><a href="#AppConfig-166"><span class="linenos">166</span></a>            <span class="n">log_max_bytes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;log_max_bytes&quot;</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)),</span>
+</span><span id="AppConfig-167"><a href="#AppConfig-167"><span class="linenos">167</span></a>            <span class="n">log_backup_count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;log_backup_count&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+</span><span id="AppConfig-168"><a href="#AppConfig-168"><span class="linenos">168</span></a>        <span class="p">)</span>
 </span><span id="AppConfig-169"><a href="#AppConfig-169"><span class="linenos">169</span></a>
-</span><span id="AppConfig-170"><a href="#AppConfig-170"><span class="linenos">170</span></a><span class="sd">        Loads from config/profiles/&lt;active_profile&gt;/app_info.yaml.</span>
-</span><span id="AppConfig-171"><a href="#AppConfig-171"><span class="linenos">171</span></a><span class="sd">        Falls back to default profile or config root if not found.</span>
-</span><span id="AppConfig-172"><a href="#AppConfig-172"><span class="linenos">172</span></a>
-</span><span id="AppConfig-173"><a href="#AppConfig-173"><span class="linenos">173</span></a><span class="sd">        Returns:</span>
-</span><span id="AppConfig-174"><a href="#AppConfig-174"><span class="linenos">174</span></a><span class="sd">            AppConfig instance</span>
-</span><span id="AppConfig-175"><a href="#AppConfig-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AppConfig-176"><a href="#AppConfig-176"><span class="linenos">176</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">resolve_config_file</span><span class="p">(</span><span class="s2">&quot;app_info.yaml&quot;</span><span class="p">)</span>
-</span><span id="AppConfig-177"><a href="#AppConfig-177"><span class="linenos">177</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+</span><span id="AppConfig-170"><a href="#AppConfig-170"><span class="linenos">170</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig-171"><a href="#AppConfig-171"><span class="linenos">171</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig-172"><a href="#AppConfig-172"><span class="linenos">172</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the application configuration from the active profile.</span>
+</span><span id="AppConfig-173"><a href="#AppConfig-173"><span class="linenos">173</span></a>
+</span><span id="AppConfig-174"><a href="#AppConfig-174"><span class="linenos">174</span></a><span class="sd">        Loads from config/profiles/&lt;active_profile&gt;/app_info.yaml.</span>
+</span><span id="AppConfig-175"><a href="#AppConfig-175"><span class="linenos">175</span></a><span class="sd">        Falls back to default profile or config root if not found.</span>
+</span><span id="AppConfig-176"><a href="#AppConfig-176"><span class="linenos">176</span></a>
+</span><span id="AppConfig-177"><a href="#AppConfig-177"><span class="linenos">177</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig-178"><a href="#AppConfig-178"><span class="linenos">178</span></a><span class="sd">            AppConfig instance</span>
+</span><span id="AppConfig-179"><a href="#AppConfig-179"><span class="linenos">179</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig-180"><a href="#AppConfig-180"><span class="linenos">180</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">resolve_config_file</span><span class="p">(</span><span class="s2">&quot;app_info.yaml&quot;</span><span class="p">)</span>
+</span><span id="AppConfig-181"><a href="#AppConfig-181"><span class="linenos">181</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -540,7 +550,7 @@ override the files they need to change.</p>
                             <div id="AppConfig.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">AppConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">version</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">description</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">introduction</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:3000/help&#39;</span>,</span><span class="param">	<span class="n">release_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">release_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">AppConfig</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">version</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">description</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">introduction</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="n">help_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://voxkit-web.vercel.app/help&#39;</span>,</span><span class="param">	<span class="n">release_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">release_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">log_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5242880</span>,</span><span class="param">	<span class="n">log_backup_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span></span>)</span>
 
         
     </div>
@@ -596,7 +606,7 @@ override the files they need to change.</p>
                             <div id="AppConfig.help_url" class="classattr">
                                 <div class="attr variable">
             <span class="name">help_url</span><span class="annotation">: str</span>        =
-<span class="default_value">&#39;http://localhost:3000/help&#39;</span>
+<span class="default_value">&#39;https://voxkit-web.vercel.app/help&#39;</span>
 
         
     </div>
@@ -629,6 +639,30 @@ override the files they need to change.</p>
     
 
                             </div>
+                            <div id="AppConfig.log_max_bytes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">log_max_bytes</span><span class="annotation">: int</span>        =
+<span class="default_value">5242880</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.log_max_bytes"></a>
+    
+    
+
+                            </div>
+                            <div id="AppConfig.log_backup_count" class="classattr">
+                                <div class="attr variable">
+            <span class="name">log_backup_count</span><span class="annotation">: int</span>        =
+<span class="default_value">3</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AppConfig.log_backup_count"></a>
+    
+    
+
+                            </div>
                             <div id="AppConfig.from_yaml" class="classattr">
                                         <input id="AppConfig.from_yaml-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
@@ -641,35 +675,37 @@ override the files they need to change.</p>
 
     </div>
     <a class="headerlink" href="#AppConfig.from_yaml"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.from_yaml-136"><a href="#AppConfig.from_yaml-136"><span class="linenos">136</span></a>    <span class="nd">@classmethod</span>
-</span><span id="AppConfig.from_yaml-137"><a href="#AppConfig.from_yaml-137"><span class="linenos">137</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
-</span><span id="AppConfig.from_yaml-138"><a href="#AppConfig.from_yaml-138"><span class="linenos">138</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
-</span><span id="AppConfig.from_yaml-139"><a href="#AppConfig.from_yaml-139"><span class="linenos">139</span></a>
-</span><span id="AppConfig.from_yaml-140"><a href="#AppConfig.from_yaml-140"><span class="linenos">140</span></a><span class="sd">        Args:</span>
-</span><span id="AppConfig.from_yaml-141"><a href="#AppConfig.from_yaml-141"><span class="linenos">141</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
-</span><span id="AppConfig.from_yaml-142"><a href="#AppConfig.from_yaml-142"><span class="linenos">142</span></a>
-</span><span id="AppConfig.from_yaml-143"><a href="#AppConfig.from_yaml-143"><span class="linenos">143</span></a><span class="sd">        Returns:</span>
-</span><span id="AppConfig.from_yaml-144"><a href="#AppConfig.from_yaml-144"><span class="linenos">144</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
-</span><span id="AppConfig.from_yaml-145"><a href="#AppConfig.from_yaml-145"><span class="linenos">145</span></a>
-</span><span id="AppConfig.from_yaml-146"><a href="#AppConfig.from_yaml-146"><span class="linenos">146</span></a><span class="sd">        Raises:</span>
-</span><span id="AppConfig.from_yaml-147"><a href="#AppConfig.from_yaml-147"><span class="linenos">147</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
-</span><span id="AppConfig.from_yaml-148"><a href="#AppConfig.from_yaml-148"><span class="linenos">148</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
-</span><span id="AppConfig.from_yaml-149"><a href="#AppConfig.from_yaml-149"><span class="linenos">149</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AppConfig.from_yaml-150"><a href="#AppConfig.from_yaml-150"><span class="linenos">150</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-</span><span id="AppConfig.from_yaml-151"><a href="#AppConfig.from_yaml-151"><span class="linenos">151</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="AppConfig.from_yaml-152"><a href="#AppConfig.from_yaml-152"><span class="linenos">152</span></a>
-</span><span id="AppConfig.from_yaml-153"><a href="#AppConfig.from_yaml-153"><span class="linenos">153</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="AppConfig.from_yaml-154"><a href="#AppConfig.from_yaml-154"><span class="linenos">154</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</span><span id="AppConfig.from_yaml-155"><a href="#AppConfig.from_yaml-155"><span class="linenos">155</span></a>
-</span><span id="AppConfig.from_yaml-156"><a href="#AppConfig.from_yaml-156"><span class="linenos">156</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
-</span><span id="AppConfig.from_yaml-157"><a href="#AppConfig.from_yaml-157"><span class="linenos">157</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-158"><a href="#AppConfig.from_yaml-158"><span class="linenos">158</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-159"><a href="#AppConfig.from_yaml-159"><span class="linenos">159</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-160"><a href="#AppConfig.from_yaml-160"><span class="linenos">160</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-161"><a href="#AppConfig.from_yaml-161"><span class="linenos">161</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;http://localhost:3000/help&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-162"><a href="#AppConfig.from_yaml-162"><span class="linenos">162</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-163"><a href="#AppConfig.from_yaml-163"><span class="linenos">163</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
-</span><span id="AppConfig.from_yaml-164"><a href="#AppConfig.from_yaml-164"><span class="linenos">164</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.from_yaml-138"><a href="#AppConfig.from_yaml-138"><span class="linenos">138</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig.from_yaml-139"><a href="#AppConfig.from_yaml-139"><span class="linenos">139</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig.from_yaml-140"><a href="#AppConfig.from_yaml-140"><span class="linenos">140</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load application configuration from YAML file.</span>
+</span><span id="AppConfig.from_yaml-141"><a href="#AppConfig.from_yaml-141"><span class="linenos">141</span></a>
+</span><span id="AppConfig.from_yaml-142"><a href="#AppConfig.from_yaml-142"><span class="linenos">142</span></a><span class="sd">        Args:</span>
+</span><span id="AppConfig.from_yaml-143"><a href="#AppConfig.from_yaml-143"><span class="linenos">143</span></a><span class="sd">            config_path: Path to the app_info.yaml file</span>
+</span><span id="AppConfig.from_yaml-144"><a href="#AppConfig.from_yaml-144"><span class="linenos">144</span></a>
+</span><span id="AppConfig.from_yaml-145"><a href="#AppConfig.from_yaml-145"><span class="linenos">145</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig.from_yaml-146"><a href="#AppConfig.from_yaml-146"><span class="linenos">146</span></a><span class="sd">            AppConfig instance with loaded configuration</span>
+</span><span id="AppConfig.from_yaml-147"><a href="#AppConfig.from_yaml-147"><span class="linenos">147</span></a>
+</span><span id="AppConfig.from_yaml-148"><a href="#AppConfig.from_yaml-148"><span class="linenos">148</span></a><span class="sd">        Raises:</span>
+</span><span id="AppConfig.from_yaml-149"><a href="#AppConfig.from_yaml-149"><span class="linenos">149</span></a><span class="sd">            FileNotFoundError: If config file doesn&#39;t exist</span>
+</span><span id="AppConfig.from_yaml-150"><a href="#AppConfig.from_yaml-150"><span class="linenos">150</span></a><span class="sd">            yaml.YAMLError: If YAML parsing fails</span>
+</span><span id="AppConfig.from_yaml-151"><a href="#AppConfig.from_yaml-151"><span class="linenos">151</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig.from_yaml-152"><a href="#AppConfig.from_yaml-152"><span class="linenos">152</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">config_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+</span><span id="AppConfig.from_yaml-153"><a href="#AppConfig.from_yaml-153"><span class="linenos">153</span></a>            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;App config file not found: </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="AppConfig.from_yaml-154"><a href="#AppConfig.from_yaml-154"><span class="linenos">154</span></a>
+</span><span id="AppConfig.from_yaml-155"><a href="#AppConfig.from_yaml-155"><span class="linenos">155</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="AppConfig.from_yaml-156"><a href="#AppConfig.from_yaml-156"><span class="linenos">156</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="AppConfig.from_yaml-157"><a href="#AppConfig.from_yaml-157"><span class="linenos">157</span></a>
+</span><span id="AppConfig.from_yaml-158"><a href="#AppConfig.from_yaml-158"><span class="linenos">158</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="AppConfig.from_yaml-159"><a href="#AppConfig.from_yaml-159"><span class="linenos">159</span></a>            <span class="n">app_name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;app_name&quot;</span><span class="p">,</span> <span class="s2">&quot;VoxKit&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-160"><a href="#AppConfig.from_yaml-160"><span class="linenos">160</span></a>            <span class="n">version</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-161"><a href="#AppConfig.from_yaml-161"><span class="linenos">161</span></a>            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-162"><a href="#AppConfig.from_yaml-162"><span class="linenos">162</span></a>            <span class="n">introduction</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;introduction&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-163"><a href="#AppConfig.from_yaml-163"><span class="linenos">163</span></a>            <span class="n">help_url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;help_url&quot;</span><span class="p">,</span> <span class="s2">&quot;https://voxkit-web.vercel.app/help&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-164"><a href="#AppConfig.from_yaml-164"><span class="linenos">164</span></a>            <span class="n">release_date</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_date&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-165"><a href="#AppConfig.from_yaml-165"><span class="linenos">165</span></a>            <span class="n">release_notes</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;release_notes&quot;</span><span class="p">),</span>
+</span><span id="AppConfig.from_yaml-166"><a href="#AppConfig.from_yaml-166"><span class="linenos">166</span></a>            <span class="n">log_max_bytes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;log_max_bytes&quot;</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)),</span>
+</span><span id="AppConfig.from_yaml-167"><a href="#AppConfig.from_yaml-167"><span class="linenos">167</span></a>            <span class="n">log_backup_count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;log_backup_count&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+</span><span id="AppConfig.from_yaml-168"><a href="#AppConfig.from_yaml-168"><span class="linenos">168</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -700,18 +736,18 @@ override the files they need to change.</p>
 
     </div>
     <a class="headerlink" href="#AppConfig.load_default"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.load_default-166"><a href="#AppConfig.load_default-166"><span class="linenos">166</span></a>    <span class="nd">@classmethod</span>
-</span><span id="AppConfig.load_default-167"><a href="#AppConfig.load_default-167"><span class="linenos">167</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
-</span><span id="AppConfig.load_default-168"><a href="#AppConfig.load_default-168"><span class="linenos">168</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the application configuration from the active profile.</span>
-</span><span id="AppConfig.load_default-169"><a href="#AppConfig.load_default-169"><span class="linenos">169</span></a>
-</span><span id="AppConfig.load_default-170"><a href="#AppConfig.load_default-170"><span class="linenos">170</span></a><span class="sd">        Loads from config/profiles/&lt;active_profile&gt;/app_info.yaml.</span>
-</span><span id="AppConfig.load_default-171"><a href="#AppConfig.load_default-171"><span class="linenos">171</span></a><span class="sd">        Falls back to default profile or config root if not found.</span>
-</span><span id="AppConfig.load_default-172"><a href="#AppConfig.load_default-172"><span class="linenos">172</span></a>
-</span><span id="AppConfig.load_default-173"><a href="#AppConfig.load_default-173"><span class="linenos">173</span></a><span class="sd">        Returns:</span>
-</span><span id="AppConfig.load_default-174"><a href="#AppConfig.load_default-174"><span class="linenos">174</span></a><span class="sd">            AppConfig instance</span>
-</span><span id="AppConfig.load_default-175"><a href="#AppConfig.load_default-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AppConfig.load_default-176"><a href="#AppConfig.load_default-176"><span class="linenos">176</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">resolve_config_file</span><span class="p">(</span><span class="s2">&quot;app_info.yaml&quot;</span><span class="p">)</span>
-</span><span id="AppConfig.load_default-177"><a href="#AppConfig.load_default-177"><span class="linenos">177</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AppConfig.load_default-170"><a href="#AppConfig.load_default-170"><span class="linenos">170</span></a>    <span class="nd">@classmethod</span>
+</span><span id="AppConfig.load_default-171"><a href="#AppConfig.load_default-171"><span class="linenos">171</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AppConfig&quot;</span><span class="p">:</span>
+</span><span id="AppConfig.load_default-172"><a href="#AppConfig.load_default-172"><span class="linenos">172</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the application configuration from the active profile.</span>
+</span><span id="AppConfig.load_default-173"><a href="#AppConfig.load_default-173"><span class="linenos">173</span></a>
+</span><span id="AppConfig.load_default-174"><a href="#AppConfig.load_default-174"><span class="linenos">174</span></a><span class="sd">        Loads from config/profiles/&lt;active_profile&gt;/app_info.yaml.</span>
+</span><span id="AppConfig.load_default-175"><a href="#AppConfig.load_default-175"><span class="linenos">175</span></a><span class="sd">        Falls back to default profile or config root if not found.</span>
+</span><span id="AppConfig.load_default-176"><a href="#AppConfig.load_default-176"><span class="linenos">176</span></a>
+</span><span id="AppConfig.load_default-177"><a href="#AppConfig.load_default-177"><span class="linenos">177</span></a><span class="sd">        Returns:</span>
+</span><span id="AppConfig.load_default-178"><a href="#AppConfig.load_default-178"><span class="linenos">178</span></a><span class="sd">            AppConfig instance</span>
+</span><span id="AppConfig.load_default-179"><a href="#AppConfig.load_default-179"><span class="linenos">179</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AppConfig.load_default-180"><a href="#AppConfig.load_default-180"><span class="linenos">180</span></a>        <span class="n">config_path</span> <span class="o">=</span> <span class="n">resolve_config_file</span><span class="p">(</span><span class="s2">&quot;app_info.yaml&quot;</span><span class="p">)</span>
+</span><span id="AppConfig.load_default-181"><a href="#AppConfig.load_default-181"><span class="linenos">181</span></a>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -738,15 +774,15 @@ Falls back to default profile or config root if not found.</p>
 
     </div>
     <a class="headerlink" href="#get_app_config"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_app_config-180"><a href="#get_app_config-180"><span class="linenos">180</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_app_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
-</span><span id="get_app_config-181"><a href="#get_app_config-181"><span class="linenos">181</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the application configuration.</span>
-</span><span id="get_app_config-182"><a href="#get_app_config-182"><span class="linenos">182</span></a>
-</span><span id="get_app_config-183"><a href="#get_app_config-183"><span class="linenos">183</span></a><span class="sd">    Convenience function to load the default configuration.</span>
-</span><span id="get_app_config-184"><a href="#get_app_config-184"><span class="linenos">184</span></a>
-</span><span id="get_app_config-185"><a href="#get_app_config-185"><span class="linenos">185</span></a><span class="sd">    Returns:</span>
-</span><span id="get_app_config-186"><a href="#get_app_config-186"><span class="linenos">186</span></a><span class="sd">        AppConfig instance</span>
-</span><span id="get_app_config-187"><a href="#get_app_config-187"><span class="linenos">187</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="get_app_config-188"><a href="#get_app_config-188"><span class="linenos">188</span></a>    <span class="k">return</span> <span class="n">AppConfig</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_app_config-184"><a href="#get_app_config-184"><span class="linenos">184</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_app_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
+</span><span id="get_app_config-185"><a href="#get_app_config-185"><span class="linenos">185</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the application configuration.</span>
+</span><span id="get_app_config-186"><a href="#get_app_config-186"><span class="linenos">186</span></a>
+</span><span id="get_app_config-187"><a href="#get_app_config-187"><span class="linenos">187</span></a><span class="sd">    Convenience function to load the default configuration.</span>
+</span><span id="get_app_config-188"><a href="#get_app_config-188"><span class="linenos">188</span></a>
+</span><span id="get_app_config-189"><a href="#get_app_config-189"><span class="linenos">189</span></a><span class="sd">    Returns:</span>
+</span><span id="get_app_config-190"><a href="#get_app_config-190"><span class="linenos">190</span></a><span class="sd">        AppConfig instance</span>
+</span><span id="get_app_config-191"><a href="#get_app_config-191"><span class="linenos">191</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="get_app_config-192"><a href="#get_app_config-192"><span class="linenos">192</span></a>    <span class="k">return</span> <span class="n">AppConfig</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
 </span></pre></div>
 
 
