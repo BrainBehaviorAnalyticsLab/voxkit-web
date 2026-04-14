@@ -2,14 +2,24 @@ import { useEffect, useState } from "react";
 import { Download, AlertTriangle } from "lucide-react";
 import { AppleIcon, WindowsIcon, LinuxIcon } from "./OSIcons";
 import { PRE_RELEASE_DISCLAIMER } from "../lib/fakeReleases";
+import GridButton from "./GridButton";
 import type {
   ReleaseAsset,
-  ReleaseByWorkflow,
   ReleasesAPIResponse,
   OperatingSystem,
+  ReleaseByWorkflow
 } from "../types/releases";
 
 type OS = OperatingSystem | null;
+
+const detectOS = (): OS => {
+  if (typeof window === "undefined") return null;
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  if (userAgent.includes("win")) return "windows";
+  if (userAgent.includes("mac")) return "macos";
+  if (userAgent.includes("linux")) return "linux";
+  return null;
+};
 
 // Check if a version string is below 1.0.0
 const isPreReleaseVersion = (version: string): boolean => {
@@ -21,27 +31,10 @@ const isPreReleaseVersion = (version: string): boolean => {
 
 export default function DownloadButton() {
   const [releasesData, setReleasesData] = useState<ReleasesAPIResponse | null>(null);
-  const [detectedOS, setDetectedOS] = useState<OS>(null);
-  const [selectedOS, setSelectedOS] = useState<OS>(null);
+  const [detectedOS] = useState<OS>(detectOS);
+  const [selectedOS, setSelectedOS] = useState<OS>(detectOS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Detect user's OS
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    let os: OS = null;
-
-    if (userAgent.includes("win")) {
-      os = "windows";
-    } else if (userAgent.includes("mac")) {
-      os = "macos";
-    } else if (userAgent.includes("linux")) {
-      os = "linux";
-    }
-
-    setDetectedOS(os);
-    setSelectedOS(os);
-  }, []);
 
   // Fetch release data
   useEffect(() => {
@@ -108,7 +101,7 @@ export default function DownloadButton() {
 
   if (loading) {
     return (
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl">
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto">
         <div className="text-center text-slate-400">Loading release information...</div>
       </div>
     );
@@ -116,7 +109,7 @@ export default function DownloadButton() {
 
   if (error || !releasesData) {
     return (
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl">
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto">
         <div className="text-center text-red-400">{error || "No release data available"}</div>
       </div>
     );
@@ -136,6 +129,7 @@ export default function DownloadButton() {
           <p className="text-amber-200 text-sm">{PRE_RELEASE_DISCLAIMER}</p>
         </div>
       )}
+      
       <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl shadow-black/20">
       <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center gap-2 text-white">
         <Download className="w-6 h-6 text-cyan-400" />
@@ -146,106 +140,102 @@ export default function DownloadButton() {
       </p>
 
       {/* OS Selection */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        {(["windows", "macos", "linux"] as const).map((os) => {
-          const isSelected = selectedOS === os;
-          const isDetected = detectedOS === os;
-          const isAvailable = availableOSes.includes(os);
+ {/* OS Selection */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+  {(["windows", "macos", "linux"] as const).map((os) => {
+    const isSelected = selectedOS === os;
+    const isDetected = detectedOS === os;
+    const isAvailable = availableOSes.includes(os);
 
-          return (
-            <button
-              key={os}
-              onClick={() => setSelectedOS(os)}
-              disabled={!isAvailable}
-              className={`
-                relative px-6 py-4 rounded-lg font-medium transition-all transform 
-                ${isAvailable ? "hover:scale-105" : "opacity-50 cursor-not-allowed"}
-                ${
-                  isSelected
-                    ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30 border border-blue-500/20"
-                    : "bg-slate-700/50 text-slate-300 border border-slate-600 hover:bg-slate-700"
-                }
-              `}
-            >
-              <div className="flex items-center justify-center mb-2">
-                {os === "windows" && <WindowsIcon />}
-                {os === "macos" && <AppleIcon />}
-                {os === "linux" && <LinuxIcon />}
-              </div>
-              <div className="text-sm font-semibold">
-                {getOSDisplayName(os)}
-              </div>
-              {isDetected && (
-                <div className="text-xs text-cyan-400 mt-1">Detected</div>
-              )}
-              {!isAvailable && (
-                <div className="text-xs text-red-400 mt-1">Not Available</div>
-              )}
-            </button>
-          );
-        })}
-      </div>
+    return (
+      <GridButton
+        key={os}
+        onClick={() => setSelectedOS(os)}
+        disabled={!isAvailable}
+        className={`
+          px-6 py-4 text-sm font-medium transition-all
+          ${isAvailable ? "" : "opacity-50 cursor-not-allowed"}
+          ${
+            isSelected
+              ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white border border-blue-400/50"
+              : "bg-slate-700/50 text-slate-300 border border-slate-600"
+          }
+        `}
+      >
+        <div className="flex flex-col items-center">
+          <div className="flex items-center justify-center mb-2">
+            {os === "windows" && <WindowsIcon />}
+            {os === "macos" && <AppleIcon />}
+            {os === "linux" && <LinuxIcon />}
+          </div>
+          <div className="font-semibold">
+            {getOSDisplayName(os)}
+          </div>
+          {isDetected && (
+            <div className="text-xs text-cyan-400 mt-1">Detected</div>
+          )}
+          {!isAvailable && (
+            <div className="text-xs text-red-400 mt-1">Not Available</div>
+          )}
+        </div>
+      </GridButton>
+    );
+  })}
+</div>
 
       {/* Workflow Downloads */}
-      {currentReleases.length > 0 ? (
-        <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-white mb-4">
-            Available Downloads for {getOSDisplayName(selectedOS)}
-          </h4>
-          {currentReleases.map((release) => {
-            const bestAsset = selectBestAsset(release.assets, selectedOS);
-            
-            return (
-            <div
-              key={release.workflow}
-              className="bg-slate-700/30 border border-slate-600 rounded-lg p-4 hover:bg-slate-700/50 transition-colors"
+{currentReleases.map((release) => {
+  const bestAsset = selectBestAsset(release.assets, selectedOS);
+  
+  return (
+    <div
+      key={release.workflow}
+      className="bg-slate-700/30 border border-slate-600 rounded-lg p-4"
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex-1">
+          <h5 className="text-lg font-semibold text-white mb-1">
+            {release.workflow}
+          </h5>
+          <p className="text-sm text-slate-400">
+            Version {release.version} • {new Date(release.publishedAt).toLocaleDateString()}
+          </p>
+          {bestAsset && (
+            <p className="text-xs text-slate-500 mt-1">
+              {bestAsset.name} • {formatFileSize(bestAsset.size)}
+            </p>
+          )}
+        </div>
+        <div className="flex gap-2">
+          {bestAsset ? (
+            <GridButton
+  onClick={() => handleDownload(bestAsset)}
+  className="text-small px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+  rippleColor='rgba(255, 255, 255, 0.5)'
+  
+>
+  <Download className="w-4 h-4" />
+  Download
+</GridButton >
+          ) : (
+            <span className="text-slate-400 text-sm px-6 py-2">No assets</span>
+          )}
+            <GridButton
+            onClick={() => {
+              window.open(
+              `https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || 'owner'}/${process.env.NEXT_PUBLIC_GITHUB_REPO || 'repo'}/releases/tag/${release.tag}`,
+              "_blank"
+              );
+            }}
+            className="text-small px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex-1">
-                  <h5 className="text-lg font-semibold text-white mb-1">
-                    {release.workflow}
-                  </h5>
-                  <p className="text-sm text-slate-400">
-                    Version {release.version} • {new Date(release.publishedAt).toLocaleDateString()}
-                  </p>
-                  {bestAsset && (
-                    <p className="text-xs text-slate-500 mt-1">
-                      {bestAsset.name} • {formatFileSize(bestAsset.size)}
-                    </p>
-                  )}
-                </div>
-                <div className="flex gap-2">
-                  {bestAsset ? (
-                    <button
-                      onClick={() => handleDownload(bestAsset)}
-                      className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-6 py-2 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg hover:shadow-cyan-500/30 flex items-center gap-2 whitespace-nowrap"
-                    >
-                      <Download className="w-4 h-4" />
-                      Download
-                    </button>
-                  ) : (
-                    <span className="text-slate-400 text-sm px-6 py-2">No assets</span>
-                  )}
-                  <a
-                    href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || 'owner'}/${process.env.NEXT_PUBLIC_GITHUB_REPO || 'repo'}/releases/tag/${release.tag}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-300 px-4 py-2 rounded-lg border border-slate-600 hover:border-cyan-500 transition-colors text-sm font-medium"
-                  >
-                    View Release
-                  </a>
-                </div>
-              </div>
-            </div>
-            );
-          })}
+            View Release
+            </GridButton>
         </div>
-      ) : (
-        <div className="text-center text-slate-400 py-8 bg-slate-700/30 rounded-lg border border-slate-600">
-          <p>No downloads available for {getOSDisplayName(selectedOS)}.</p>
-          <p className="text-sm mt-2">Please select another platform.</p>
-        </div>
-      )}
+      </div>
+    </div>
+  );
+})}
 
       {/* Footer */}
       <div className="mt-8 text-center border-t border-slate-600 pt-6">
@@ -256,7 +246,7 @@ export default function DownloadButton() {
           href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || 'owner'}/${process.env.NEXT_PUBLIC_GITHUB_REPO || 'repo'}/releases`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 text-sm underline mt-2 inline-block"
+          className="text-cyan-400 text-sm underline mt-2 inline-block"
         >
           View all releases on GitHub
         </a>

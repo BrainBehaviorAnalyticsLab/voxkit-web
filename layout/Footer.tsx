@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Footer() {
     return (
     <footer className="pt-12 pb-4 px-4 sm:px-6 lg:px-8 border-t border-slate-700/50">
@@ -27,7 +29,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col md:flex-row items-center md:items-stretch pt-4 border-t border-slate-700/50 text-sm">
             <div className="w-full md:w-1/3 text-center px-4 mb-0 md:mb-0 flex items-center justify-center">
-              <img src="/collab.png" alt="Collaboration" className="hidden md:block mt-2 mb-0 h-20 w-auto object-contain" />
+              <Image src="/collab.png" alt="Collaboration" width={160} height={80} className="hidden md:block mt-2 mb-0 h-20 w-auto object-contain" />
             </div>
 
             {/* vertical separator */}

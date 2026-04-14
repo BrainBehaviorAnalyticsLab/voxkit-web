@@ -1,7 +1,7 @@
 "use client"
 import { Footer, Navbar } from '../../layout';
-import { Cpu, Layers, BarChart3, Workflow, Code, Zap, Lock, Puzzle } from 'lucide-react';
-
+import { Cpu, Layers, BarChart3, Zap, Lock, Puzzle } from 'lucide-react';
+import GridButton from '../../components/GridButton';
 export default function FeaturesPage() {
   // Easy to add/remove engines
   const engines = [
@@ -137,14 +137,14 @@ export default function FeaturesPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">Speech Engines</h2>
             <p className="text-slate-300 max-w-2xl mx-auto">
-              VoxKit's modular api enables seamless integration of speech processing engines (toolkits), from established libraries at the cutting edge and beyond.
+              VoxKit&apos;s modular api enables seamless integration of speech processing engines (toolkits), from established libraries at the cutting edge and beyond.
             </p>
           </div>
           <div className="space-y-6">
             {engines.map((engine, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 hover:border-cyan-400/50 transition-all tile"
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 tile"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
@@ -246,7 +246,7 @@ export default function FeaturesPage() {
         </div>
 
         {/* Key Differentiators */}
-        <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile">
           <h2 className="text-2xl font-bold mb-6 text-white text-center">Key Differentiators</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-200">
             <div>
@@ -263,29 +263,28 @@ export default function FeaturesPage() {
         {/* CTA */}
         <div className="mt-16 text-center">
           <p className="text-slate-300 mb-6 text-lg">
-            Ready to explore VoxKit's capabilities in depth?
+            Ready to explore VoxKit&apos;s capabilities in depth?
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="/docs"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform shadow-lg"
-            >
-              <Code className="w-5 h-5" />
-              API Documentation
-            </a>
-            <a
-              href="/foundations"
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-              <Workflow className="w-5 h-5" />
-              Research Foundations
-            </a>
-            
-            <a  href="/download"
-              className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-              Download VoxKit
-            </a>
+      
+            <GridButton
+  href="/docs"
+  className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+>
+  API Documentation
+</GridButton>
+            <GridButton
+   href="/foundations"
+  className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+>
+  Research Foundations
+</GridButton>
+<GridButton
+  href="/download"
+  className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+>
+  Download VoxKit
+</GridButton>
           </div>
         </div>
       </div>

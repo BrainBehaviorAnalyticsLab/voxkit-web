@@ -92,7 +92,7 @@ export default function InspirationPage() {
 
         {/* Summary Box */}
         <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
-          <h2 className="text-2xl font-bold mb-4 text-white">VoxKit's Research-Driven Design</h2>
+          <h2 className="text-2xl font-bold mb-4 text-white">VoxKit&apos;s Research-Driven Design</h2>
           <div className="space-y-3 text-slate-200">
             <p>
               <span className="text-cyan-400 font-semibold">Guided workflows:</span> Guidance and layout can be customized to fit the direction and use case for specific studies/research

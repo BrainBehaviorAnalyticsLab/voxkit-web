@@ -1,5 +1,6 @@
 "use client"
 
+import { use } from 'react';
 import { notFound } from 'next/navigation';
 import { Footer, Navbar } from '../../../layout';
 import helpContent from '../../../data/help-content.json';
@@ -29,8 +30,8 @@ interface PageProps {
   params: Promise<{ topic: string }>;
 }
 
-export default async function HelpTopicPage({ params }: PageProps) {
-  const { topic } = await params;
+export default function HelpTopicPage({ params }: PageProps) {
+  const { topic } = use(params);
   const helpTopic = typedHelpContent[topic];
 
   if (!helpTopic) {

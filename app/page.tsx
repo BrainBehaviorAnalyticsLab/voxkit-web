@@ -1,6 +1,7 @@
 "use client"
-import { Download, ChevronDown, Clock, FileCheck, FolderSync, Users, Code } from 'lucide-react';
+import { Download, ChevronDown, Clock, FileCheck, FolderSync, Users } from 'lucide-react';
 import WaveSeparator from '../components/WaveSeparator';
+import GridButton from '../components/GridButton';
 import { Footer, Navbar } from '../layout';
 
 export default function VoxKitLanding() {
@@ -82,14 +83,13 @@ export default function VoxKitLanding() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-            <a
-              href="/help/getting-started"
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 px-6 py-3 rounded-lg font-semibold transition-all transform"
-            >
-              Get Started Today
-            </a>
-          </div>
+
+         <GridButton
+  href="/help/getting-started"
+  className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+>
+  Get Started Today
+</GridButton>
         </div>
         <div className="absolute bottom-0 left-0 right-0 -mb-1">
 
@@ -109,17 +109,17 @@ export default function VoxKitLanding() {
   <div className="max-w-7xl mx-auto">
     <div className="text-center mb-16">
       <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-        Why <span className="text-cyan-400">You'll Love It</span>
+        Why <span className="text-cyan-400">You&apos;ll Love It</span>
       </h2>
       <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-        Seriously, here's what we've been hearing from labs like yours.
+        Seriously, here&apos;s what we&apos;ve been hearing from labs like yours.
       </p>
     </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all hover:shadow-xl tile"
+                className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-xl p-8 transition-all tile"
               >
           <div className="text-cyan-400 mb-4">
             {feature.icon}
@@ -130,13 +130,13 @@ export default function VoxKitLanding() {
       ))}
     </div>
     <div className="flex justify-center mt-12">
-      <a
+      <GridButton
         href="/features"
-        className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-lg font-semibold transition-all transform shadow-lg"
+        className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+        rippleColor='rgba(255, 255, 255, 0.5)'
       >
-        See What's Possible
-        <ChevronDown className="w-5 h-5 -rotate-90" />
-      </a>
+        See What&apos;s Possible  <ChevronDown className="w-5 h-5 -rotate-90" />
+      </GridButton>
     </div>
   </div>
 </section>
@@ -146,20 +146,20 @@ export default function VoxKitLanding() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         
         <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-12 text-center shadow-xl shadow-black/20 tile">
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 border rounded-xl p-12 text-center shadow-xl shadow-black/20 tile">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
               The Good Stuff Under the Hood
             </h2>
             <p className="text-lg text-slate-100 max-w-3xl mx-auto mb-8">
-              You're not getting some watered-down toy. VoxKit wraps battle-tested tools like Montreal Forced Aligner (MFA) in a friendly interface. Same powerful algorithms the big labs use, minus the command-line gymnastics.
+              You&apos;re not getting some watered-down toy. VoxKit wraps battle-tested tools like Montreal Forced Aligner (MFA) in a friendly interface. Same powerful algorithms the big labs use, minus the command-line gymnastics.
             </p>
-            <a
-              href="/docs"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
-            >
-              <Code className="w-5 h-5" />
-              Peek Under the Hood
-            </a>
+
+              <GridButton
+  href="/docs"
+  className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+>
+  Peek under the Hood
+</GridButton>
           </div>
         </div>
       </section>
@@ -172,30 +172,28 @@ export default function VoxKitLanding() {
             Ready to Try It?
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-            Grab VoxKit and see for yourself. We think you'll wonder how you ever managed without it.
+            Grab VoxKit and see for yourself. We think you&apos;ll wonder how you ever managed without it.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="/help/expected-workflow"
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-              <Code className="w-5 h-5" />
-              Expected Workflow
-            </a>
-            <a
-              href="/help/getting-started"
-              className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-8 py-4 rounded-lg font-semibold transition-all"
-            >
-             <Users className="w-5 h-5" />
-              Getting Started
-            </a>
-            <a
-              href="/download"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
-            >
-              <Download className="w-5 h-5" />
-              Download Now
-            </a>
+      <GridButton
+  href="/help/expected-workflow"
+  className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+>
+  Expected Workflow
+</GridButton>
+      <GridButton
+  href="/help/getting-started"
+  className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+>
+  <Users className="w-5 h-5" /> Getting Started
+</GridButton>
+      <GridButton
+  href="/download"
+  className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+>
+  <Download className="w-5 h-5" /> Download Now
+</GridButton>
+  
           </div>
         </div>
       </section>

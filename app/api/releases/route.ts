@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import type {
   GitHubRelease,
   ParsedTag,
-  ReleaseByWorkflow,
   GroupedReleases,
   ReleasesAPIResponse,
 } from '../../../types/releases';
