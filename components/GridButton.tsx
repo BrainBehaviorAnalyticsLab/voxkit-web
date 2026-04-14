@@ -82,7 +82,7 @@ export default function GridButton({
       setRipples((prev) => prev.filter((r) => r.id !== id));
     }, lifetime);
 
-    (rest.onClick as any)?.(e);
+    (rest.onClick as ((e: MouseEvent<HTMLElement>) => void) | undefined)?.(e);
   };
 
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {

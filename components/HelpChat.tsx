@@ -6,7 +6,7 @@ import { DecisionTree } from './DecisionTree';
 export default function HelpChat() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<any>(null);
+  const widgetRef = useRef<DecisionTree | null>(null);
   const router = useRouter();
 
   useEffect(() => {

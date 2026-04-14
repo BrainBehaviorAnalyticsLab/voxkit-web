@@ -5,12 +5,20 @@ import { PRE_RELEASE_DISCLAIMER } from "../lib/fakeReleases";
 import GridButton from "./GridButton";
 import type {
   ReleaseAsset,
-  ReleaseByWorkflow,
   ReleasesAPIResponse,
   OperatingSystem,
 } from "../types/releases";
 
 type OS = OperatingSystem | null;
+
+const detectOS = (): OS => {
+  if (typeof window === "undefined") return null;
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  if (userAgent.includes("win")) return "windows";
+  if (userAgent.includes("mac")) return "macos";
+  if (userAgent.includes("linux")) return "linux";
+  return null;
+};
 
 // Check if a version string is below 1.0.0
 const isPreReleaseVersion = (version: string): boolean => {
@@ -22,27 +30,10 @@ const isPreReleaseVersion = (version: string): boolean => {
 
 export default function DownloadButton() {
   const [releasesData, setReleasesData] = useState<ReleasesAPIResponse | null>(null);
-  const [detectedOS, setDetectedOS] = useState<OS>(null);
-  const [selectedOS, setSelectedOS] = useState<OS>(null);
+  const [detectedOS] = useState<OS>(detectOS);
+  const [selectedOS, setSelectedOS] = useState<OS>(detectOS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Detect user's OS
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    let os: OS = null;
-
-    if (userAgent.includes("win")) {
-      os = "windows";
-    } else if (userAgent.includes("mac")) {
-      os = "macos";
-    } else if (userAgent.includes("linux")) {
-      os = "linux";
-    }
-
-    setDetectedOS(os);
-    setSelectedOS(os);
-  }, []);
 
   // Fetch release data
   useEffect(() => {

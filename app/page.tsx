@@ -1,5 +1,5 @@
 "use client"
-import { Download, ChevronDown, Clock, FileCheck, FolderSync, Users, Code } from 'lucide-react';
+import { Download, ChevronDown, Clock, FileCheck, FolderSync, Users } from 'lucide-react';
 import WaveSeparator from '../components/WaveSeparator';
 import GridButton from '../components/GridButton';
 import { Footer, Navbar } from '../layout';
@@ -109,10 +109,10 @@ export default function VoxKitLanding() {
   <div className="max-w-7xl mx-auto">
     <div className="text-center mb-16">
       <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-        Why <span className="text-cyan-400">You'll Love It</span>
+        Why <span className="text-cyan-400">You&apos;ll Love It</span>
       </h2>
       <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-        Seriously, here's what we've been hearing from labs like yours.
+        Seriously, here&apos;s what we&apos;ve been hearing from labs like yours.
       </p>
     </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -135,7 +135,7 @@ export default function VoxKitLanding() {
         className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
         rippleColor='rgba(255, 255, 255, 0.5)'
       >
-        See What's Possible  <ChevronDown className="w-5 h-5 -rotate-90" />
+        See What&apos;s Possible  <ChevronDown className="w-5 h-5 -rotate-90" />
       </GridButton>
     </div>
   </div>
@@ -151,7 +151,7 @@ export default function VoxKitLanding() {
               The Good Stuff Under the Hood
             </h2>
             <p className="text-lg text-slate-100 max-w-3xl mx-auto mb-8">
-              You're not getting some watered-down toy. VoxKit wraps battle-tested tools like Montreal Forced Aligner (MFA) in a friendly interface. Same powerful algorithms the big labs use, minus the command-line gymnastics.
+              You&apos;re not getting some watered-down toy. VoxKit wraps battle-tested tools like Montreal Forced Aligner (MFA) in a friendly interface. Same powerful algorithms the big labs use, minus the command-line gymnastics.
             </p>
 
               <GridButton
@@ -172,7 +172,7 @@ export default function VoxKitLanding() {
             Ready to Try It?
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-            Grab VoxKit and see for yourself. We think you'll wonder how you ever managed without it.
+            Grab VoxKit and see for yourself. We think you&apos;ll wonder how you ever managed without it.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
       <GridButton

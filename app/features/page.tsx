@@ -1,6 +1,6 @@
 "use client"
 import { Footer, Navbar } from '../../layout';
-import { Cpu, Layers, BarChart3, Workflow, Code, Zap, Lock, Puzzle } from 'lucide-react';
+import { Cpu, Layers, BarChart3, Zap, Lock, Puzzle } from 'lucide-react';
 import GridButton from '../../components/GridButton';
 export default function FeaturesPage() {
   // Easy to add/remove engines
@@ -137,7 +137,7 @@ export default function FeaturesPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">Speech Engines</h2>
             <p className="text-slate-300 max-w-2xl mx-auto">
-              VoxKit's modular api enables seamless integration of speech processing engines (toolkits), from established libraries at the cutting edge and beyond.
+              VoxKit&apos;s modular api enables seamless integration of speech processing engines (toolkits), from established libraries at the cutting edge and beyond.
             </p>
           </div>
           <div className="space-y-6">
@@ -263,7 +263,7 @@ export default function FeaturesPage() {
         {/* CTA */}
         <div className="mt-16 text-center">
           <p className="text-slate-300 mb-6 text-lg">
-            Ready to explore VoxKit's capabilities in depth?
+            Ready to explore VoxKit&apos;s capabilities in depth?
           </p>
           <div className="flex flex-wrap justify-center gap-4">
       
