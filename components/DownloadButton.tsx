@@ -7,6 +7,7 @@ import type {
   ReleaseAsset,
   ReleasesAPIResponse,
   OperatingSystem,
+  ReleaseByWorkflow
 } from "../types/releases";
 
 type OS = OperatingSystem | null;

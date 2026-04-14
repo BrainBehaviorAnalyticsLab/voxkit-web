@@ -1,12 +1,12 @@
 "use client"
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { DecisionTree } from './DecisionTree';
+import { DecisionTree, DecisionTreeWidget } from './DecisionTree';
 
 export default function HelpChat() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<DecisionTree | null>(null);
+  const widgetRef = useRef<DecisionTreeWidget | null>(null);
   const router = useRouter();
 
   useEffect(() => {

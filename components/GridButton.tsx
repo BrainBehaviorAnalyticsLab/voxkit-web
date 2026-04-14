@@ -120,11 +120,11 @@ export default function GridButton({
   }
 
   const isLink = "href" in rest && rest.href !== undefined;
-  const Element = isLink ? "a" : "button";
+  const Element = (isLink ? "a" : "button") as React.ElementType;
 
   return (
     <Element
-      ref={buttonRef as React.Ref<HTMLElement>}
+      ref={buttonRef as React.Ref<HTMLAnchorElement & HTMLButtonElement>}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setHover(null)}
