@@ -41,60 +41,6 @@
             <li>
                     <a class="variable" href="#ManageAnalyzers">ManageAnalyzers</a>
             </li>
-            <li>
-                    <a class="class" href="#AnalyzerManager">AnalyzerManager</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#AnalyzerManager.__init__">AnalyzerManager</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#AnalyzerManager.list_analyzers">list_analyzers</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#AnalyzerManager.get_analyzers">get_analyzers</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#AnalyzerManager.get_analyzer">get_analyzer</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#DatasetAnalyzer">DatasetAnalyzer</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="variable" href="#DatasetAnalyzer.name">name</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#DatasetAnalyzer.description">description</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#DatasetAnalyzer.analyze">analyze</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#DatasetAnalyzer.visualize">visualize</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#DefaultAnalyzer">DefaultAnalyzer</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="variable" href="#DefaultAnalyzer.name">name</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#DefaultAnalyzer.description">description</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#DefaultAnalyzer.analyze">analyze</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#DefaultAnalyzer.visualize">visualize</a>
-                        </li>
-                </ul>
-
-            </li>
     </ul>
 
 
@@ -111,24 +57,21 @@
                     <h1 class="modulename">
 <a href="./../voxkit.html">voxkit</a><wbr>.analyzers    </h1>
 
-                        <div class="docstring"><p>VoxKit Analyzers Module.</p>
-
-<p>Analyzers observe datasets and link metadata in flexible, abstract ways. They
-extract structured information at registration time, producing CSV summaries
+                        <div class="docstring"><p>Analyzers observe datasets and link metadata. They
+extract structured information at registration time (ingestion), producing CSV summaries
 that can be visualized within VoxKit without rescanning the filesystem.</p>
 
 <h2 id="api">API</h2>
 
 <ul>
-<li><strong><a href="#AnalyzerManager.list_analyzers">AnalyzerManager.list_analyzers</a></strong>: List registered analyzer IDs</li>
-<li><strong><a href="#AnalyzerManager.get_analyzer">AnalyzerManager.get_analyzer</a></strong>: Retrieve analyzer instance by ID</li>
-<li><strong><a href="#AnalyzerManager.get_analyzers">AnalyzerManager.get_analyzers</a></strong>: Get all registered analyzers</li>
-<li><strong>DatasetAnalyzer</strong>: Abstract base class for all analyzers</li>
+<li><strong>AnalyzerManager.list_analyzers</strong>: List registered analyzer IDs</li>
+<li><strong>AnalyzerManager.get_analyzer</strong>: Retrieve analyzer instance by ID</li>
+<li><strong>AnalyzerManager.get_analyzers</strong>: Get all registered analyzers</li>
 </ul>
 
 <h2 id="available-analyzers">Available Analyzers</h2>
 
-<p><strong>DefaultAnalyzer</strong> (<code>default_analyzer.py</code>)
+<p><strong>DefaultAnalyzer</strong>
     Extracts speaker count and audio file counts per speaker directory.
     Includes a bar chart visualization for quick dataset overview.</p>
 
@@ -145,7 +88,7 @@ that can be visualized within VoxKit without rescanning the filesystem.</p>
 <h2 id="notes">Notes</h2>
 
 <ul>
-<li>Analyzers run during dataset registration</li>
+<li>Analyzers run during dataset registration (ingestion)</li>
 <li>Each analyzer's <code>name</code> property serves as its unique identifier</li>
 <li>Output is a list of dicts where keys become CSV column headers</li>
 <li>Custom visualizations can be provided via the <code>visualize</code> method</li>
@@ -156,90 +99,84 @@ that can be visualized within VoxKit without rescanning the filesystem.</p>
 
                         <label class="view-source-button" for="mod-analyzers-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;VoxKit Analyzers Module.</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">Analyzers observe datasets and link metadata in flexible, abstract ways. They</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">extract structured information at registration time, producing CSV summaries</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">that can be visualized within VoxKit without rescanning the filesystem.</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">API</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">---</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">- **AnalyzerManager.list_analyzers**: List registered analyzer IDs</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">- **AnalyzerManager.get_analyzer**: Retrieve analyzer instance by ID</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">- **AnalyzerManager.get_analyzers**: Get all registered analyzers</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">- **DatasetAnalyzer**: Abstract base class for all analyzers</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">Available Analyzers</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">-------------------</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">**DefaultAnalyzer** (``default_analyzer.py``)</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    Extracts speaker count and audio file counts per speaker directory.</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    Includes a bar chart visualization for quick dataset overview.</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">Output Structure</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">----------------</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">Analyzer output is stored alongside dataset metadata::</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    ~/.voxkit/datasets/{dataset_id}/</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    ├── voxkit_dataset.json           # Dataset metadata</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    ├── {analyzer_name}_summary.csv   # Analyzer output</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    └── alignments/                   # Alignment outputs</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">Notes</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">-----</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">- Analyzers run during dataset registration</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">- Each analyzer&#39;s ``name`` property serves as its unique identifier</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">- Output is a list of dicts where keys become CSV column headers</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">- Custom visualizations can be provided via the ``visualize`` method</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;Analyzers observe datasets and link metadata. They</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="sd">extract structured information at registration time (ingestion), producing CSV summaries</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="sd">that can be visualized within VoxKit without rescanning the filesystem.</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">API</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">---</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">- **AnalyzerManager.list_analyzers**: List registered analyzer IDs</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">- **AnalyzerManager.get_analyzer**: Retrieve analyzer instance by ID</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">- **AnalyzerManager.get_analyzers**: Get all registered analyzers</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">Available Analyzers</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">-------------------</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">**DefaultAnalyzer**</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    Extracts speaker count and audio file counts per speaker directory.</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    Includes a bar chart visualization for quick dataset overview.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">Output Structure</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">----------------</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">Analyzer output is stored alongside dataset metadata::</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    ~/.voxkit/datasets/{dataset_id}/</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    ├── voxkit_dataset.json           # Dataset metadata</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    ├── {analyzer_name}_summary.csv   # Analyzer output</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    └── alignments/                   # Alignment outputs</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">Notes</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">-----</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">- Analyzers run during dataset registration (ingestion)</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">- Each analyzer&#39;s ``name`` property serves as its unique identifier</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">- Output is a list of dicts where keys become CSV column headers</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">- Custom visualizations can be provided via the ``visualize`` method</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetAnalyzer</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.default_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultAnalyzer</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetAnalyzer</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.default_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultAnalyzer</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AnalyzerManager</span><span class="p">:</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    Manager for registered dataset analyzers.</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">    Provides a unified interface to list and retrieve registered analyzer</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">    implementations.</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]):</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="c1"># Expect a mapping of id -&gt; DatasetAnalyzer instance</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span> <span class="o">=</span> <span class="n">analyzers</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">list_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of registered analyzer IDs.&quot;&quot;&quot;</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[AnalyzerManager] Registered analyzers: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="k">return</span> <span class="n">keys</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]:</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzers mapping.&quot;&quot;&quot;</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DatasetAnalyzer</span><span class="p">:</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzer instance for the given ID.&quot;&quot;&quot;</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="p">[</span><span class="n">analyzer_id</span><span class="p">]</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No analyzer with id: </span><span class="si">{</span><span class="n">analyzer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="n">default_analyzer_instance</span> <span class="o">=</span> <span class="n">DefaultAnalyzer</span><span class="p">()</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="c1"># Singleton instance for unified export/interface</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="n">ManageAnalyzers</span> <span class="o">=</span> <span class="n">AnalyzerManager</span><span class="p">({</span><span class="n">default_analyzer_instance</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">default_analyzer_instance</span><span class="p">})</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>    <span class="s2">&quot;ManageAnalyzers&quot;</span><span class="p">,</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>    <span class="s2">&quot;AnalyzerManager&quot;</span><span class="p">,</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>    <span class="s2">&quot;DatasetAnalyzer&quot;</span><span class="p">,</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>    <span class="s2">&quot;DefaultAnalyzer&quot;</span><span class="p">,</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="p">]</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AnalyzerManager</span><span class="p">:</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    Manager for registered dataset analyzers.</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    Provides a unified interface to list and retrieve registered analyzer</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    implementations.</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]):</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="c1"># Expect a mapping of id -&gt; DatasetAnalyzer instance</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span> <span class="o">=</span> <span class="n">analyzers</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">list_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of registered analyzer IDs.&quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[AnalyzerManager] Registered analyzers: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>        <span class="k">return</span> <span class="n">keys</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]:</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzers mapping.&quot;&quot;&quot;</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DatasetAnalyzer</span><span class="p">:</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzer instance for the given ID.&quot;&quot;&quot;</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="p">[</span><span class="n">analyzer_id</span><span class="p">]</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No analyzer with id: </span><span class="si">{</span><span class="n">analyzer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="n">default_analyzer_instance</span> <span class="o">=</span> <span class="n">DefaultAnalyzer</span><span class="p">()</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="c1"># Singleton instance for unified export/interface</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="n">ManageAnalyzers</span> <span class="o">=</span> <span class="n">AnalyzerManager</span><span class="p">({</span><span class="n">default_analyzer_instance</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">default_analyzer_instance</span><span class="p">})</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>    <span class="s2">&quot;ManageAnalyzers&quot;</span><span class="p">,</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -247,7 +184,7 @@ that can be visualized within VoxKit without rescanning the filesystem.</p>
                 <section id="ManageAnalyzers">
                     <div class="attr variable">
             <span class="name">ManageAnalyzers</span>        =
-<span class="default_value">&lt;<a href="#AnalyzerManager">AnalyzerManager</a> object&gt;</span>
+<span class="default_value">&lt;voxkit.analyzers.AnalyzerManager object&gt;</span>
 
         
     </div>
@@ -255,791 +192,6 @@ that can be visualized within VoxKit without rescanning the filesystem.</p>
     
     
 
-                </section>
-                <section id="AnalyzerManager">
-                            <input id="AnalyzerManager-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-            
-    <span class="def">class</span>
-    <span class="name">AnalyzerManager</span>:
-
-                <label class="view-source-button" for="AnalyzerManager-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#AnalyzerManager"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalyzerManager-46"><a href="#AnalyzerManager-46"><span class="linenos">46</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AnalyzerManager</span><span class="p">:</span>
-</span><span id="AnalyzerManager-47"><a href="#AnalyzerManager-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager-48"><a href="#AnalyzerManager-48"><span class="linenos">48</span></a><span class="sd">    Manager for registered dataset analyzers.</span>
-</span><span id="AnalyzerManager-49"><a href="#AnalyzerManager-49"><span class="linenos">49</span></a>
-</span><span id="AnalyzerManager-50"><a href="#AnalyzerManager-50"><span class="linenos">50</span></a><span class="sd">    Provides a unified interface to list and retrieve registered analyzer</span>
-</span><span id="AnalyzerManager-51"><a href="#AnalyzerManager-51"><span class="linenos">51</span></a><span class="sd">    implementations.</span>
-</span><span id="AnalyzerManager-52"><a href="#AnalyzerManager-52"><span class="linenos">52</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager-53"><a href="#AnalyzerManager-53"><span class="linenos">53</span></a>
-</span><span id="AnalyzerManager-54"><a href="#AnalyzerManager-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]):</span>
-</span><span id="AnalyzerManager-55"><a href="#AnalyzerManager-55"><span class="linenos">55</span></a>        <span class="c1"># Expect a mapping of id -&gt; DatasetAnalyzer instance</span>
-</span><span id="AnalyzerManager-56"><a href="#AnalyzerManager-56"><span class="linenos">56</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span> <span class="o">=</span> <span class="n">analyzers</span>
-</span><span id="AnalyzerManager-57"><a href="#AnalyzerManager-57"><span class="linenos">57</span></a>
-</span><span id="AnalyzerManager-58"><a href="#AnalyzerManager-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">list_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="AnalyzerManager-59"><a href="#AnalyzerManager-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of registered analyzer IDs.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager-60"><a href="#AnalyzerManager-60"><span class="linenos">60</span></a>        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span><span id="AnalyzerManager-61"><a href="#AnalyzerManager-61"><span class="linenos">61</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[AnalyzerManager] Registered analyzers: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="AnalyzerManager-62"><a href="#AnalyzerManager-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="n">keys</span>
-</span><span id="AnalyzerManager-63"><a href="#AnalyzerManager-63"><span class="linenos">63</span></a>
-</span><span id="AnalyzerManager-64"><a href="#AnalyzerManager-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]:</span>
-</span><span id="AnalyzerManager-65"><a href="#AnalyzerManager-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzers mapping.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager-66"><a href="#AnalyzerManager-66"><span class="linenos">66</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span>
-</span><span id="AnalyzerManager-67"><a href="#AnalyzerManager-67"><span class="linenos">67</span></a>
-</span><span id="AnalyzerManager-68"><a href="#AnalyzerManager-68"><span class="linenos">68</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DatasetAnalyzer</span><span class="p">:</span>
-</span><span id="AnalyzerManager-69"><a href="#AnalyzerManager-69"><span class="linenos">69</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzer instance for the given ID.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager-70"><a href="#AnalyzerManager-70"><span class="linenos">70</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="AnalyzerManager-71"><a href="#AnalyzerManager-71"><span class="linenos">71</span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="p">[</span><span class="n">analyzer_id</span><span class="p">]</span>
-</span><span id="AnalyzerManager-72"><a href="#AnalyzerManager-72"><span class="linenos">72</span></a>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="AnalyzerManager-73"><a href="#AnalyzerManager-73"><span class="linenos">73</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No analyzer with id: </span><span class="si">{</span><span class="n">analyzer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Manager for registered dataset analyzers.</p>
-
-<p>Provides a unified interface to list and retrieve registered analyzer
-implementations.</p>
-</div>
-
-
-                            <div id="AnalyzerManager.__init__" class="classattr">
-                                        <input id="AnalyzerManager.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="name">AnalyzerManager</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">analyzers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n"><a href="#DatasetAnalyzer">DatasetAnalyzer</a></span><span class="p">]</span></span>)</span>
-
-                <label class="view-source-button" for="AnalyzerManager.__init__-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#AnalyzerManager.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalyzerManager.__init__-54"><a href="#AnalyzerManager.__init__-54"><span class="linenos">54</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]):</span>
-</span><span id="AnalyzerManager.__init__-55"><a href="#AnalyzerManager.__init__-55"><span class="linenos">55</span></a>        <span class="c1"># Expect a mapping of id -&gt; DatasetAnalyzer instance</span>
-</span><span id="AnalyzerManager.__init__-56"><a href="#AnalyzerManager.__init__-56"><span class="linenos">56</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span> <span class="o">=</span> <span class="n">analyzers</span>
-</span></pre></div>
-
-
-    
-
-                            </div>
-                            <div id="AnalyzerManager.list_analyzers" class="classattr">
-                                        <input id="AnalyzerManager.list_analyzers-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">list_analyzers</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>:</span></span>
-
-                <label class="view-source-button" for="AnalyzerManager.list_analyzers-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#AnalyzerManager.list_analyzers"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalyzerManager.list_analyzers-58"><a href="#AnalyzerManager.list_analyzers-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">list_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="AnalyzerManager.list_analyzers-59"><a href="#AnalyzerManager.list_analyzers-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of registered analyzer IDs.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager.list_analyzers-60"><a href="#AnalyzerManager.list_analyzers-60"><span class="linenos">60</span></a>        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span><span id="AnalyzerManager.list_analyzers-61"><a href="#AnalyzerManager.list_analyzers-61"><span class="linenos">61</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[AnalyzerManager] Registered analyzers: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="AnalyzerManager.list_analyzers-62"><a href="#AnalyzerManager.list_analyzers-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="n">keys</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return a list of registered analyzer IDs.</p>
-</div>
-
-
-                            </div>
-                            <div id="AnalyzerManager.get_analyzers" class="classattr">
-                                        <input id="AnalyzerManager.get_analyzers-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">get_analyzers</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n"><a href="#DatasetAnalyzer">DatasetAnalyzer</a></span><span class="p">]</span>:</span></span>
-
-                <label class="view-source-button" for="AnalyzerManager.get_analyzers-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#AnalyzerManager.get_analyzers"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalyzerManager.get_analyzers-64"><a href="#AnalyzerManager.get_analyzers-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatasetAnalyzer</span><span class="p">]:</span>
-</span><span id="AnalyzerManager.get_analyzers-65"><a href="#AnalyzerManager.get_analyzers-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzers mapping.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager.get_analyzers-66"><a href="#AnalyzerManager.get_analyzers-66"><span class="linenos">66</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return the registered analyzers mapping.</p>
-</div>
-
-
-                            </div>
-                            <div id="AnalyzerManager.get_analyzer" class="classattr">
-                                        <input id="AnalyzerManager.get_analyzer-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">get_analyzer</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">analyzer_id</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="#DatasetAnalyzer">DatasetAnalyzer</a></span>:</span></span>
-
-                <label class="view-source-button" for="AnalyzerManager.get_analyzer-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#AnalyzerManager.get_analyzer"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AnalyzerManager.get_analyzer-68"><a href="#AnalyzerManager.get_analyzer-68"><span class="linenos">68</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DatasetAnalyzer</span><span class="p">:</span>
-</span><span id="AnalyzerManager.get_analyzer-69"><a href="#AnalyzerManager.get_analyzer-69"><span class="linenos">69</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the registered analyzer instance for the given ID.&quot;&quot;&quot;</span>
-</span><span id="AnalyzerManager.get_analyzer-70"><a href="#AnalyzerManager.get_analyzer-70"><span class="linenos">70</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="AnalyzerManager.get_analyzer-71"><a href="#AnalyzerManager.get_analyzer-71"><span class="linenos">71</span></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyzers</span><span class="p">[</span><span class="n">analyzer_id</span><span class="p">]</span>
-</span><span id="AnalyzerManager.get_analyzer-72"><a href="#AnalyzerManager.get_analyzer-72"><span class="linenos">72</span></a>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-</span><span id="AnalyzerManager.get_analyzer-73"><a href="#AnalyzerManager.get_analyzer-73"><span class="linenos">73</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No analyzer with id: </span><span class="si">{</span><span class="n">analyzer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return the registered analyzer instance for the given ID.</p>
-</div>
-
-
-                            </div>
-                </section>
-                <section id="DatasetAnalyzer">
-                            <input id="DatasetAnalyzer-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-            
-    <span class="def">class</span>
-    <span class="name">DatasetAnalyzer</span><wbr>(<span class="base">abc.ABC</span>):
-
-                <label class="view-source-button" for="DatasetAnalyzer-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DatasetAnalyzer"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DatasetAnalyzer-39"><a href="#DatasetAnalyzer-39"><span class="linenos">39</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DatasetAnalyzer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-</span><span id="DatasetAnalyzer-40"><a href="#DatasetAnalyzer-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for dataset analysis methods.</span>
-</span><span id="DatasetAnalyzer-41"><a href="#DatasetAnalyzer-41"><span class="linenos">41</span></a>
-</span><span id="DatasetAnalyzer-42"><a href="#DatasetAnalyzer-42"><span class="linenos">42</span></a><span class="sd">    Subclasses must implement the ``name`` and ``description`` properties and</span>
-</span><span id="DatasetAnalyzer-43"><a href="#DatasetAnalyzer-43"><span class="linenos">43</span></a><span class="sd">    the ``analyze`` method which returns row dictionaries suitable for CSV</span>
-</span><span id="DatasetAnalyzer-44"><a href="#DatasetAnalyzer-44"><span class="linenos">44</span></a><span class="sd">    export.</span>
-</span><span id="DatasetAnalyzer-45"><a href="#DatasetAnalyzer-45"><span class="linenos">45</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer-46"><a href="#DatasetAnalyzer-46"><span class="linenos">46</span></a>
-</span><span id="DatasetAnalyzer-47"><a href="#DatasetAnalyzer-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
-</span><span id="DatasetAnalyzer-48"><a href="#DatasetAnalyzer-48"><span class="linenos">48</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer-49"><a href="#DatasetAnalyzer-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer-50"><a href="#DatasetAnalyzer-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Display name for this analysis method.</span>
-</span><span id="DatasetAnalyzer-51"><a href="#DatasetAnalyzer-51"><span class="linenos">51</span></a>
-</span><span id="DatasetAnalyzer-52"><a href="#DatasetAnalyzer-52"><span class="linenos">52</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer-53"><a href="#DatasetAnalyzer-53"><span class="linenos">53</span></a><span class="sd">            str: Human readable name used to register and select the analyzer.</span>
-</span><span id="DatasetAnalyzer-54"><a href="#DatasetAnalyzer-54"><span class="linenos">54</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer-55"><a href="#DatasetAnalyzer-55"><span class="linenos">55</span></a>
-</span><span id="DatasetAnalyzer-56"><a href="#DatasetAnalyzer-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
-</span><span id="DatasetAnalyzer-57"><a href="#DatasetAnalyzer-57"><span class="linenos">57</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer-58"><a href="#DatasetAnalyzer-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer-59"><a href="#DatasetAnalyzer-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Short description of the analyzer&#39;s behavior.</span>
-</span><span id="DatasetAnalyzer-60"><a href="#DatasetAnalyzer-60"><span class="linenos">60</span></a>
-</span><span id="DatasetAnalyzer-61"><a href="#DatasetAnalyzer-61"><span class="linenos">61</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer-62"><a href="#DatasetAnalyzer-62"><span class="linenos">62</span></a><span class="sd">            str: Brief description suitable for display in UI lists.</span>
-</span><span id="DatasetAnalyzer-63"><a href="#DatasetAnalyzer-63"><span class="linenos">63</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer-64"><a href="#DatasetAnalyzer-64"><span class="linenos">64</span></a>
-</span><span id="DatasetAnalyzer-65"><a href="#DatasetAnalyzer-65"><span class="linenos">65</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer-66"><a href="#DatasetAnalyzer-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-</span><span id="DatasetAnalyzer-67"><a href="#DatasetAnalyzer-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Analyze a dataset and return structured data for CSV export.</span>
-</span><span id="DatasetAnalyzer-68"><a href="#DatasetAnalyzer-68"><span class="linenos">68</span></a>
-</span><span id="DatasetAnalyzer-69"><a href="#DatasetAnalyzer-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
-</span><span id="DatasetAnalyzer-70"><a href="#DatasetAnalyzer-70"><span class="linenos">70</span></a><span class="sd">            dataset_path (str): Path to the dataset root directory. The</span>
-</span><span id="DatasetAnalyzer-71"><a href="#DatasetAnalyzer-71"><span class="linenos">71</span></a><span class="sd">                analyzer should inspect subdirectories and files below this</span>
-</span><span id="DatasetAnalyzer-72"><a href="#DatasetAnalyzer-72"><span class="linenos">72</span></a><span class="sd">                path.</span>
-</span><span id="DatasetAnalyzer-73"><a href="#DatasetAnalyzer-73"><span class="linenos">73</span></a>
-</span><span id="DatasetAnalyzer-74"><a href="#DatasetAnalyzer-74"><span class="linenos">74</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer-75"><a href="#DatasetAnalyzer-75"><span class="linenos">75</span></a><span class="sd">            List[Dict[str, Any]]: A list of dictionaries where each</span>
-</span><span id="DatasetAnalyzer-76"><a href="#DatasetAnalyzer-76"><span class="linenos">76</span></a><span class="sd">            dictionary represents a single CSV row. Dictionary keys will be</span>
-</span><span id="DatasetAnalyzer-77"><a href="#DatasetAnalyzer-77"><span class="linenos">77</span></a><span class="sd">            used as CSV column headers.</span>
-</span><span id="DatasetAnalyzer-78"><a href="#DatasetAnalyzer-78"><span class="linenos">78</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer-79"><a href="#DatasetAnalyzer-79"><span class="linenos">79</span></a>
-</span><span id="DatasetAnalyzer-80"><a href="#DatasetAnalyzer-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">QWidget</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer-81"><a href="#DatasetAnalyzer-81"><span class="linenos">81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a QWidget visualizing the analysis data.</span>
-</span><span id="DatasetAnalyzer-82"><a href="#DatasetAnalyzer-82"><span class="linenos">82</span></a>
-</span><span id="DatasetAnalyzer-83"><a href="#DatasetAnalyzer-83"><span class="linenos">83</span></a><span class="sd">        Subclasses may override this method to provide a custom visualization</span>
-</span><span id="DatasetAnalyzer-84"><a href="#DatasetAnalyzer-84"><span class="linenos">84</span></a><span class="sd">        widget. The default implementation returns ``None``, which signals</span>
-</span><span id="DatasetAnalyzer-85"><a href="#DatasetAnalyzer-85"><span class="linenos">85</span></a><span class="sd">        the caller to fall back to a plain table view.</span>
-</span><span id="DatasetAnalyzer-86"><a href="#DatasetAnalyzer-86"><span class="linenos">86</span></a>
-</span><span id="DatasetAnalyzer-87"><a href="#DatasetAnalyzer-87"><span class="linenos">87</span></a><span class="sd">        Args:</span>
-</span><span id="DatasetAnalyzer-88"><a href="#DatasetAnalyzer-88"><span class="linenos">88</span></a><span class="sd">            data: The analysis results as returned by :meth:`analyze`.</span>
-</span><span id="DatasetAnalyzer-89"><a href="#DatasetAnalyzer-89"><span class="linenos">89</span></a>
-</span><span id="DatasetAnalyzer-90"><a href="#DatasetAnalyzer-90"><span class="linenos">90</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer-91"><a href="#DatasetAnalyzer-91"><span class="linenos">91</span></a><span class="sd">            A QWidget ready for embedding in a dialog, or ``None`` for the</span>
-</span><span id="DatasetAnalyzer-92"><a href="#DatasetAnalyzer-92"><span class="linenos">92</span></a><span class="sd">            default table display.</span>
-</span><span id="DatasetAnalyzer-93"><a href="#DatasetAnalyzer-93"><span class="linenos">93</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer-94"><a href="#DatasetAnalyzer-94"><span class="linenos">94</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Abstract base class for dataset analysis methods.</p>
-
-<p>Subclasses must implement the <code><a href="#DatasetAnalyzer.name">name</a></code> and <code><a href="#DatasetAnalyzer.description">description</a></code> properties and
-the <code><a href="#DatasetAnalyzer.analyze">analyze</a></code> method which returns row dictionaries suitable for CSV
-export.</p>
-</div>
-
-
-                            <div id="DatasetAnalyzer.name" class="classattr">
-                                        <input id="DatasetAnalyzer.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr variable">
-            <span class="name">name</span><span class="annotation">: str</span>
-
-                <label class="view-source-button" for="DatasetAnalyzer.name-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DatasetAnalyzer.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DatasetAnalyzer.name-47"><a href="#DatasetAnalyzer.name-47"><span class="linenos">47</span></a>    <span class="nd">@property</span>
-</span><span id="DatasetAnalyzer.name-48"><a href="#DatasetAnalyzer.name-48"><span class="linenos">48</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer.name-49"><a href="#DatasetAnalyzer.name-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer.name-50"><a href="#DatasetAnalyzer.name-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Display name for this analysis method.</span>
-</span><span id="DatasetAnalyzer.name-51"><a href="#DatasetAnalyzer.name-51"><span class="linenos">51</span></a>
-</span><span id="DatasetAnalyzer.name-52"><a href="#DatasetAnalyzer.name-52"><span class="linenos">52</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer.name-53"><a href="#DatasetAnalyzer.name-53"><span class="linenos">53</span></a><span class="sd">            str: Human readable name used to register and select the analyzer.</span>
-</span><span id="DatasetAnalyzer.name-54"><a href="#DatasetAnalyzer.name-54"><span class="linenos">54</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Display name for this analysis method.</p>
-
-<p>Returns:
-    str: Human readable name used to register and select the analyzer.</p>
-</div>
-
-
-                            </div>
-                            <div id="DatasetAnalyzer.description" class="classattr">
-                                        <input id="DatasetAnalyzer.description-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr variable">
-            <span class="name">description</span><span class="annotation">: str</span>
-
-                <label class="view-source-button" for="DatasetAnalyzer.description-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DatasetAnalyzer.description"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DatasetAnalyzer.description-56"><a href="#DatasetAnalyzer.description-56"><span class="linenos">56</span></a>    <span class="nd">@property</span>
-</span><span id="DatasetAnalyzer.description-57"><a href="#DatasetAnalyzer.description-57"><span class="linenos">57</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer.description-58"><a href="#DatasetAnalyzer.description-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer.description-59"><a href="#DatasetAnalyzer.description-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Short description of the analyzer&#39;s behavior.</span>
-</span><span id="DatasetAnalyzer.description-60"><a href="#DatasetAnalyzer.description-60"><span class="linenos">60</span></a>
-</span><span id="DatasetAnalyzer.description-61"><a href="#DatasetAnalyzer.description-61"><span class="linenos">61</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer.description-62"><a href="#DatasetAnalyzer.description-62"><span class="linenos">62</span></a><span class="sd">            str: Brief description suitable for display in UI lists.</span>
-</span><span id="DatasetAnalyzer.description-63"><a href="#DatasetAnalyzer.description-63"><span class="linenos">63</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Short description of the analyzer's behavior.</p>
-
-<p>Returns:
-    str: Brief description suitable for display in UI lists.</p>
-</div>
-
-
-                            </div>
-                            <div id="DatasetAnalyzer.analyze" class="classattr">
-                                        <input id="DatasetAnalyzer.analyze-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-                    <div class="decorator decorator-abstractmethod">@abstractmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">analyze</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>:</span></span>
-
-                <label class="view-source-button" for="DatasetAnalyzer.analyze-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DatasetAnalyzer.analyze"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DatasetAnalyzer.analyze-65"><a href="#DatasetAnalyzer.analyze-65"><span class="linenos">65</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="DatasetAnalyzer.analyze-66"><a href="#DatasetAnalyzer.analyze-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-</span><span id="DatasetAnalyzer.analyze-67"><a href="#DatasetAnalyzer.analyze-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Analyze a dataset and return structured data for CSV export.</span>
-</span><span id="DatasetAnalyzer.analyze-68"><a href="#DatasetAnalyzer.analyze-68"><span class="linenos">68</span></a>
-</span><span id="DatasetAnalyzer.analyze-69"><a href="#DatasetAnalyzer.analyze-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
-</span><span id="DatasetAnalyzer.analyze-70"><a href="#DatasetAnalyzer.analyze-70"><span class="linenos">70</span></a><span class="sd">            dataset_path (str): Path to the dataset root directory. The</span>
-</span><span id="DatasetAnalyzer.analyze-71"><a href="#DatasetAnalyzer.analyze-71"><span class="linenos">71</span></a><span class="sd">                analyzer should inspect subdirectories and files below this</span>
-</span><span id="DatasetAnalyzer.analyze-72"><a href="#DatasetAnalyzer.analyze-72"><span class="linenos">72</span></a><span class="sd">                path.</span>
-</span><span id="DatasetAnalyzer.analyze-73"><a href="#DatasetAnalyzer.analyze-73"><span class="linenos">73</span></a>
-</span><span id="DatasetAnalyzer.analyze-74"><a href="#DatasetAnalyzer.analyze-74"><span class="linenos">74</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer.analyze-75"><a href="#DatasetAnalyzer.analyze-75"><span class="linenos">75</span></a><span class="sd">            List[Dict[str, Any]]: A list of dictionaries where each</span>
-</span><span id="DatasetAnalyzer.analyze-76"><a href="#DatasetAnalyzer.analyze-76"><span class="linenos">76</span></a><span class="sd">            dictionary represents a single CSV row. Dictionary keys will be</span>
-</span><span id="DatasetAnalyzer.analyze-77"><a href="#DatasetAnalyzer.analyze-77"><span class="linenos">77</span></a><span class="sd">            used as CSV column headers.</span>
-</span><span id="DatasetAnalyzer.analyze-78"><a href="#DatasetAnalyzer.analyze-78"><span class="linenos">78</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Analyze a dataset and return structured data for CSV export.</p>
-
-<p>Args:
-    dataset_path (str): Path to the dataset root directory. The
-        analyzer should inspect subdirectories and files below this
-        path.</p>
-
-<p>Returns:
-    List[Dict[str, Any]]: A list of dictionaries where each
-    dictionary represents a single CSV row. Dictionary keys will be
-    used as CSV column headers.</p>
-</div>
-
-
-                            </div>
-                            <div id="DatasetAnalyzer.visualize" class="classattr">
-                                        <input id="DatasetAnalyzer.visualize-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">visualize</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span></span><span class="return-annotation">) -> <span class="n">PyQt6</span><span class="o">.</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span> <span class="o">|</span> <span class="kc">None</span>:</span></span>
-
-                <label class="view-source-button" for="DatasetAnalyzer.visualize-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DatasetAnalyzer.visualize"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DatasetAnalyzer.visualize-80"><a href="#DatasetAnalyzer.visualize-80"><span class="linenos">80</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">QWidget</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="DatasetAnalyzer.visualize-81"><a href="#DatasetAnalyzer.visualize-81"><span class="linenos">81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a QWidget visualizing the analysis data.</span>
-</span><span id="DatasetAnalyzer.visualize-82"><a href="#DatasetAnalyzer.visualize-82"><span class="linenos">82</span></a>
-</span><span id="DatasetAnalyzer.visualize-83"><a href="#DatasetAnalyzer.visualize-83"><span class="linenos">83</span></a><span class="sd">        Subclasses may override this method to provide a custom visualization</span>
-</span><span id="DatasetAnalyzer.visualize-84"><a href="#DatasetAnalyzer.visualize-84"><span class="linenos">84</span></a><span class="sd">        widget. The default implementation returns ``None``, which signals</span>
-</span><span id="DatasetAnalyzer.visualize-85"><a href="#DatasetAnalyzer.visualize-85"><span class="linenos">85</span></a><span class="sd">        the caller to fall back to a plain table view.</span>
-</span><span id="DatasetAnalyzer.visualize-86"><a href="#DatasetAnalyzer.visualize-86"><span class="linenos">86</span></a>
-</span><span id="DatasetAnalyzer.visualize-87"><a href="#DatasetAnalyzer.visualize-87"><span class="linenos">87</span></a><span class="sd">        Args:</span>
-</span><span id="DatasetAnalyzer.visualize-88"><a href="#DatasetAnalyzer.visualize-88"><span class="linenos">88</span></a><span class="sd">            data: The analysis results as returned by :meth:`analyze`.</span>
-</span><span id="DatasetAnalyzer.visualize-89"><a href="#DatasetAnalyzer.visualize-89"><span class="linenos">89</span></a>
-</span><span id="DatasetAnalyzer.visualize-90"><a href="#DatasetAnalyzer.visualize-90"><span class="linenos">90</span></a><span class="sd">        Returns:</span>
-</span><span id="DatasetAnalyzer.visualize-91"><a href="#DatasetAnalyzer.visualize-91"><span class="linenos">91</span></a><span class="sd">            A QWidget ready for embedding in a dialog, or ``None`` for the</span>
-</span><span id="DatasetAnalyzer.visualize-92"><a href="#DatasetAnalyzer.visualize-92"><span class="linenos">92</span></a><span class="sd">            default table display.</span>
-</span><span id="DatasetAnalyzer.visualize-93"><a href="#DatasetAnalyzer.visualize-93"><span class="linenos">93</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DatasetAnalyzer.visualize-94"><a href="#DatasetAnalyzer.visualize-94"><span class="linenos">94</span></a>        <span class="k">return</span> <span class="kc">None</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return a QWidget visualizing the analysis data.</p>
-
-<p>Subclasses may override this method to provide a custom visualization
-widget. The default implementation returns <code>None</code>, which signals
-the caller to fall back to a plain table view.</p>
-
-<p>Args:
-    data: The analysis results as returned by <code><a href="#DatasetAnalyzer.analyze">analyze()</a></code>.</p>
-
-<p>Returns:
-    A QWidget ready for embedding in a dialog, or <code>None</code> for the
-    default table display.</p>
-</div>
-
-
-                            </div>
-                </section>
-                <section id="DefaultAnalyzer">
-                            <input id="DefaultAnalyzer-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-            
-    <span class="def">class</span>
-    <span class="name">DefaultAnalyzer</span><wbr>(<span class="base"><a href="#DatasetAnalyzer">voxkit.analyzers.DatasetAnalyzer</a></span>):
-
-                <label class="view-source-button" for="DefaultAnalyzer-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DefaultAnalyzer"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DefaultAnalyzer-24"><a href="#DefaultAnalyzer-24"><span class="linenos"> 24</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DefaultAnalyzer</span><span class="p">(</span><span class="n">DatasetAnalyzer</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-25"><a href="#DefaultAnalyzer-25"><span class="linenos"> 25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Default analyzer extracting speaker and audio file counts per speaker.&quot;&quot;&quot;</span>
-</span><span id="DefaultAnalyzer-26"><a href="#DefaultAnalyzer-26"><span class="linenos"> 26</span></a>
-</span><span id="DefaultAnalyzer-27"><a href="#DefaultAnalyzer-27"><span class="linenos"> 27</span></a>    <span class="nd">@property</span>
-</span><span id="DefaultAnalyzer-28"><a href="#DefaultAnalyzer-28"><span class="linenos"> 28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-29"><a href="#DefaultAnalyzer-29"><span class="linenos"> 29</span></a>        <span class="k">return</span> <span class="s2">&quot;Default&quot;</span>
-</span><span id="DefaultAnalyzer-30"><a href="#DefaultAnalyzer-30"><span class="linenos"> 30</span></a>
-</span><span id="DefaultAnalyzer-31"><a href="#DefaultAnalyzer-31"><span class="linenos"> 31</span></a>    <span class="nd">@property</span>
-</span><span id="DefaultAnalyzer-32"><a href="#DefaultAnalyzer-32"><span class="linenos"> 32</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-33"><a href="#DefaultAnalyzer-33"><span class="linenos"> 33</span></a>        <span class="k">return</span> <span class="s2">&quot;Speaker count and audio files per speaker&quot;</span>
-</span><span id="DefaultAnalyzer-34"><a href="#DefaultAnalyzer-34"><span class="linenos"> 34</span></a>
-</span><span id="DefaultAnalyzer-35"><a href="#DefaultAnalyzer-35"><span class="linenos"> 35</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-</span><span id="DefaultAnalyzer-36"><a href="#DefaultAnalyzer-36"><span class="linenos"> 36</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DefaultAnalyzer-37"><a href="#DefaultAnalyzer-37"><span class="linenos"> 37</span></a><span class="sd">        Return a list of rows with speaker id and audio file count.</span>
-</span><span id="DefaultAnalyzer-38"><a href="#DefaultAnalyzer-38"><span class="linenos"> 38</span></a>
-</span><span id="DefaultAnalyzer-39"><a href="#DefaultAnalyzer-39"><span class="linenos"> 39</span></a><span class="sd">        Args:</span>
-</span><span id="DefaultAnalyzer-40"><a href="#DefaultAnalyzer-40"><span class="linenos"> 40</span></a><span class="sd">            dataset_path (str): Path to the dataset root directory.</span>
-</span><span id="DefaultAnalyzer-41"><a href="#DefaultAnalyzer-41"><span class="linenos"> 41</span></a>
-</span><span id="DefaultAnalyzer-42"><a href="#DefaultAnalyzer-42"><span class="linenos"> 42</span></a><span class="sd">        Returns:</span>
-</span><span id="DefaultAnalyzer-43"><a href="#DefaultAnalyzer-43"><span class="linenos"> 43</span></a><span class="sd">            List[Dict[str, Any]]: Each dict contains ``speaker_id`` and</span>
-</span><span id="DefaultAnalyzer-44"><a href="#DefaultAnalyzer-44"><span class="linenos"> 44</span></a><span class="sd">            ``audio_file_count``.</span>
-</span><span id="DefaultAnalyzer-45"><a href="#DefaultAnalyzer-45"><span class="linenos"> 45</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DefaultAnalyzer-46"><a href="#DefaultAnalyzer-46"><span class="linenos"> 46</span></a>        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="DefaultAnalyzer-47"><a href="#DefaultAnalyzer-47"><span class="linenos"> 47</span></a>        <span class="n">audio_extensions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;.wav&quot;</span><span class="p">,</span> <span class="s2">&quot;.flac&quot;</span><span class="p">,</span> <span class="s2">&quot;.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;.ogg&quot;</span><span class="p">,</span> <span class="s2">&quot;.m4a&quot;</span><span class="p">}</span>
-</span><span id="DefaultAnalyzer-48"><a href="#DefaultAnalyzer-48"><span class="linenos"> 48</span></a>
-</span><span id="DefaultAnalyzer-49"><a href="#DefaultAnalyzer-49"><span class="linenos"> 49</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-50"><a href="#DefaultAnalyzer-50"><span class="linenos"> 50</span></a>            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-51"><a href="#DefaultAnalyzer-51"><span class="linenos"> 51</span></a>                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-</span><span id="DefaultAnalyzer-52"><a href="#DefaultAnalyzer-52"><span class="linenos"> 52</span></a>                    <span class="n">speaker_name</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
-</span><span id="DefaultAnalyzer-53"><a href="#DefaultAnalyzer-53"><span class="linenos"> 53</span></a>                    <span class="n">audio_files</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="DefaultAnalyzer-54"><a href="#DefaultAnalyzer-54"><span class="linenos"> 54</span></a>                        <span class="n">f</span>
-</span><span id="DefaultAnalyzer-55"><a href="#DefaultAnalyzer-55"><span class="linenos"> 55</span></a>                        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-56"><a href="#DefaultAnalyzer-56"><span class="linenos"> 56</span></a>                        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">audio_extensions</span>
-</span><span id="DefaultAnalyzer-57"><a href="#DefaultAnalyzer-57"><span class="linenos"> 57</span></a>                    <span class="p">]</span>
-</span><span id="DefaultAnalyzer-58"><a href="#DefaultAnalyzer-58"><span class="linenos"> 58</span></a>
-</span><span id="DefaultAnalyzer-59"><a href="#DefaultAnalyzer-59"><span class="linenos"> 59</span></a>                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer-60"><a href="#DefaultAnalyzer-60"><span class="linenos"> 60</span></a>                        <span class="p">{</span><span class="s2">&quot;speaker_id&quot;</span><span class="p">:</span> <span class="n">speaker_name</span><span class="p">,</span> <span class="s2">&quot;audio_file_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_files</span><span class="p">)}</span>
-</span><span id="DefaultAnalyzer-61"><a href="#DefaultAnalyzer-61"><span class="linenos"> 61</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer-62"><a href="#DefaultAnalyzer-62"><span class="linenos"> 62</span></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-63"><a href="#DefaultAnalyzer-63"><span class="linenos"> 63</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error analyzing dataset: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-64"><a href="#DefaultAnalyzer-64"><span class="linenos"> 64</span></a>
-</span><span id="DefaultAnalyzer-65"><a href="#DefaultAnalyzer-65"><span class="linenos"> 65</span></a>        <span class="k">return</span> <span class="n">results</span>
-</span><span id="DefaultAnalyzer-66"><a href="#DefaultAnalyzer-66"><span class="linenos"> 66</span></a>
-</span><span id="DefaultAnalyzer-67"><a href="#DefaultAnalyzer-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-68"><a href="#DefaultAnalyzer-68"><span class="linenos"> 68</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRectF</span><span class="p">,</span> <span class="n">Qt</span>
-</span><span id="DefaultAnalyzer-69"><a href="#DefaultAnalyzer-69"><span class="linenos"> 69</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QPainter</span>
-</span><span id="DefaultAnalyzer-70"><a href="#DefaultAnalyzer-70"><span class="linenos"> 70</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
-</span><span id="DefaultAnalyzer-71"><a href="#DefaultAnalyzer-71"><span class="linenos"> 71</span></a>
-</span><span id="DefaultAnalyzer-72"><a href="#DefaultAnalyzer-72"><span class="linenos"> 72</span></a>        <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="DefaultAnalyzer-73"><a href="#DefaultAnalyzer-73"><span class="linenos"> 73</span></a>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-74"><a href="#DefaultAnalyzer-74"><span class="linenos"> 74</span></a>            <span class="n">speaker</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;speaker_id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-75"><a href="#DefaultAnalyzer-75"><span class="linenos"> 75</span></a>            <span class="k">try</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-76"><a href="#DefaultAnalyzer-76"><span class="linenos"> 76</span></a>                <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;audio_file_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-77"><a href="#DefaultAnalyzer-77"><span class="linenos"> 77</span></a>            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-78"><a href="#DefaultAnalyzer-78"><span class="linenos"> 78</span></a>                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="DefaultAnalyzer-79"><a href="#DefaultAnalyzer-79"><span class="linenos"> 79</span></a>            <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">speaker</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-80"><a href="#DefaultAnalyzer-80"><span class="linenos"> 80</span></a>        <span class="n">entries</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-81"><a href="#DefaultAnalyzer-81"><span class="linenos"> 81</span></a>
-</span><span id="DefaultAnalyzer-82"><a href="#DefaultAnalyzer-82"><span class="linenos"> 82</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">entries</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-83"><a href="#DefaultAnalyzer-83"><span class="linenos"> 83</span></a>            <span class="n">empty</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;No data to visualize.&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-84"><a href="#DefaultAnalyzer-84"><span class="linenos"> 84</span></a>            <span class="n">empty</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-85"><a href="#DefaultAnalyzer-85"><span class="linenos"> 85</span></a>            <span class="k">return</span> <span class="n">empty</span>
-</span><span id="DefaultAnalyzer-86"><a href="#DefaultAnalyzer-86"><span class="linenos"> 86</span></a>
-</span><span id="DefaultAnalyzer-87"><a href="#DefaultAnalyzer-87"><span class="linenos"> 87</span></a>        <span class="n">BAR_HEIGHT</span> <span class="o">=</span> <span class="mi">28</span>
-</span><span id="DefaultAnalyzer-88"><a href="#DefaultAnalyzer-88"><span class="linenos"> 88</span></a>        <span class="n">BAR_SPACING</span> <span class="o">=</span> <span class="mi">6</span>
-</span><span id="DefaultAnalyzer-89"><a href="#DefaultAnalyzer-89"><span class="linenos"> 89</span></a>        <span class="n">LABEL_WIDTH</span> <span class="o">=</span> <span class="mi">140</span>
-</span><span id="DefaultAnalyzer-90"><a href="#DefaultAnalyzer-90"><span class="linenos"> 90</span></a>        <span class="n">PADDING</span> <span class="o">=</span> <span class="mi">16</span>
-</span><span id="DefaultAnalyzer-91"><a href="#DefaultAnalyzer-91"><span class="linenos"> 91</span></a>        <span class="n">COUNT_WIDTH</span> <span class="o">=</span> <span class="mi">55</span>
-</span><span id="DefaultAnalyzer-92"><a href="#DefaultAnalyzer-92"><span class="linenos"> 92</span></a>        <span class="n">max_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">1</span>
-</span><span id="DefaultAnalyzer-93"><a href="#DefaultAnalyzer-93"><span class="linenos"> 93</span></a>        <span class="n">total_h</span> <span class="o">=</span> <span class="n">PADDING</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">BAR_HEIGHT</span> <span class="o">+</span> <span class="n">BAR_SPACING</span><span class="p">)</span> <span class="o">+</span> <span class="n">PADDING</span>
-</span><span id="DefaultAnalyzer-94"><a href="#DefaultAnalyzer-94"><span class="linenos"> 94</span></a>
-</span><span id="DefaultAnalyzer-95"><a href="#DefaultAnalyzer-95"><span class="linenos"> 95</span></a>        <span class="k">class</span><span class="w"> </span><span class="nc">_Canvas</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-96"><a href="#DefaultAnalyzer-96"><span class="linenos"> 96</span></a>            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-97"><a href="#DefaultAnalyzer-97"><span class="linenos"> 97</span></a>                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-98"><a href="#DefaultAnalyzer-98"><span class="linenos"> 98</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">total_h</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-99"><a href="#DefaultAnalyzer-99"><span class="linenos"> 99</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-100"><a href="#DefaultAnalyzer-100"><span class="linenos">100</span></a>
-</span><span id="DefaultAnalyzer-101"><a href="#DefaultAnalyzer-101"><span class="linenos">101</span></a>            <span class="k">def</span><span class="w"> </span><span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer-102"><a href="#DefaultAnalyzer-102"><span class="linenos">102</span></a>                <span class="n">painter</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-103"><a href="#DefaultAnalyzer-103"><span class="linenos">103</span></a>                <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHint</span><span class="p">(</span><span class="n">QPainter</span><span class="o">.</span><span class="n">RenderHint</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-104"><a href="#DefaultAnalyzer-104"><span class="linenos">104</span></a>                <span class="n">bar_area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="n">LABEL_WIDTH</span> <span class="o">-</span> <span class="n">PADDING</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">COUNT_WIDTH</span>
-</span><span id="DefaultAnalyzer-105"><a href="#DefaultAnalyzer-105"><span class="linenos">105</span></a>                <span class="n">y</span> <span class="o">=</span> <span class="n">PADDING</span>
-</span><span id="DefaultAnalyzer-106"><a href="#DefaultAnalyzer-106"><span class="linenos">106</span></a>
-</span><span id="DefaultAnalyzer-107"><a href="#DefaultAnalyzer-107"><span class="linenos">107</span></a>                <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer-108"><a href="#DefaultAnalyzer-108"><span class="linenos">108</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#2c3e50&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-109"><a href="#DefaultAnalyzer-109"><span class="linenos">109</span></a>                    <span class="n">label_font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-110"><a href="#DefaultAnalyzer-110"><span class="linenos">110</span></a>                    <span class="n">label_font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-111"><a href="#DefaultAnalyzer-111"><span class="linenos">111</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">label_font</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-112"><a href="#DefaultAnalyzer-112"><span class="linenos">112</span></a>                    <span class="n">label_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">PADDING</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">LABEL_WIDTH</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-113"><a href="#DefaultAnalyzer-113"><span class="linenos">113</span></a>                    <span class="n">fm</span> <span class="o">=</span> <span class="n">painter</span><span class="o">.</span><span class="n">fontMetrics</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-114"><a href="#DefaultAnalyzer-114"><span class="linenos">114</span></a>                    <span class="n">elided</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">elidedText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer-115"><a href="#DefaultAnalyzer-115"><span class="linenos">115</span></a>                        <span class="n">speaker</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextElideMode</span><span class="o">.</span><span class="n">ElideRight</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">LABEL_WIDTH</span> <span class="o">-</span> <span class="mi">8</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-116"><a href="#DefaultAnalyzer-116"><span class="linenos">116</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer-117"><a href="#DefaultAnalyzer-117"><span class="linenos">117</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer-118"><a href="#DefaultAnalyzer-118"><span class="linenos">118</span></a>                        <span class="n">label_rect</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer-119"><a href="#DefaultAnalyzer-119"><span class="linenos">119</span></a>                        <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignRight</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer-120"><a href="#DefaultAnalyzer-120"><span class="linenos">120</span></a>                        <span class="n">elided</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer-121"><a href="#DefaultAnalyzer-121"><span class="linenos">121</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer-122"><a href="#DefaultAnalyzer-122"><span class="linenos">122</span></a>
-</span><span id="DefaultAnalyzer-123"><a href="#DefaultAnalyzer-123"><span class="linenos">123</span></a>                    <span class="n">bar_x</span> <span class="o">=</span> <span class="n">PADDING</span> <span class="o">+</span> <span class="n">LABEL_WIDTH</span> <span class="o">+</span> <span class="mi">10</span>
-</span><span id="DefaultAnalyzer-124"><a href="#DefaultAnalyzer-124"><span class="linenos">124</span></a>                    <span class="n">bar_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">count</span> <span class="o">/</span> <span class="n">max_count</span><span class="p">)</span> <span class="o">*</span> <span class="n">bar_area</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-125"><a href="#DefaultAnalyzer-125"><span class="linenos">125</span></a>                    <span class="n">bar_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">bar_x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bar_w</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-126"><a href="#DefaultAnalyzer-126"><span class="linenos">126</span></a>
-</span><span id="DefaultAnalyzer-127"><a href="#DefaultAnalyzer-127"><span class="linenos">127</span></a>                    <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#3498db&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-128"><a href="#DefaultAnalyzer-128"><span class="linenos">128</span></a>                    <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">lightness</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">getHsl</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-129"><a href="#DefaultAnalyzer-129"><span class="linenos">129</span></a>                    <span class="k">assert</span> <span class="p">(</span>
-</span><span id="DefaultAnalyzer-130"><a href="#DefaultAnalyzer-130"><span class="linenos">130</span></a>                        <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">lightness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="DefaultAnalyzer-131"><a href="#DefaultAnalyzer-131"><span class="linenos">131</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer-132"><a href="#DefaultAnalyzer-132"><span class="linenos">132</span></a>                    <span class="n">ratio</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">max_count</span>
-</span><span id="DefaultAnalyzer-133"><a href="#DefaultAnalyzer-133"><span class="linenos">133</span></a>                    <span class="n">new_l</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lightness</span> <span class="o">+</span> <span class="p">(</span><span class="mi">220</span> <span class="o">-</span> <span class="n">lightness</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-134"><a href="#DefaultAnalyzer-134"><span class="linenos">134</span></a>                    <span class="n">color</span><span class="o">.</span><span class="n">setHsl</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">new_l</span><span class="p">,</span> <span class="mi">240</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-135"><a href="#DefaultAnalyzer-135"><span class="linenos">135</span></a>
-</span><span id="DefaultAnalyzer-136"><a href="#DefaultAnalyzer-136"><span class="linenos">136</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-137"><a href="#DefaultAnalyzer-137"><span class="linenos">137</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">PenStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-138"><a href="#DefaultAnalyzer-138"><span class="linenos">138</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawRoundedRect</span><span class="p">(</span><span class="n">bar_rect</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-139"><a href="#DefaultAnalyzer-139"><span class="linenos">139</span></a>
-</span><span id="DefaultAnalyzer-140"><a href="#DefaultAnalyzer-140"><span class="linenos">140</span></a>                    <span class="n">count_font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-141"><a href="#DefaultAnalyzer-141"><span class="linenos">141</span></a>                    <span class="n">count_font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-142"><a href="#DefaultAnalyzer-142"><span class="linenos">142</span></a>                    <span class="n">count_font</span><span class="o">.</span><span class="n">setBold</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-143"><a href="#DefaultAnalyzer-143"><span class="linenos">143</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">count_font</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-144"><a href="#DefaultAnalyzer-144"><span class="linenos">144</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#2c3e50&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer-145"><a href="#DefaultAnalyzer-145"><span class="linenos">145</span></a>                    <span class="n">count_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">bar_x</span> <span class="o">+</span> <span class="n">bar_w</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">COUNT_WIDTH</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-146"><a href="#DefaultAnalyzer-146"><span class="linenos">146</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer-147"><a href="#DefaultAnalyzer-147"><span class="linenos">147</span></a>                        <span class="n">count_rect</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer-148"><a href="#DefaultAnalyzer-148"><span class="linenos">148</span></a>                        <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignLeft</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer-149"><a href="#DefaultAnalyzer-149"><span class="linenos">149</span></a>                        <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">),</span>
-</span><span id="DefaultAnalyzer-150"><a href="#DefaultAnalyzer-150"><span class="linenos">150</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer-151"><a href="#DefaultAnalyzer-151"><span class="linenos">151</span></a>
-</span><span id="DefaultAnalyzer-152"><a href="#DefaultAnalyzer-152"><span class="linenos">152</span></a>                    <span class="n">y</span> <span class="o">+=</span> <span class="n">BAR_HEIGHT</span> <span class="o">+</span> <span class="n">BAR_SPACING</span>
-</span><span id="DefaultAnalyzer-153"><a href="#DefaultAnalyzer-153"><span class="linenos">153</span></a>
-</span><span id="DefaultAnalyzer-154"><a href="#DefaultAnalyzer-154"><span class="linenos">154</span></a>                <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-155"><a href="#DefaultAnalyzer-155"><span class="linenos">155</span></a>
-</span><span id="DefaultAnalyzer-156"><a href="#DefaultAnalyzer-156"><span class="linenos">156</span></a>        <span class="n">container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-157"><a href="#DefaultAnalyzer-157"><span class="linenos">157</span></a>        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-158"><a href="#DefaultAnalyzer-158"><span class="linenos">158</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-159"><a href="#DefaultAnalyzer-159"><span class="linenos">159</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-160"><a href="#DefaultAnalyzer-160"><span class="linenos">160</span></a>
-</span><span id="DefaultAnalyzer-161"><a href="#DefaultAnalyzer-161"><span class="linenos">161</span></a>        <span class="n">canvas</span> <span class="o">=</span> <span class="n">_Canvas</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-162"><a href="#DefaultAnalyzer-162"><span class="linenos">162</span></a>        <span class="n">scroll</span> <span class="o">=</span> <span class="n">QScrollArea</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer-163"><a href="#DefaultAnalyzer-163"><span class="linenos">163</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-164"><a href="#DefaultAnalyzer-164"><span class="linenos">164</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setWidgetResizable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-165"><a href="#DefaultAnalyzer-165"><span class="linenos">165</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QScrollArea { border: none; background: white; }&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-166"><a href="#DefaultAnalyzer-166"><span class="linenos">166</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">scroll</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-167"><a href="#DefaultAnalyzer-167"><span class="linenos">167</span></a>
-</span><span id="DefaultAnalyzer-168"><a href="#DefaultAnalyzer-168"><span class="linenos">168</span></a>        <span class="n">total_speakers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-169"><a href="#DefaultAnalyzer-169"><span class="linenos">169</span></a>        <span class="n">total_files</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-170"><a href="#DefaultAnalyzer-170"><span class="linenos">170</span></a>        <span class="n">avg</span> <span class="o">=</span> <span class="n">total_files</span> <span class="o">/</span> <span class="n">total_speakers</span> <span class="k">if</span> <span class="n">total_speakers</span> <span class="k">else</span> <span class="mi">0</span>
-</span><span id="DefaultAnalyzer-171"><a href="#DefaultAnalyzer-171"><span class="linenos">171</span></a>        <span class="n">stats</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer-172"><a href="#DefaultAnalyzer-172"><span class="linenos">172</span></a>            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total_speakers</span><span class="si">}</span><span class="s2"> speakers  |  </span><span class="si">{</span><span class="n">total_files</span><span class="si">}</span><span class="s2"> audio files  |&quot;</span>
-</span><span id="DefaultAnalyzer-173"><a href="#DefaultAnalyzer-173"><span class="linenos">173</span></a>            <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">avg</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> avg files/speaker&quot;</span>
-</span><span id="DefaultAnalyzer-174"><a href="#DefaultAnalyzer-174"><span class="linenos">174</span></a>        <span class="p">)</span>
-</span><span id="DefaultAnalyzer-175"><a href="#DefaultAnalyzer-175"><span class="linenos">175</span></a>        <span class="n">stats</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: #7f8c8d; font-size: 12px; font-style: italic; padding: 8px;&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-176"><a href="#DefaultAnalyzer-176"><span class="linenos">176</span></a>        <span class="n">stats</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-177"><a href="#DefaultAnalyzer-177"><span class="linenos">177</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer-178"><a href="#DefaultAnalyzer-178"><span class="linenos">178</span></a>
-</span><span id="DefaultAnalyzer-179"><a href="#DefaultAnalyzer-179"><span class="linenos">179</span></a>        <span class="k">return</span> <span class="n">container</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Default analyzer extracting speaker and audio file counts per speaker.</p>
-</div>
-
-
-                            <div id="DefaultAnalyzer.name" class="classattr">
-                                        <input id="DefaultAnalyzer.name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr variable">
-            <span class="name">name</span><span class="annotation">: str</span>
-
-                <label class="view-source-button" for="DefaultAnalyzer.name-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DefaultAnalyzer.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DefaultAnalyzer.name-27"><a href="#DefaultAnalyzer.name-27"><span class="linenos">27</span></a>    <span class="nd">@property</span>
-</span><span id="DefaultAnalyzer.name-28"><a href="#DefaultAnalyzer.name-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.name-29"><a href="#DefaultAnalyzer.name-29"><span class="linenos">29</span></a>        <span class="k">return</span> <span class="s2">&quot;Default&quot;</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Display name for this analysis method.</p>
-
-<p>Returns:
-    str: Human readable name used to register and select the analyzer.</p>
-</div>
-
-
-                            </div>
-                            <div id="DefaultAnalyzer.description" class="classattr">
-                                        <input id="DefaultAnalyzer.description-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr variable">
-            <span class="name">description</span><span class="annotation">: str</span>
-
-                <label class="view-source-button" for="DefaultAnalyzer.description-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DefaultAnalyzer.description"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DefaultAnalyzer.description-31"><a href="#DefaultAnalyzer.description-31"><span class="linenos">31</span></a>    <span class="nd">@property</span>
-</span><span id="DefaultAnalyzer.description-32"><a href="#DefaultAnalyzer.description-32"><span class="linenos">32</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.description-33"><a href="#DefaultAnalyzer.description-33"><span class="linenos">33</span></a>        <span class="k">return</span> <span class="s2">&quot;Speaker count and audio files per speaker&quot;</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Short description of the analyzer's behavior.</p>
-
-<p>Returns:
-    str: Brief description suitable for display in UI lists.</p>
-</div>
-
-
-                            </div>
-                            <div id="DefaultAnalyzer.analyze" class="classattr">
-                                        <input id="DefaultAnalyzer.analyze-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">analyze</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>:</span></span>
-
-                <label class="view-source-button" for="DefaultAnalyzer.analyze-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DefaultAnalyzer.analyze"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DefaultAnalyzer.analyze-35"><a href="#DefaultAnalyzer.analyze-35"><span class="linenos">35</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-</span><span id="DefaultAnalyzer.analyze-36"><a href="#DefaultAnalyzer.analyze-36"><span class="linenos">36</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="DefaultAnalyzer.analyze-37"><a href="#DefaultAnalyzer.analyze-37"><span class="linenos">37</span></a><span class="sd">        Return a list of rows with speaker id and audio file count.</span>
-</span><span id="DefaultAnalyzer.analyze-38"><a href="#DefaultAnalyzer.analyze-38"><span class="linenos">38</span></a>
-</span><span id="DefaultAnalyzer.analyze-39"><a href="#DefaultAnalyzer.analyze-39"><span class="linenos">39</span></a><span class="sd">        Args:</span>
-</span><span id="DefaultAnalyzer.analyze-40"><a href="#DefaultAnalyzer.analyze-40"><span class="linenos">40</span></a><span class="sd">            dataset_path (str): Path to the dataset root directory.</span>
-</span><span id="DefaultAnalyzer.analyze-41"><a href="#DefaultAnalyzer.analyze-41"><span class="linenos">41</span></a>
-</span><span id="DefaultAnalyzer.analyze-42"><a href="#DefaultAnalyzer.analyze-42"><span class="linenos">42</span></a><span class="sd">        Returns:</span>
-</span><span id="DefaultAnalyzer.analyze-43"><a href="#DefaultAnalyzer.analyze-43"><span class="linenos">43</span></a><span class="sd">            List[Dict[str, Any]]: Each dict contains ``speaker_id`` and</span>
-</span><span id="DefaultAnalyzer.analyze-44"><a href="#DefaultAnalyzer.analyze-44"><span class="linenos">44</span></a><span class="sd">            ``audio_file_count``.</span>
-</span><span id="DefaultAnalyzer.analyze-45"><a href="#DefaultAnalyzer.analyze-45"><span class="linenos">45</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="DefaultAnalyzer.analyze-46"><a href="#DefaultAnalyzer.analyze-46"><span class="linenos">46</span></a>        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="DefaultAnalyzer.analyze-47"><a href="#DefaultAnalyzer.analyze-47"><span class="linenos">47</span></a>        <span class="n">audio_extensions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;.wav&quot;</span><span class="p">,</span> <span class="s2">&quot;.flac&quot;</span><span class="p">,</span> <span class="s2">&quot;.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;.ogg&quot;</span><span class="p">,</span> <span class="s2">&quot;.m4a&quot;</span><span class="p">}</span>
-</span><span id="DefaultAnalyzer.analyze-48"><a href="#DefaultAnalyzer.analyze-48"><span class="linenos">48</span></a>
-</span><span id="DefaultAnalyzer.analyze-49"><a href="#DefaultAnalyzer.analyze-49"><span class="linenos">49</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.analyze-50"><a href="#DefaultAnalyzer.analyze-50"><span class="linenos">50</span></a>            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.analyze-51"><a href="#DefaultAnalyzer.analyze-51"><span class="linenos">51</span></a>                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-</span><span id="DefaultAnalyzer.analyze-52"><a href="#DefaultAnalyzer.analyze-52"><span class="linenos">52</span></a>                    <span class="n">speaker_name</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
-</span><span id="DefaultAnalyzer.analyze-53"><a href="#DefaultAnalyzer.analyze-53"><span class="linenos">53</span></a>                    <span class="n">audio_files</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="DefaultAnalyzer.analyze-54"><a href="#DefaultAnalyzer.analyze-54"><span class="linenos">54</span></a>                        <span class="n">f</span>
-</span><span id="DefaultAnalyzer.analyze-55"><a href="#DefaultAnalyzer.analyze-55"><span class="linenos">55</span></a>                        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.analyze-56"><a href="#DefaultAnalyzer.analyze-56"><span class="linenos">56</span></a>                        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">audio_extensions</span>
-</span><span id="DefaultAnalyzer.analyze-57"><a href="#DefaultAnalyzer.analyze-57"><span class="linenos">57</span></a>                    <span class="p">]</span>
-</span><span id="DefaultAnalyzer.analyze-58"><a href="#DefaultAnalyzer.analyze-58"><span class="linenos">58</span></a>
-</span><span id="DefaultAnalyzer.analyze-59"><a href="#DefaultAnalyzer.analyze-59"><span class="linenos">59</span></a>                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer.analyze-60"><a href="#DefaultAnalyzer.analyze-60"><span class="linenos">60</span></a>                        <span class="p">{</span><span class="s2">&quot;speaker_id&quot;</span><span class="p">:</span> <span class="n">speaker_name</span><span class="p">,</span> <span class="s2">&quot;audio_file_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_files</span><span class="p">)}</span>
-</span><span id="DefaultAnalyzer.analyze-61"><a href="#DefaultAnalyzer.analyze-61"><span class="linenos">61</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer.analyze-62"><a href="#DefaultAnalyzer.analyze-62"><span class="linenos">62</span></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.analyze-63"><a href="#DefaultAnalyzer.analyze-63"><span class="linenos">63</span></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error analyzing dataset: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.analyze-64"><a href="#DefaultAnalyzer.analyze-64"><span class="linenos">64</span></a>
-</span><span id="DefaultAnalyzer.analyze-65"><a href="#DefaultAnalyzer.analyze-65"><span class="linenos">65</span></a>        <span class="k">return</span> <span class="n">results</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return a list of rows with speaker id and audio file count.</p>
-
-<p>Args:
-    dataset_path (str): Path to the dataset root directory.</p>
-
-<p>Returns:
-    List[Dict[str, Any]]: Each dict contains <code>speaker_id</code> and
-    <code>audio_file_count</code>.</p>
-</div>
-
-
-                            </div>
-                            <div id="DefaultAnalyzer.visualize" class="classattr">
-                                        <input id="DefaultAnalyzer.visualize-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">visualize</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">data</span></span><span class="return-annotation">):</span></span>
-
-                <label class="view-source-button" for="DefaultAnalyzer.visualize-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DefaultAnalyzer.visualize"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DefaultAnalyzer.visualize-67"><a href="#DefaultAnalyzer.visualize-67"><span class="linenos"> 67</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.visualize-68"><a href="#DefaultAnalyzer.visualize-68"><span class="linenos"> 68</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QRectF</span><span class="p">,</span> <span class="n">Qt</span>
-</span><span id="DefaultAnalyzer.visualize-69"><a href="#DefaultAnalyzer.visualize-69"><span class="linenos"> 69</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QPainter</span>
-</span><span id="DefaultAnalyzer.visualize-70"><a href="#DefaultAnalyzer.visualize-70"><span class="linenos"> 70</span></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
-</span><span id="DefaultAnalyzer.visualize-71"><a href="#DefaultAnalyzer.visualize-71"><span class="linenos"> 71</span></a>
-</span><span id="DefaultAnalyzer.visualize-72"><a href="#DefaultAnalyzer.visualize-72"><span class="linenos"> 72</span></a>        <span class="n">entries</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="DefaultAnalyzer.visualize-73"><a href="#DefaultAnalyzer.visualize-73"><span class="linenos"> 73</span></a>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.visualize-74"><a href="#DefaultAnalyzer.visualize-74"><span class="linenos"> 74</span></a>            <span class="n">speaker</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;speaker_id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-75"><a href="#DefaultAnalyzer.visualize-75"><span class="linenos"> 75</span></a>            <span class="k">try</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.visualize-76"><a href="#DefaultAnalyzer.visualize-76"><span class="linenos"> 76</span></a>                <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;audio_file_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-77"><a href="#DefaultAnalyzer.visualize-77"><span class="linenos"> 77</span></a>            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.visualize-78"><a href="#DefaultAnalyzer.visualize-78"><span class="linenos"> 78</span></a>                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="DefaultAnalyzer.visualize-79"><a href="#DefaultAnalyzer.visualize-79"><span class="linenos"> 79</span></a>            <span class="n">entries</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">speaker</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-80"><a href="#DefaultAnalyzer.visualize-80"><span class="linenos"> 80</span></a>        <span class="n">entries</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-81"><a href="#DefaultAnalyzer.visualize-81"><span class="linenos"> 81</span></a>
-</span><span id="DefaultAnalyzer.visualize-82"><a href="#DefaultAnalyzer.visualize-82"><span class="linenos"> 82</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">entries</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.visualize-83"><a href="#DefaultAnalyzer.visualize-83"><span class="linenos"> 83</span></a>            <span class="n">empty</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;No data to visualize.&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-84"><a href="#DefaultAnalyzer.visualize-84"><span class="linenos"> 84</span></a>            <span class="n">empty</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-85"><a href="#DefaultAnalyzer.visualize-85"><span class="linenos"> 85</span></a>            <span class="k">return</span> <span class="n">empty</span>
-</span><span id="DefaultAnalyzer.visualize-86"><a href="#DefaultAnalyzer.visualize-86"><span class="linenos"> 86</span></a>
-</span><span id="DefaultAnalyzer.visualize-87"><a href="#DefaultAnalyzer.visualize-87"><span class="linenos"> 87</span></a>        <span class="n">BAR_HEIGHT</span> <span class="o">=</span> <span class="mi">28</span>
-</span><span id="DefaultAnalyzer.visualize-88"><a href="#DefaultAnalyzer.visualize-88"><span class="linenos"> 88</span></a>        <span class="n">BAR_SPACING</span> <span class="o">=</span> <span class="mi">6</span>
-</span><span id="DefaultAnalyzer.visualize-89"><a href="#DefaultAnalyzer.visualize-89"><span class="linenos"> 89</span></a>        <span class="n">LABEL_WIDTH</span> <span class="o">=</span> <span class="mi">140</span>
-</span><span id="DefaultAnalyzer.visualize-90"><a href="#DefaultAnalyzer.visualize-90"><span class="linenos"> 90</span></a>        <span class="n">PADDING</span> <span class="o">=</span> <span class="mi">16</span>
-</span><span id="DefaultAnalyzer.visualize-91"><a href="#DefaultAnalyzer.visualize-91"><span class="linenos"> 91</span></a>        <span class="n">COUNT_WIDTH</span> <span class="o">=</span> <span class="mi">55</span>
-</span><span id="DefaultAnalyzer.visualize-92"><a href="#DefaultAnalyzer.visualize-92"><span class="linenos"> 92</span></a>        <span class="n">max_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">1</span>
-</span><span id="DefaultAnalyzer.visualize-93"><a href="#DefaultAnalyzer.visualize-93"><span class="linenos"> 93</span></a>        <span class="n">total_h</span> <span class="o">=</span> <span class="n">PADDING</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">BAR_HEIGHT</span> <span class="o">+</span> <span class="n">BAR_SPACING</span><span class="p">)</span> <span class="o">+</span> <span class="n">PADDING</span>
-</span><span id="DefaultAnalyzer.visualize-94"><a href="#DefaultAnalyzer.visualize-94"><span class="linenos"> 94</span></a>
-</span><span id="DefaultAnalyzer.visualize-95"><a href="#DefaultAnalyzer.visualize-95"><span class="linenos"> 95</span></a>        <span class="k">class</span><span class="w"> </span><span class="nc">_Canvas</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.visualize-96"><a href="#DefaultAnalyzer.visualize-96"><span class="linenos"> 96</span></a>            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.visualize-97"><a href="#DefaultAnalyzer.visualize-97"><span class="linenos"> 97</span></a>                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-98"><a href="#DefaultAnalyzer.visualize-98"><span class="linenos"> 98</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">total_h</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-99"><a href="#DefaultAnalyzer.visualize-99"><span class="linenos"> 99</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-100"><a href="#DefaultAnalyzer.visualize-100"><span class="linenos">100</span></a>
-</span><span id="DefaultAnalyzer.visualize-101"><a href="#DefaultAnalyzer.visualize-101"><span class="linenos">101</span></a>            <span class="k">def</span><span class="w"> </span><span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-</span><span id="DefaultAnalyzer.visualize-102"><a href="#DefaultAnalyzer.visualize-102"><span class="linenos">102</span></a>                <span class="n">painter</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-103"><a href="#DefaultAnalyzer.visualize-103"><span class="linenos">103</span></a>                <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHint</span><span class="p">(</span><span class="n">QPainter</span><span class="o">.</span><span class="n">RenderHint</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-104"><a href="#DefaultAnalyzer.visualize-104"><span class="linenos">104</span></a>                <span class="n">bar_area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="n">LABEL_WIDTH</span> <span class="o">-</span> <span class="n">PADDING</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">COUNT_WIDTH</span>
-</span><span id="DefaultAnalyzer.visualize-105"><a href="#DefaultAnalyzer.visualize-105"><span class="linenos">105</span></a>                <span class="n">y</span> <span class="o">=</span> <span class="n">PADDING</span>
-</span><span id="DefaultAnalyzer.visualize-106"><a href="#DefaultAnalyzer.visualize-106"><span class="linenos">106</span></a>
-</span><span id="DefaultAnalyzer.visualize-107"><a href="#DefaultAnalyzer.visualize-107"><span class="linenos">107</span></a>                <span class="k">for</span> <span class="n">speaker</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">:</span>
-</span><span id="DefaultAnalyzer.visualize-108"><a href="#DefaultAnalyzer.visualize-108"><span class="linenos">108</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#2c3e50&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-109"><a href="#DefaultAnalyzer.visualize-109"><span class="linenos">109</span></a>                    <span class="n">label_font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-110"><a href="#DefaultAnalyzer.visualize-110"><span class="linenos">110</span></a>                    <span class="n">label_font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-111"><a href="#DefaultAnalyzer.visualize-111"><span class="linenos">111</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">label_font</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-112"><a href="#DefaultAnalyzer.visualize-112"><span class="linenos">112</span></a>                    <span class="n">label_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">PADDING</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">LABEL_WIDTH</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-113"><a href="#DefaultAnalyzer.visualize-113"><span class="linenos">113</span></a>                    <span class="n">fm</span> <span class="o">=</span> <span class="n">painter</span><span class="o">.</span><span class="n">fontMetrics</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-114"><a href="#DefaultAnalyzer.visualize-114"><span class="linenos">114</span></a>                    <span class="n">elided</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">elidedText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer.visualize-115"><a href="#DefaultAnalyzer.visualize-115"><span class="linenos">115</span></a>                        <span class="n">speaker</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">TextElideMode</span><span class="o">.</span><span class="n">ElideRight</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">LABEL_WIDTH</span> <span class="o">-</span> <span class="mi">8</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-116"><a href="#DefaultAnalyzer.visualize-116"><span class="linenos">116</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-117"><a href="#DefaultAnalyzer.visualize-117"><span class="linenos">117</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer.visualize-118"><a href="#DefaultAnalyzer.visualize-118"><span class="linenos">118</span></a>                        <span class="n">label_rect</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer.visualize-119"><a href="#DefaultAnalyzer.visualize-119"><span class="linenos">119</span></a>                        <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignRight</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer.visualize-120"><a href="#DefaultAnalyzer.visualize-120"><span class="linenos">120</span></a>                        <span class="n">elided</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer.visualize-121"><a href="#DefaultAnalyzer.visualize-121"><span class="linenos">121</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-122"><a href="#DefaultAnalyzer.visualize-122"><span class="linenos">122</span></a>
-</span><span id="DefaultAnalyzer.visualize-123"><a href="#DefaultAnalyzer.visualize-123"><span class="linenos">123</span></a>                    <span class="n">bar_x</span> <span class="o">=</span> <span class="n">PADDING</span> <span class="o">+</span> <span class="n">LABEL_WIDTH</span> <span class="o">+</span> <span class="mi">10</span>
-</span><span id="DefaultAnalyzer.visualize-124"><a href="#DefaultAnalyzer.visualize-124"><span class="linenos">124</span></a>                    <span class="n">bar_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">count</span> <span class="o">/</span> <span class="n">max_count</span><span class="p">)</span> <span class="o">*</span> <span class="n">bar_area</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-125"><a href="#DefaultAnalyzer.visualize-125"><span class="linenos">125</span></a>                    <span class="n">bar_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">bar_x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bar_w</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-126"><a href="#DefaultAnalyzer.visualize-126"><span class="linenos">126</span></a>
-</span><span id="DefaultAnalyzer.visualize-127"><a href="#DefaultAnalyzer.visualize-127"><span class="linenos">127</span></a>                    <span class="n">color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#3498db&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-128"><a href="#DefaultAnalyzer.visualize-128"><span class="linenos">128</span></a>                    <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">lightness</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">getHsl</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-129"><a href="#DefaultAnalyzer.visualize-129"><span class="linenos">129</span></a>                    <span class="k">assert</span> <span class="p">(</span>
-</span><span id="DefaultAnalyzer.visualize-130"><a href="#DefaultAnalyzer.visualize-130"><span class="linenos">130</span></a>                        <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">lightness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="DefaultAnalyzer.visualize-131"><a href="#DefaultAnalyzer.visualize-131"><span class="linenos">131</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-132"><a href="#DefaultAnalyzer.visualize-132"><span class="linenos">132</span></a>                    <span class="n">ratio</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">max_count</span>
-</span><span id="DefaultAnalyzer.visualize-133"><a href="#DefaultAnalyzer.visualize-133"><span class="linenos">133</span></a>                    <span class="n">new_l</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lightness</span> <span class="o">+</span> <span class="p">(</span><span class="mi">220</span> <span class="o">-</span> <span class="n">lightness</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-134"><a href="#DefaultAnalyzer.visualize-134"><span class="linenos">134</span></a>                    <span class="n">color</span><span class="o">.</span><span class="n">setHsl</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">new_l</span><span class="p">,</span> <span class="mi">240</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-135"><a href="#DefaultAnalyzer.visualize-135"><span class="linenos">135</span></a>
-</span><span id="DefaultAnalyzer.visualize-136"><a href="#DefaultAnalyzer.visualize-136"><span class="linenos">136</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-137"><a href="#DefaultAnalyzer.visualize-137"><span class="linenos">137</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">PenStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-138"><a href="#DefaultAnalyzer.visualize-138"><span class="linenos">138</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawRoundedRect</span><span class="p">(</span><span class="n">bar_rect</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-139"><a href="#DefaultAnalyzer.visualize-139"><span class="linenos">139</span></a>
-</span><span id="DefaultAnalyzer.visualize-140"><a href="#DefaultAnalyzer.visualize-140"><span class="linenos">140</span></a>                    <span class="n">count_font</span> <span class="o">=</span> <span class="n">QFont</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-141"><a href="#DefaultAnalyzer.visualize-141"><span class="linenos">141</span></a>                    <span class="n">count_font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-142"><a href="#DefaultAnalyzer.visualize-142"><span class="linenos">142</span></a>                    <span class="n">count_font</span><span class="o">.</span><span class="n">setBold</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-143"><a href="#DefaultAnalyzer.visualize-143"><span class="linenos">143</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">count_font</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-144"><a href="#DefaultAnalyzer.visualize-144"><span class="linenos">144</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">QColor</span><span class="p">(</span><span class="s2">&quot;#2c3e50&quot;</span><span class="p">))</span>
-</span><span id="DefaultAnalyzer.visualize-145"><a href="#DefaultAnalyzer.visualize-145"><span class="linenos">145</span></a>                    <span class="n">count_rect</span> <span class="o">=</span> <span class="n">QRectF</span><span class="p">(</span><span class="n">bar_x</span> <span class="o">+</span> <span class="n">bar_w</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">COUNT_WIDTH</span><span class="p">,</span> <span class="n">BAR_HEIGHT</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-146"><a href="#DefaultAnalyzer.visualize-146"><span class="linenos">146</span></a>                    <span class="n">painter</span><span class="o">.</span><span class="n">drawText</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer.visualize-147"><a href="#DefaultAnalyzer.visualize-147"><span class="linenos">147</span></a>                        <span class="n">count_rect</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer.visualize-148"><a href="#DefaultAnalyzer.visualize-148"><span class="linenos">148</span></a>                        <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignLeft</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">,</span>
-</span><span id="DefaultAnalyzer.visualize-149"><a href="#DefaultAnalyzer.visualize-149"><span class="linenos">149</span></a>                        <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">),</span>
-</span><span id="DefaultAnalyzer.visualize-150"><a href="#DefaultAnalyzer.visualize-150"><span class="linenos">150</span></a>                    <span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-151"><a href="#DefaultAnalyzer.visualize-151"><span class="linenos">151</span></a>
-</span><span id="DefaultAnalyzer.visualize-152"><a href="#DefaultAnalyzer.visualize-152"><span class="linenos">152</span></a>                    <span class="n">y</span> <span class="o">+=</span> <span class="n">BAR_HEIGHT</span> <span class="o">+</span> <span class="n">BAR_SPACING</span>
-</span><span id="DefaultAnalyzer.visualize-153"><a href="#DefaultAnalyzer.visualize-153"><span class="linenos">153</span></a>
-</span><span id="DefaultAnalyzer.visualize-154"><a href="#DefaultAnalyzer.visualize-154"><span class="linenos">154</span></a>                <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-155"><a href="#DefaultAnalyzer.visualize-155"><span class="linenos">155</span></a>
-</span><span id="DefaultAnalyzer.visualize-156"><a href="#DefaultAnalyzer.visualize-156"><span class="linenos">156</span></a>        <span class="n">container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-157"><a href="#DefaultAnalyzer.visualize-157"><span class="linenos">157</span></a>        <span class="n">layout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-158"><a href="#DefaultAnalyzer.visualize-158"><span class="linenos">158</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-159"><a href="#DefaultAnalyzer.visualize-159"><span class="linenos">159</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-160"><a href="#DefaultAnalyzer.visualize-160"><span class="linenos">160</span></a>
-</span><span id="DefaultAnalyzer.visualize-161"><a href="#DefaultAnalyzer.visualize-161"><span class="linenos">161</span></a>        <span class="n">canvas</span> <span class="o">=</span> <span class="n">_Canvas</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-162"><a href="#DefaultAnalyzer.visualize-162"><span class="linenos">162</span></a>        <span class="n">scroll</span> <span class="o">=</span> <span class="n">QScrollArea</span><span class="p">()</span>
-</span><span id="DefaultAnalyzer.visualize-163"><a href="#DefaultAnalyzer.visualize-163"><span class="linenos">163</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-164"><a href="#DefaultAnalyzer.visualize-164"><span class="linenos">164</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setWidgetResizable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-165"><a href="#DefaultAnalyzer.visualize-165"><span class="linenos">165</span></a>        <span class="n">scroll</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QScrollArea { border: none; background: white; }&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-166"><a href="#DefaultAnalyzer.visualize-166"><span class="linenos">166</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">scroll</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-167"><a href="#DefaultAnalyzer.visualize-167"><span class="linenos">167</span></a>
-</span><span id="DefaultAnalyzer.visualize-168"><a href="#DefaultAnalyzer.visualize-168"><span class="linenos">168</span></a>        <span class="n">total_speakers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-169"><a href="#DefaultAnalyzer.visualize-169"><span class="linenos">169</span></a>        <span class="n">total_files</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">entries</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-170"><a href="#DefaultAnalyzer.visualize-170"><span class="linenos">170</span></a>        <span class="n">avg</span> <span class="o">=</span> <span class="n">total_files</span> <span class="o">/</span> <span class="n">total_speakers</span> <span class="k">if</span> <span class="n">total_speakers</span> <span class="k">else</span> <span class="mi">0</span>
-</span><span id="DefaultAnalyzer.visualize-171"><a href="#DefaultAnalyzer.visualize-171"><span class="linenos">171</span></a>        <span class="n">stats</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span>
-</span><span id="DefaultAnalyzer.visualize-172"><a href="#DefaultAnalyzer.visualize-172"><span class="linenos">172</span></a>            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total_speakers</span><span class="si">}</span><span class="s2"> speakers  |  </span><span class="si">{</span><span class="n">total_files</span><span class="si">}</span><span class="s2"> audio files  |&quot;</span>
-</span><span id="DefaultAnalyzer.visualize-173"><a href="#DefaultAnalyzer.visualize-173"><span class="linenos">173</span></a>            <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">avg</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> avg files/speaker&quot;</span>
-</span><span id="DefaultAnalyzer.visualize-174"><a href="#DefaultAnalyzer.visualize-174"><span class="linenos">174</span></a>        <span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-175"><a href="#DefaultAnalyzer.visualize-175"><span class="linenos">175</span></a>        <span class="n">stats</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: #7f8c8d; font-size: 12px; font-style: italic; padding: 8px;&quot;</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-176"><a href="#DefaultAnalyzer.visualize-176"><span class="linenos">176</span></a>        <span class="n">stats</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-177"><a href="#DefaultAnalyzer.visualize-177"><span class="linenos">177</span></a>        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-</span><span id="DefaultAnalyzer.visualize-178"><a href="#DefaultAnalyzer.visualize-178"><span class="linenos">178</span></a>
-</span><span id="DefaultAnalyzer.visualize-179"><a href="#DefaultAnalyzer.visualize-179"><span class="linenos">179</span></a>        <span class="k">return</span> <span class="n">container</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Return a QWidget visualizing the analysis data.</p>
-
-<p>Subclasses may override this method to provide a custom visualization
-widget. The default implementation returns <code>None</code>, which signals
-the caller to fall back to a plain table view.</p>
-
-<p>Args:
-    data: The analysis results as returned by <code><a href="#DefaultAnalyzer.analyze">analyze()</a></code>.</p>
-
-<p>Returns:
-    A QWidget ready for embedding in a dialog, or <code>None</code> for the
-    default table display.</p>
-</div>
-
-
-                            </div>
                 </section>
     </main>
 <script>
