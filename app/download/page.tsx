@@ -1,6 +1,6 @@
-"use client"
-import { Footer, Navbar } from '../../layout';
-import DownloadButton from '../../components/DownloadButton';
+"use client";
+import { Footer, Navbar } from "../../layout";
+import DownloadButton from "../../components/DownloadButton";
 
 export default function DownloadPage() {
   return (

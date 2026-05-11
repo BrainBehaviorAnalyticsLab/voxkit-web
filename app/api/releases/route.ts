@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import type {
   GitHubRelease,
   GitHubAsset,
@@ -7,8 +7,8 @@ import type {
   OperatingSystem,
   ReleaseAsset,
   ReleasesAPIResponse,
-} from '../../../types/releases';
-import { fakeGitHubReleases } from '../../../lib/fakeReleases';
+} from "../../../types/releases";
+import { fakeGitHubReleases } from "../../../lib/fakeReleases";
 
 const OS_EXTENSIONS: Record<OperatingSystem, RegExp> = {
   macos: /\.(dmg|pkg)$/i,
@@ -29,8 +29,8 @@ function parseVersion(tag: string): string | null {
 }
 
 function compareVersions(v1: string, v2: string): number {
-  const parts1 = v1.split('.').map(Number);
-  const parts2 = v2.split('.').map(Number);
+  const parts1 = v1.split(".").map(Number);
+  const parts2 = v2.split(".").map(Number);
   for (let i = 0; i < 3; i++) {
     if (parts1[i] > parts2[i]) return 1;
     if (parts1[i] < parts2[i]) return -1;
@@ -50,7 +50,7 @@ export async function GET() {
   try {
     let releases: GitHubRelease[];
 
-    if (process.env.USE_FAKE_RELEASES === 'true') {
+    if (process.env.USE_FAKE_RELEASES === "true") {
       releases = fakeGitHubReleases;
     } else {
       const owner = process.env.GITHUB_OWNER;
@@ -58,25 +58,25 @@ export async function GET() {
 
       if (!owner || !repo) {
         return NextResponse.json(
-          { error: 'GITHUB_OWNER or GITHUB_REPO is not configured' },
-          { status: 500 }
+          { error: "GITHUB_OWNER or GITHUB_REPO is not configured" },
+          { status: 500 },
         );
       }
 
       const response = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/releases`,
         {
-          headers: { Accept: 'application/vnd.github+json' },
+          headers: { Accept: "application/vnd.github+json" },
           next: { revalidate: 5000 },
-        }
+        },
       );
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('GitHub API error:', response.status, errorText);
+        console.error("GitHub API error:", response.status, errorText);
         return NextResponse.json(
           { error: `Failed to fetch releases from GitHub: ${response.status}` },
-          { status: response.status }
+          { status: response.status },
         );
       }
 
@@ -121,10 +121,10 @@ export async function GET() {
 
     return NextResponse.json(apiResponse);
   } catch (error) {
-    console.error('Error fetching releases:', error);
+    console.error("Error fetching releases:", error);
     return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+      { error: "Internal server error" },
+      { status: 500 },
     );
   }
 }

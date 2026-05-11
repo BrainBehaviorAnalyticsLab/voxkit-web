@@ -20,7 +20,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "VoxKit - Audio Toolkit",
-  description: "A professional GUI for speech pathology researchers. Access cutting-edge alignment and analysis tools without the technical complexity.",
+  description:
+    "A professional GUI for speech pathology researchers. Access cutting-edge alignment and analysis tools without the technical complexity.",
 };
 
 export default function RootLayout({
@@ -33,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
-        {children} 
+        {children}
       </body>
     </html>
   );

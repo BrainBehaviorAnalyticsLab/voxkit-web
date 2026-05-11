@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 type Props = {
   className?: string;
   color?: string;
-  height?: number;     
+  height?: number;
   samples?: number;
-  waveOffset?: number;          
+  waveOffset?: number;
 };
 
 /**
@@ -72,7 +72,7 @@ export default function WaveSeparator({
     if (!pathRef.current || width <= 0) return;
 
     const h = height;
-    const half = h / 2;                    
+    const half = h / 2;
     const amp = ampRef.current;
     const base = Math.max(12, h * 0.28);
     const amplitude = base * amp;
@@ -86,11 +86,13 @@ export default function WaveSeparator({
       const x = t * width;
 
       const waveY =
-          Math.sin((t * freq - phaseRef.current) * Math.PI * 2) * amplitude * 1.0 +
-          Math.sin((t * freq * 1.7 - phaseRef.current * 0.6) * Math.PI * 2) *
-            (amplitude * 0.55) +
-          Math.sin((t * freq * 0.7 - phaseRef.current * 1.3) * Math.PI * 2) *
-            (amplitude * 0.5);
+        Math.sin((t * freq - phaseRef.current) * Math.PI * 2) *
+          amplitude *
+          1.0 +
+        Math.sin((t * freq * 1.7 - phaseRef.current * 0.6) * Math.PI * 2) *
+          (amplitude * 0.55) +
+        Math.sin((t * freq * 0.7 - phaseRef.current * 1.3) * Math.PI * 2) *
+          (amplitude * 0.5);
 
       topPts.push([x, half - waveY]);
 
@@ -132,14 +134,16 @@ export default function WaveSeparator({
   return (
     <div
       className={`relative w-full ${className}`}
-      style={{
-        height,                    
-        margin: 0,
-        padding: 0,
-        lineHeight: 0,
-        fontSize: 0,
-        "--wave-color": color,
-      } as React.CSSProperties}
+      style={
+        {
+          height,
+          margin: 0,
+          padding: 0,
+          lineHeight: 0,
+          fontSize: 0,
+          "--wave-color": color,
+        } as React.CSSProperties
+      }
     >
       {/* The SVG is positioned so its centre line sits on the container’s bottom edge */}
       <svg
@@ -154,11 +158,26 @@ export default function WaveSeparator({
       >
         <defs>
           <linearGradient id="waveGrad" x1="0" x2="1">
-            <stop offset="0%"   style={{ stopColor: "var(--wave-color)", stopOpacity: 0.18 }} />
-            <stop offset="30%"  style={{ stopColor: "var(--wave-color)", stopOpacity: 0.12 }} />
-            <stop offset="48%"  style={{ stopColor: "var(--wave-color)", stopOpacity: 0.08 }} />
-            <stop offset="60%"  style={{ stopColor: "var(--wave-color)", stopOpacity: 0.08 }} />
-            <stop offset="100%" style={{ stopColor: "var(--wave-color)", stopOpacity: 0.02 }} />
+            <stop
+              offset="0%"
+              style={{ stopColor: "var(--wave-color)", stopOpacity: 0.18 }}
+            />
+            <stop
+              offset="30%"
+              style={{ stopColor: "var(--wave-color)", stopOpacity: 0.12 }}
+            />
+            <stop
+              offset="48%"
+              style={{ stopColor: "var(--wave-color)", stopOpacity: 0.08 }}
+            />
+            <stop
+              offset="60%"
+              style={{ stopColor: "var(--wave-color)", stopOpacity: 0.08 }}
+            />
+            <stop
+              offset="100%"
+              style={{ stopColor: "var(--wave-color)", stopOpacity: 0.02 }}
+            />
           </linearGradient>
         </defs>
         <path ref={pathRef} fill="url(#waveGrad)" opacity="0.95" />

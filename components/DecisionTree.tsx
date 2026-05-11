@@ -1,9 +1,9 @@
 /**
  * Decision Tree Module
- * 
+ *
  * A module for creating interactive decision trees where users navigate through
  * questions to reach helpful explanations or resources.
- * 
+ *
  * Example usage:
  * ```typescript
  * const tree = new DecisionTree("What do you need help with?");
@@ -11,9 +11,9 @@
  *   "Technical Problem": "technical",
  *   "Account Issue": "account"
  * }, true);
- * tree.addExplanation("technical", "Technical Support", 
+ * tree.addExplanation("technical", "Technical Support",
  *                     "Visit our technical docs at...");
- * 
+ *
  * const widget = new DecisionTreeWidget(tree, document.getElementById('container'));
  * ```
  */
@@ -31,10 +31,10 @@ export type ActionCallback = () => void;
 export abstract class DecisionNode {
   constructor(
     public readonly nodeId: string,
-    public readonly title: string
+    public readonly title: string,
   ) {}
 
-  abstract getType(): 'question' | 'explanation';
+  abstract getType(): "question" | "explanation";
 }
 
 /**
@@ -45,13 +45,13 @@ export class QuestionNode extends DecisionNode {
     nodeId: string,
     title: string,
     public readonly question: string,
-    public readonly choices: Map<string, string>
+    public readonly choices: Map<string, string>,
   ) {
     super(nodeId, title);
   }
 
-  getType(): 'question' {
-    return 'question';
+  getType(): "question" {
+    return "question";
   }
 }
 
@@ -64,13 +64,13 @@ export class ExplanationNode extends DecisionNode {
     title: string,
     public readonly content: string,
     public readonly links: ResourceLink[] = [],
-    public readonly actionCallback?: ActionCallback
+    public readonly actionCallback?: ActionCallback,
   ) {
     super(nodeId, title);
   }
 
-  getType(): 'explanation' {
-    return 'explanation';
+  getType(): "explanation" {
+    return "explanation";
   }
 }
 
@@ -91,7 +91,7 @@ export class DecisionTree {
     title: string,
     question: string,
     choices: Record<string, string>,
-    isRoot: boolean = false
+    isRoot: boolean = false,
   ): this {
     const choicesMap = new Map(Object.entries(choices));
     const node = new QuestionNode(nodeId, title, question, choicesMap);
@@ -112,9 +112,15 @@ export class DecisionTree {
     title: string,
     content: string,
     links?: ResourceLink[],
-    actionCallback?: ActionCallback
+    actionCallback?: ActionCallback,
   ): this {
-    const node = new ExplanationNode(nodeId, title, content, links, actionCallback);
+    const node = new ExplanationNode(
+      nodeId,
+      title,
+      content,
+      links,
+      actionCallback,
+    );
     this.nodes.set(nodeId, node);
     return this;
   }
@@ -162,7 +168,7 @@ export class DecisionTreeWidget {
   constructor(
     tree: DecisionTree,
     container: HTMLElement,
-    listeners: DecisionTreeEventListeners = {}
+    listeners: DecisionTreeEventListeners = {},
   ) {
     this.tree = tree;
     this.container = container;
@@ -174,49 +180,49 @@ export class DecisionTreeWidget {
 
   private setupUI(): void {
     // Clear container
-    this.container.innerHTML = '';
-    this.container.className = 'decision-tree-widget';
+    this.container.innerHTML = "";
+    this.container.className = "decision-tree-widget";
 
     // Apply base styles
     this.applyStyles();
 
     // Create main wrapper
-    const wrapper = document.createElement('div');
-    wrapper.className = 'dt-wrapper';
+    const wrapper = document.createElement("div");
+    wrapper.className = "dt-wrapper";
 
     // Header with title and back button
-    const header = document.createElement('div');
-    header.className = 'dt-header';
+    const header = document.createElement("div");
+    header.className = "dt-header";
 
-    this.backButton = document.createElement('button');
-    this.backButton.className = 'dt-back-button';
-    this.backButton.innerHTML = '← Back';
+    this.backButton = document.createElement("button");
+    this.backButton.className = "dt-back-button";
+    this.backButton.innerHTML = "← Back";
     this.backButton.disabled = true;
-    this.backButton.addEventListener('click', () => this.goBack());
+    this.backButton.addEventListener("click", () => this.goBack());
 
-    this.titleLabel = document.createElement('h2');
-    this.titleLabel.className = 'dt-title';
+    this.titleLabel = document.createElement("h2");
+    this.titleLabel.className = "dt-title";
 
     header.appendChild(this.backButton);
     header.appendChild(this.titleLabel);
 
     // Scrollable content area
-    const scrollContainer = document.createElement('div');
-    scrollContainer.className = 'dt-scroll-container';
+    const scrollContainer = document.createElement("div");
+    scrollContainer.className = "dt-scroll-container";
 
-    this.contentArea = document.createElement('div');
-    this.contentArea.className = 'dt-content';
+    this.contentArea = document.createElement("div");
+    this.contentArea.className = "dt-content";
 
     scrollContainer.appendChild(this.contentArea);
 
     // Footer with reset button
-    const footer = document.createElement('div');
-    footer.className = 'dt-footer';
+    const footer = document.createElement("div");
+    footer.className = "dt-footer";
 
-    this.resetButton = document.createElement('button');
-    this.resetButton.className = 'dt-reset-button';
-    this.resetButton.textContent = 'Start Over';
-    this.resetButton.addEventListener('click', () => this.navigateToRoot());
+    this.resetButton = document.createElement("button");
+    this.resetButton.className = "dt-reset-button";
+    this.resetButton.textContent = "Start Over";
+    this.resetButton.addEventListener("click", () => this.navigateToRoot());
 
     footer.appendChild(this.resetButton);
 
@@ -228,7 +234,7 @@ export class DecisionTreeWidget {
   }
 
   private applyStyles(): void {
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       .decision-tree-widget {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -403,7 +409,7 @@ export class DecisionTreeWidget {
   }
 
   private clearContent(): void {
-    this.contentArea.innerHTML = '';
+    this.contentArea.innerHTML = "";
   }
 
   private navigateToRoot(): void {
@@ -453,43 +459,43 @@ export class DecisionTreeWidget {
 
   private displayQuestion(node: QuestionNode): void {
     // Question text
-    const questionText = document.createElement('div');
-    questionText.className = 'dt-question-text';
+    const questionText = document.createElement("div");
+    questionText.className = "dt-question-text";
     questionText.textContent = node.question;
     this.contentArea.appendChild(questionText);
 
     // Choice buttons
     node.choices.forEach((nextNodeId, choiceText) => {
-      const button = document.createElement('button');
-      button.className = 'dt-choice-button';
+      const button = document.createElement("button");
+      button.className = "dt-choice-button";
       button.textContent = choiceText;
-      button.addEventListener('click', () => this.navigateTo(nextNodeId));
+      button.addEventListener("click", () => this.navigateTo(nextNodeId));
       this.contentArea.appendChild(button);
     });
   }
 
   private displayExplanation(node: ExplanationNode): void {
     // Content text
-    const content = document.createElement('div');
-    content.className = 'dt-explanation-content';
+    const content = document.createElement("div");
+    content.className = "dt-explanation-content";
     content.textContent = node.content;
     this.contentArea.appendChild(content);
 
     // Links section
     if (node.links.length > 0) {
-      const linksSection = document.createElement('div');
-      linksSection.className = 'dt-links-section';
+      const linksSection = document.createElement("div");
+      linksSection.className = "dt-links-section";
 
-      const linksTitle = document.createElement('div');
-      linksTitle.className = 'dt-links-title';
-      linksTitle.textContent = 'Resources:';
+      const linksTitle = document.createElement("div");
+      linksTitle.className = "dt-links-title";
+      linksTitle.textContent = "Resources:";
       linksSection.appendChild(linksTitle);
 
-      node.links.forEach(link => {
-        const linkButton = document.createElement('button');
-        linkButton.className = 'dt-link-button';
+      node.links.forEach((link) => {
+        const linkButton = document.createElement("button");
+        linkButton.className = "dt-link-button";
         linkButton.innerHTML = `🔗 ${link.text}`;
-        linkButton.addEventListener('click', () => {
+        linkButton.addEventListener("click", () => {
           this.listeners.onLinkClick?.(link.url);
         });
         linksSection.appendChild(linkButton);
@@ -500,10 +506,10 @@ export class DecisionTreeWidget {
 
     // Custom action button
     if (node.actionCallback) {
-      const actionButton = document.createElement('button');
-      actionButton.className = 'dt-action-button';
-      actionButton.textContent = 'Take Action';
-      actionButton.addEventListener('click', node.actionCallback);
+      const actionButton = document.createElement("button");
+      actionButton.className = "dt-action-button";
+      actionButton.textContent = "Take Action";
+      actionButton.addEventListener("click", node.actionCallback);
       this.contentArea.appendChild(actionButton);
     }
   }
@@ -533,6 +539,6 @@ export class DecisionTreeWidget {
    * Destroy the widget and clean up
    */
   public destroy(): void {
-    this.container.innerHTML = '';
+    this.container.innerHTML = "";
   }
 }

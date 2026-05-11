@@ -29,7 +29,9 @@ const isPreReleaseVersion = (version: string): boolean => {
 };
 
 export default function DownloadButton() {
-  const [releasesData, setReleasesData] = useState<ReleasesAPIResponse | null>(null);
+  const [releasesData, setReleasesData] = useState<ReleasesAPIResponse | null>(
+    null,
+  );
   const [detectedOS] = useState<OS>(detectOS);
   const [selectedOS, setSelectedOS] = useState<OS>(detectOS);
   const [loading, setLoading] = useState(true);
@@ -57,7 +59,10 @@ export default function DownloadButton() {
     return releasesData.releases[selectedOS];
   };
 
-  const selectBestAsset = (assets: ReleaseAsset[], os: OS): ReleaseAsset | null => {
+  const selectBestAsset = (
+    assets: ReleaseAsset[],
+    os: OS,
+  ): ReleaseAsset | null => {
     if (!assets || assets.length === 0) return null;
     if (assets.length === 1) return assets[0];
 
@@ -96,7 +101,9 @@ export default function DownloadButton() {
   if (loading) {
     return (
       <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto">
-        <div className="text-center text-slate-400">Loading release information...</div>
+        <div className="text-center text-slate-400">
+          Loading release information...
+        </div>
       </div>
     );
   }
@@ -104,14 +111,17 @@ export default function DownloadButton() {
   if (error || !releasesData) {
     return (
       <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto">
-        <div className="text-center text-red-400">{error || "No release data available"}</div>
+        <div className="text-center text-red-400">
+          {error || "No release data available"}
+        </div>
       </div>
     );
   }
 
   const currentRelease = getReleaseForOS();
   const availableOSes = Object.keys(releasesData.releases);
-  const hasPreReleaseVersion = !!currentRelease &&
+  const hasPreReleaseVersion =
+    !!currentRelease &&
     (currentRelease.prerelease || isPreReleaseVersion(currentRelease.version));
   const bestAsset = currentRelease
     ? selectBestAsset(currentRelease.assets, selectedOS)
@@ -168,7 +178,9 @@ export default function DownloadButton() {
                     <div className="text-xs text-cyan-400 mt-1">Detected</div>
                   )}
                   {!isAvailable && (
-                    <div className="text-xs text-red-400 mt-1">Not Available</div>
+                    <div className="text-xs text-red-400 mt-1">
+                      Not Available
+                    </div>
                   )}
                 </div>
               </GridButton>
@@ -185,7 +197,8 @@ export default function DownloadButton() {
                   {getOSDisplayName(selectedOS)} • v{currentRelease.version}
                 </h5>
                 <p className="text-sm text-slate-400">
-                  Released {new Date(currentRelease.publishedAt).toLocaleDateString()}
+                  Released{" "}
+                  {new Date(currentRelease.publishedAt).toLocaleDateString()}
                 </p>
                 {bestAsset && (
                   <p className="text-xs text-slate-500 mt-1">
@@ -204,7 +217,9 @@ export default function DownloadButton() {
                     Download
                   </GridButton>
                 ) : (
-                  <span className="text-slate-400 text-sm px-6 py-2">No assets</span>
+                  <span className="text-slate-400 text-sm px-6 py-2">
+                    No assets
+                  </span>
                 )}
                 <GridButton
                   onClick={() => window.open(currentRelease.htmlUrl, "_blank")}
@@ -217,7 +232,8 @@ export default function DownloadButton() {
           </div>
         ) : (
           <div className="bg-slate-700/30 border border-slate-600 rounded-lg p-4 text-center text-slate-400">
-            No release available for {getOSDisplayName(selectedOS) || "this OS"}.
+            No release available for {getOSDisplayName(selectedOS) || "this OS"}
+            .
           </div>
         )}
 
@@ -227,7 +243,7 @@ export default function DownloadButton() {
             Last updated: {new Date(releasesData.lastUpdated).toLocaleString()}
           </p>
           <a
-            href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || 'owner'}/${process.env.NEXT_PUBLIC_GITHUB_REPO || 'repo'}/releases`}
+            href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || "owner"}/${process.env.NEXT_PUBLIC_GITHUB_REPO || "repo"}/releases`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-cyan-400 text-sm underline mt-2 inline-block"
