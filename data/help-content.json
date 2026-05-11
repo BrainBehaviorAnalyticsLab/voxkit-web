@@ -149,7 +149,7 @@
     "sections": [
       {
         "type": "text",
-        "content": "This section defines core concepts used throughout VoxKit so developers and researchers share a common vocabulary."
+        "content": "VoxKit was created with a systme in mind, a system for setting up research that breaks the ground. One component of that system is an abstracted terminology which forms the basis for an ecosystem (or shared ground) which bridges the disconnect between the developer and the researcher. Here are those terms."
       },
       {
         "type": "heading",
@@ -157,7 +157,7 @@
       },
       {
         "type": "text",
-        "content": "A low-level processing component that implements a specific algorithm or toolkit (for example: forced alignment, voice activity detection, feature extraction, or model inference). Engines load models/assets, expose a simple run API, and produce machine-readable artifacts (JSON, arrays, files). Engines are intended to be implemented by developers and documented so pipelines can reference them declaratively."
+        "content": "A set of audio processing tools adapted to work on a specific task (e.g., training, alignment, GOP extraction). Engines group tools flexibly but the precedent has been to group tools that are part of the same low level library."
       },
       {
         "type": "heading",
@@ -165,7 +165,7 @@
       },
       {
         "type": "text",
-        "content": "A higher-level component that analyzes datasets, generates reports, or computes summary statistics. Analyzers are implemented by developers and documented for pipeline use."
+        "content": "A function that extacts information about a dataset, with a mechanism for visulization. Analyzers are used to provide feedback to the user about their dataset, such as the distribution of audio durations or the number of speakers."
       },
       {
         "type": "heading",
@@ -173,7 +173,7 @@
       },
       {
         "type": "text",
-        "content": "The orchestration layer that composes Engines and Analyzers into an ordered step with a GUI. The Stacker reads pipeline definitions and displays them for tailored context. Stacker configs are intentionally declarative so non-developers can modify workflows via JSON."
+        "content": "A stacker is a smaller workflow that can be used as part of a larger workflow, for example a GOP exploration/analysis pipeline might require a forced alignment stacker which allows for automated annotation of audio files. Stacker classes are defined in the code but can be reordered and enabled/disabled in the configuration file, allowing for flexible workflow design without code changes after the coding ste is complete."
       },
       {
         "type": "heading",
@@ -189,7 +189,7 @@
       },
       {
         "type": "text",
-        "content": "A developer-provided routine that runs once (or on first launch) to prepare the applications assets: verify or download model files, fetch large datasets, and perform one-time initialization. (In the future) Startup behavior can be configured in `config/startup.json`."
+        "content": "A coded routine that runs once on first launch to prepare the applications assets. (In the future) Startup behavior can be configured in `config/startup.json`."
       },
       {
         "type": "heading",
