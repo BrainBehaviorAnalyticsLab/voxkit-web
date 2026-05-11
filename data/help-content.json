@@ -80,61 +80,53 @@
   },
   "expected-workflow": {
     "title": "Expected Workflow",
-    "description": "Outline of roles and configuration layers for deploying VoxKit",
+    "description": "Explanation of how a research team might utilize VoxKit",
     "icon": "📘",
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit separates developer-level integration from research workflow configuration. This guide outlines the expected collaboration and deployment workflow."
+        "content": "Anyone who codes can speak in depth on the importance of breaking problems down into smaller steps. For VoxKit, we imagined a common use case scenario where things can be done one step at a time. Use it how you may, but first imagine this."
       },
       {
         "type": "heading",
-        "content": "1. Collaboration: PI and Developers"
+        "content": "Collaboration: PI and Developers"
       },
       {
         "type": "list",
         "items": [
-          "A Principal Investigator (PI) or research lead defines scientific goals and desired workflow.",
-          "Developers implement low-level capabilities: pipeline stackers, engines (toolkits), analyzers (dataset analysis functions), and a startup routine to download models, datasets, and other assets."
+          "A Principal Investigator (PI) or research lead defines scientific goals and a desired workflow.",
+          "Developers implement capabilities in code, either through pluggable abstractions already defined, or by adapting the functionity which already exists: pipeline stackers, engines (toolkits), analyzers (dataset analysis functions), and an automated startup routine to download whatever the apps needs after it's been installed."
         ]
       },
       {
         "type": "heading",
-        "content": "2. Two Levels of Configuration"
+        "content": "Two Levels of Configuration"
       },
       {
         "type": "list",
         "items": [
           "Developer-level: modify code and the API to implement compatible pipelines, toolkits, analyzers, and startup routines (requires coding).",
-          "Researcher-level: edit configuration JSON files in the bundled `config` folder to define specific workflow steps and guidance (no coding required). A future CLI will simplify this process."
+          "Researcher-level: edit a declarative configuration (YAML or JSON) in the bundled app to define specific workflow steps and guidance (no coding required). This separation allows the burden of technical accuracy and phrasing to be offloaded from the developer so that they can focus on the coding of the implementation."
         ]
       },
       {
         "type": "heading",
-        "content": "3. Bundling and Post-build Configuration"
+        "content": "Bundling and Post-build Configuration"
       },
       {
         "type": "text",
-        "content": "The app is bundled with developer-provided code and a configuration folder. The JSON configuration can be changed after bundling to adapt to a specific study; most workflow changes do not require code edits."
+        "content": "The app is bundled with developer-provided code and a configuration folder. After installation, researchers can modify the configuration files to customize the workflow without changing any code."
       },
       {
         "type": "heading",
-        "content": "4. Distribution"
+        "content": "Team Distribution"
       },
       {
         "type": "list",
         "items": [
           "Distribute the configured executable via a secure network drive or a secure web location.",
-          "If the generic version satisfies your needs, download it from the website and configure via JSON only—no developer interaction required."
+          "If the generic version satisfies your needs, download it from the website and configure via the (YAML or JSON) file, skipping the development step entirely."
         ]
-      },
-      {
-        "type": "heading",
-        "content": "5. Researcher Onboarding"
-      },
-      {
-        "type": "text",
-        "content": "The initial configuration guides users through setup and the steps of the workflow. Once configured and distributed, researchers can run the app without writing code."
       },
       {
         "type": "heading",
