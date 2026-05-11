@@ -1,36 +1,36 @@
 import { NextResponse } from 'next/server';
 import type {
   GitHubRelease,
-  ParsedTag,
+  GitHubAsset,
   GroupedReleases,
+  LatestRelease,
+  OperatingSystem,
+  ReleaseAsset,
   ReleasesAPIResponse,
 } from '../../../types/releases';
 import { fakeGitHubReleases } from '../../../lib/fakeReleases';
 
-// Parse tag format: vX.X.X-OS-WORKFLOW
-function parseTag(tag: string): ParsedTag | null {
-  // Pattern: vX.X.X-OS-WORKFLOW
-  // Example: v1.2.3-macos-workflow1
-  const pattern = /^v(\d+\.\d+\.\d+)-(macos|windows|linux)-(.+)$/i;
-  const match = tag.match(pattern);
-  
-  if (!match) {
-    return null;
+const OS_EXTENSIONS: Record<OperatingSystem, RegExp> = {
+  macos: /\.(dmg|pkg)$/i,
+  windows: /\.(exe|msi)$/i,
+  linux: /\.(AppImage|deb|rpm)$/i,
+};
+
+function detectAssetOS(name: string): OperatingSystem | null {
+  for (const os of Object.keys(OS_EXTENSIONS) as OperatingSystem[]) {
+    if (OS_EXTENSIONS[os].test(name)) return os;
   }
-  
-  return {
-    version: match[1],
-    os: match[2].toLowerCase(),
-    workflow: match[3],
-    fullTag: tag,
-  };
+  return null;
 }
 
-// Compare versions (simple string comparison for semver)
+function parseVersion(tag: string): string | null {
+  const match = tag.match(/^v?(\d+\.\d+\.\d+)/);
+  return match ? match[1] : null;
+}
+
 function compareVersions(v1: string, v2: string): number {
   const parts1 = v1.split('.').map(Number);
   const parts2 = v2.split('.').map(Number);
-  
   for (let i = 0; i < 3; i++) {
     if (parts1[i] > parts2[i]) return 1;
     if (parts1[i] < parts2[i]) return -1;
@@ -38,19 +38,24 @@ function compareVersions(v1: string, v2: string): number {
   return 0;
 }
 
+function toReleaseAsset(asset: GitHubAsset): ReleaseAsset {
+  return {
+    name: asset.name,
+    url: asset.browser_download_url,
+    size: asset.size,
+  };
+}
+
 export async function GET() {
   try {
     let releases: GitHubRelease[];
 
-    // Use fake data for local development
     if (process.env.USE_FAKE_RELEASES === 'true') {
-      console.log('Using fake release data for development');
       releases = fakeGitHubReleases;
     } else {
       const owner = process.env.GITHUB_OWNER;
       const repo = process.env.GITHUB_REPO;
 
-      // Validate environment variables
       if (!owner || !repo) {
         return NextResponse.json(
           { error: 'GITHUB_OWNER or GITHUB_REPO is not configured' },
@@ -58,14 +63,11 @@ export async function GET() {
         );
       }
 
-      // Fetch all releases from GitHub
       const response = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/releases`,
         {
-          headers: {
-            Accept: 'application/vnd.github+json',
-          },
-          next: { revalidate: 5000 }, // Cache for about ~1 hour
+          headers: { Accept: 'application/vnd.github+json' },
+          next: { revalidate: 5000 },
         }
       );
 
@@ -80,66 +82,40 @@ export async function GET() {
 
       releases = await response.json();
     }
-    
-    console.log(`Fetched ${releases.length} releases from GitHub.`);
-    // Parse and group releases
-    const groupedReleases: GroupedReleases = {};
-    console.log(`Processing releases... ${JSON.stringify(releases)}`);
+
+    const grouped: GroupedReleases = {};
+
     for (const release of releases) {
-      console.log(`Processing release: ${JSON.stringify(release)}`);
+      if (release.draft) continue;
+      const version = parseVersion(release.tag_name);
+      if (!version) continue;
 
-      const parsed = parseTag(release.tag_name);
-      
-      if (!parsed) {
-        // Skip releases that don't match our pattern
-        continue;
+      const byOS: Partial<Record<OperatingSystem, ReleaseAsset[]>> = {};
+      for (const asset of release.assets) {
+        const os = detectAssetOS(asset.name);
+        if (!os) continue;
+        (byOS[os] ??= []).push(toReleaseAsset(asset));
       }
 
-      const { os, workflow, version } = parsed;
-
-      // Initialize OS group if it doesn't exist
-      if (!groupedReleases[os]) {
-        groupedReleases[os] = [];
+      for (const os of Object.keys(byOS) as OperatingSystem[]) {
+        const assets = byOS[os]!;
+        const current = grouped[os];
+        if (!current || compareVersions(version, current.version) > 0) {
+          const next: LatestRelease = {
+            version,
+            tag: release.tag_name,
+            publishedAt: release.published_at,
+            htmlUrl: release.html_url,
+            prerelease: release.prerelease,
+            assets,
+          };
+          grouped[os] = next;
+        }
       }
-
-      // Check if we already have this workflow for this OS
-      const existingWorkflow = groupedReleases[os].find(
-        (r) => r.workflow === workflow
-      );
-
-      if (!existingWorkflow) {
-        // Add new workflow
-        groupedReleases[os].push({
-          workflow,
-          version,
-          tag: release.tag_name,
-          publishedAt: release.published_at,
-          assets: release.assets.map((asset) => ({
-            name: asset.name,
-            url: asset.browser_download_url,
-            size: asset.size,
-          })),
-        });
-      } else if (compareVersions(version, existingWorkflow.version) > 0) {
-        // Update with newer version
-        existingWorkflow.version = version;
-        existingWorkflow.tag = release.tag_name;
-        existingWorkflow.publishedAt = release.published_at;
-        existingWorkflow.assets = release.assets.map((asset) => ({
-          name: asset.name,
-          url: asset.browser_download_url,
-          size: asset.size,
-        }));
-      }
-    }
-
-    // Sort workflows within each OS by name
-    for (const os in groupedReleases) {
-      groupedReleases[os].sort((a, b) => a.workflow.localeCompare(b.workflow));
     }
 
     const apiResponse: ReleasesAPIResponse = {
-      releases: groupedReleases,
+      releases: grouped,
       lastUpdated: new Date().toISOString(),
     };
 

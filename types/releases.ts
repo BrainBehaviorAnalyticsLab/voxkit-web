@@ -25,38 +25,30 @@ export interface GitHubRelease {
 }
 
 // Parsed Release Types
-export interface ParsedTag {
-  version: string;
-  os: string;
-  workflow: string;
-  fullTag: string;
-}
-
 export interface ReleaseAsset {
   name: string;
   url: string;
   size: number;
 }
 
-export interface ReleaseByWorkflow {
-  workflow: string;
+export interface LatestRelease {
   version: string;
   tag: string;
   publishedAt: string;
+  htmlUrl: string;
+  prerelease: boolean;
   assets: ReleaseAsset[];
 }
 
-export interface GroupedReleases {
-  [os: string]: ReleaseByWorkflow[];
-}
+// UI Types
+export type OperatingSystem = "windows" | "macos" | "linux";
+
+export type GroupedReleases = Partial<Record<OperatingSystem, LatestRelease>>;
 
 export interface ReleasesAPIResponse {
   releases: GroupedReleases;
   lastUpdated: string;
 }
-
-// UI Types
-export type OperatingSystem = "windows" | "macos" | "linux";
 
 export interface DownloadButtonProps {
   className?: string;
