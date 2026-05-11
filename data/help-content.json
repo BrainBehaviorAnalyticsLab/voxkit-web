@@ -6,18 +6,23 @@
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit is a powerful forced alignment and voice analysis toolkit designed to conduct guided workflows in research environments. This guide will help you get started quickly."
+        "content": "Judging by your presence here, I take it your ready to conduct research faster and with less technical overhead. You're in the right place, here's how to get started."
       },
+
       {
         "type": "heading",
         "content": "System Requirements"
       },
       {
+        "type": "text",
+        "content": "Make sure your system meets the following requirements before continuing:"
+      },
+      {
         "type": "list",
         "items": [
-          "Python 3.11 or higher",
           "4GB RAM minimum (8GB recommended)",
-          "50MB free disk space"
+          "20GB free disk space (models and datasets can be hefty)",
+          "macOS 26+ / Windows 10+ / Linux (testing in progress!)"
         ]
       },
       {
@@ -31,9 +36,9 @@
       {
         "type": "list",
         "items": [
-          "Download the appropriate bundle for your operating system from the VoxKit website (This Website).",
-          "If you plan to use Montreal Forced Aligner, be sure it is set up see https://montreal-forced-aligner.readthedocs.io/en/latest/reference/index.html.",
-          "Once the correct version is downloaded, follow the installation instructions below for any additional steps."
+          "Download the appropriate asset for your operating system from the VoxKit website (This Website). Click `download` in the Navigation menu above to do that.",
+          "If you plan to use Montreal Forced Aligner, be sure you have the CLI setup correctly prior to installation. See the current MFA documentation for instructions.",
+          "Once an asset is successfully downloaded, follow the correct instructions below for additional steps. If you're having issues see the troubleshooting section of the help page (go back), or email support at code@beckettfrey.com."
         ]
       },
       {
@@ -51,16 +56,16 @@
       {
         "type": "code",
         "language": "bash",
-        "content": "# Disable quarantine mode for apps downloaded from the internet\nxattr -cr ../VoxKit.app"
+        "content": "# Disable quarantine mode for apps downloaded from the internet\n# You won't be able to setup the app if you skip this\nxattr -cr ../VoxKit.app"
       },
       {
         "type": "heading",
         "content": "Windows Installation"
       },
       {
-        "type": "code",
+        "type": "text",
         "language": "bash",
-        "content": "# Testing in the works"
+        "content": "Just Double click the executable you downloaded in the previous step and follow the prompts to setup VoxKit on your system. If you have issues, try running the executable as administrator."
       },
       {
         "type": "heading",
