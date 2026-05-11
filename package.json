@@ -3,10 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "USE_FAKE_RELEASES=true next dev",
+    "dev": "USE_FAKE_RELEASES=false next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "lucide-react": "^0.553.0",
@@ -21,6 +34,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

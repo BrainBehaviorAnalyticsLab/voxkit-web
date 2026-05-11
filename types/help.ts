@@ -1,5 +1,5 @@
 export interface HelpSection {
-  type: 'text' | 'heading' | 'list' | 'code';
+  type: "text" | "heading" | "list" | "code";
   content?: string;
   items?: string[];
   language?: string;

@@ -62,7 +62,7 @@ export default function GridBackground({
     setRipples((r) => [...r, { id, cx: x, cy: y }]);
     const maxDist = Math.hypot(
       Math.max(x, rect.width - x),
-      Math.max(y, rect.height - y)
+      Math.max(y, rect.height - y),
     );
     const lifetime = maxDist / waveSpeed + 400;
     setTimeout(() => {
@@ -76,7 +76,15 @@ export default function GridBackground({
     setHover({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  const cells: { key: string; left: number; top: number; w: number; h: number; cx: number; cy: number }[] = [];
+  const cells: {
+    key: string;
+    left: number;
+    top: number;
+    w: number;
+    h: number;
+    cx: number;
+    cy: number;
+  }[] = [];
   if (size.w > 0 && size.h > 0) {
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
@@ -155,10 +163,18 @@ export default function GridBackground({
 
       <style jsx>{`
         @keyframes gridCellFlash {
-          0% { opacity: 0; }
-          15% { opacity: 0.9; }
-          60% { opacity: 0.3; }
-          100% { opacity: 0; }
+          0% {
+            opacity: 0;
+          }
+          15% {
+            opacity: 0.9;
+          }
+          60% {
+            opacity: 0.3;
+          }
+          100% {
+            opacity: 0;
+          }
         }
         :global(.grid-cell-flash) {
           opacity: 0;

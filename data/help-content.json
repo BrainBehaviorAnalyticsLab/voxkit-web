@@ -145,7 +145,7 @@
       }
     ]
   },
-    "high-level-terms": {
+  "high-level-terms": {
     "title": "High Level Terminology",
     "description": "The medium by which the developer can communicate capability with the PI",
     "icon": "📚",
@@ -212,7 +212,7 @@
       }
     ]
   },
-"configuration": {
+  "configuration": {
     "title": "Configuration Options",
     "description": "Customize VoxKit to match your workflow and requirements",
     "icon": "⚙️",

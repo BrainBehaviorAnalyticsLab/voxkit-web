@@ -74,7 +74,7 @@ export default function GridButton({
 
     const maxDist = Math.hypot(
       Math.max(x, rect.width - x),
-      Math.max(y, rect.height - y)
+      Math.max(y, rect.height - y),
     );
     const lifetime = maxDist / waveSpeed + 650;
 
@@ -196,10 +196,18 @@ export default function GridButton({
       {/* Animation styles */}
       <style jsx global>{`
         @keyframes gridCellFlash {
-          0% { opacity: 0; }
-          12% { opacity: 0.85; }
-          55% { opacity: 0.25; }
-          100% { opacity: 0; }
+          0% {
+            opacity: 0;
+          }
+          12% {
+            opacity: 0.85;
+          }
+          55% {
+            opacity: 0.25;
+          }
+          100% {
+            opacity: 0;
+          }
         }
         .grid-cell-flash {
           opacity: 0;
