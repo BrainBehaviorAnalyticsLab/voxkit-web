@@ -24,21 +24,22 @@ branch-name ──PR──► main ──auto-deploy──► Vercel production
 ```
 
 1. Branch off `main` (in this repo if internal, in your fork if external): `git checkout -b <short-descriptive-name>`
-2. Commit work locally, the pre-commit hook enforces lint + format + typecheck on every commit.
-3. Push the branch; the pre-push hook enforces full lint + typecheck + `next build`, so a broken branch doesn't even reach GitHub.
+2. Commit work locally, the pre-commit hook enforces lint-staged (lint + format on staged files) + repo-wide format:check + typecheck on every commit.
+3. Push the branch; the pre-push hook enforces full lint + format:check + typecheck + `next build`, so a broken branch doesn't even reach GitHub.
 4. Open a PR against `main`. Vercel posts a preview URL on the PR.
 5. Merge via Squash and merge once review + checks pass. Keeps `main` history linear; 1 commit = 1 shipped change.
 6. Delete the branch after merge. Vercel deploys the new `main` to production automatically.
 
 ### Useful scripts
 
-| Command             | What it does                                  |
-| ------------------- | --------------------------------------------- |
-| `npm run dev`       | Local dev server (`USE_FAKE_RELEASES=false`). |
-| `npm run build`     | Production build.                             |
-| `npm run lint`      | ESLint over the project.                      |
-| `npm run typecheck` | `tsc --noEmit`.                               |
-| `npm run format`    | Prettier-format the whole project.            |
+| Command                | What it does                                  |
+| ---------------------- | --------------------------------------------- |
+| `npm run dev`          | Local dev server (`USE_FAKE_RELEASES=false`). |
+| `npm run build`        | Production build.                             |
+| `npm run lint`         | ESLint over the project.                      |
+| `npm run typecheck`    | `tsc --noEmit`.                               |
+| `npm run format`       | Prettier-format the whole project.            |
+| `npm run format:check` | Prettier check (no writes); fails on drift.   |
 
 ---
 
@@ -69,7 +70,7 @@ Branch rules to enable:
   - **Require approval of the most recent reviewable push**: on.
 - **Require status checks to pass**:
   - **Require branches to be up to date before merging**: on.
-  - Add each required check by name once the CI workflow exists (lint, typecheck, build, Vercel).
+  - Add each required check by name once the CI workflow exists (lint, typecheck, format, Vercel).
 - **Block force pushes**: on.
 
 Anything not in the Bypass list is subject to all of the above. The Repository admin can bypass for genuine emergencies; routine work still goes through PRs.
@@ -103,11 +104,11 @@ Production is `main`. Two paths:
 
 ### Enforcement summary
 
-| Stage             | Enforced by              | Gate                                 | Authoritative?     |
-| ----------------- | ------------------------ | ------------------------------------ | ------------------ |
-| Each commit       | Husky `pre-commit`       | lint-staged + typecheck              | No (`--no-verify`) |
-| Each push         | Husky `pre-push`         | full lint + typecheck + `next build` | No (`--no-verify`) |
-| Reaching `main`   | GitHub branch protection | PR + approval + CI checks            | **Yes**            |
-| Production deploy | Vercel                   | auto on `main`                       | **Yes**            |
+| Stage             | Enforced by              | Gate                                                | Authoritative?     |
+| ----------------- | ------------------------ | --------------------------------------------------- | ------------------ |
+| Each commit       | Husky `pre-commit`       | lint-staged + format:check + typecheck              | No (`--no-verify`) |
+| Each push         | Husky `pre-push`         | full lint + format:check + typecheck + `next build` | No (`--no-verify`) |
+| Reaching `main`   | GitHub branch protection | PR + approval + CI checks                           | **Yes**            |
+| Production deploy | Vercel                   | auto on `main`                                      | **Yes**            |
 
 The hooks make the common case fast and pleasant. Branch protection is what actually keeps `main` clean.
