@@ -6,18 +6,23 @@
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit is a powerful forced alignment and voice analysis toolkit designed to conduct guided workflows in research environments. This guide will help you get started quickly."
+        "content": "Judging by your presence here, I take it your ready to conduct research faster and with less technical overhead. You're in the right place, here's how to get started."
       },
+
       {
         "type": "heading",
         "content": "System Requirements"
       },
       {
+        "type": "text",
+        "content": "Make sure your system meets the following requirements before continuing:"
+      },
+      {
         "type": "list",
         "items": [
-          "Python 3.11 or higher",
           "4GB RAM minimum (8GB recommended)",
-          "50MB free disk space"
+          "20GB free disk space (models and datasets can be hefty)",
+          "macOS 26+ / Windows 10+ / Linux (testing in progress!)"
         ]
       },
       {
@@ -31,9 +36,9 @@
       {
         "type": "list",
         "items": [
-          "Download the appropriate bundle for your operating system from the VoxKit website (This Website).",
-          "If you plan to use Montreal Forced Aligner, be sure it is set up see https://montreal-forced-aligner.readthedocs.io/en/latest/reference/index.html.",
-          "Once the correct version is downloaded, follow the installation instructions below for any additional steps."
+          "Download the appropriate asset for your operating system from the VoxKit website (This Website). Click `download` in the Navigation menu above to do that.",
+          "If you plan to use Montreal Forced Aligner, be sure you have the CLI setup correctly prior to installation. See the current MFA documentation for instructions.",
+          "Once an asset is successfully downloaded, follow the correct instructions below for additional steps. If you're having issues see the troubleshooting section of the help page (go back), or email support at code@beckettfrey.com."
         ]
       },
       {
@@ -51,16 +56,16 @@
       {
         "type": "code",
         "language": "bash",
-        "content": "# Disable quarantine mode for apps downloaded from the internet\nxattr -cr ../VoxKit.app"
+        "content": "# Disable quarantine mode for apps downloaded from the internet\n# You won't be able to setup the app if you skip this\nxattr -cr ../VoxKit.app"
       },
       {
         "type": "heading",
         "content": "Windows Installation"
       },
       {
-        "type": "code",
+        "type": "text",
         "language": "bash",
-        "content": "# Testing in the works"
+        "content": "Just Double click the executable you downloaded in the previous step and follow the prompts to setup VoxKit on your system. If you have issues, try running the executable as administrator."
       },
       {
         "type": "heading",
@@ -75,61 +80,53 @@
   },
   "expected-workflow": {
     "title": "Expected Workflow",
-    "description": "Outline of roles and configuration layers for deploying VoxKit",
+    "description": "Explanation of how a research team might utilize VoxKit",
     "icon": "📘",
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit separates developer-level integration from research workflow configuration. This guide outlines the expected collaboration and deployment workflow."
+        "content": "Anyone who codes can speak in depth on the importance of breaking problems down into smaller steps. For VoxKit, we imagined a common use case scenario where things can be done one step at a time. Use it how you may, but first imagine this."
       },
       {
         "type": "heading",
-        "content": "1. Collaboration: PI and Developers"
+        "content": "Collaboration: PI and Developers"
       },
       {
         "type": "list",
         "items": [
-          "A Principal Investigator (PI) or research lead defines scientific goals and desired workflow.",
-          "Developers implement low-level capabilities: pipeline stackers, engines (toolkits), analyzers (dataset analysis functions), and a startup routine to download models, datasets, and other assets."
+          "A Principal Investigator (PI) or research lead defines scientific goals and a desired workflow.",
+          "Developers implement capabilities in code, either through pluggable abstractions already defined, or by adapting the functionity which already exists: pipeline stackers, engines (toolkits), analyzers (dataset analysis functions), and an automated startup routine to download whatever the apps needs after it's been installed."
         ]
       },
       {
         "type": "heading",
-        "content": "2. Two Levels of Configuration"
+        "content": "Two Levels of Configuration"
       },
       {
         "type": "list",
         "items": [
           "Developer-level: modify code and the API to implement compatible pipelines, toolkits, analyzers, and startup routines (requires coding).",
-          "Researcher-level: edit configuration JSON files in the bundled `config` folder to define specific workflow steps and guidance (no coding required). A future CLI will simplify this process."
+          "Researcher-level: edit a declarative configuration (YAML or JSON) in the bundled app to define specific workflow steps and guidance (no coding required). This separation allows the burden of technical accuracy and phrasing to be offloaded from the developer so that they can focus on the coding of the implementation."
         ]
       },
       {
         "type": "heading",
-        "content": "3. Bundling and Post-build Configuration"
+        "content": "Bundling and Post-build Configuration"
       },
       {
         "type": "text",
-        "content": "The app is bundled with developer-provided code and a configuration folder. The JSON configuration can be changed after bundling to adapt to a specific study; most workflow changes do not require code edits."
+        "content": "The app is bundled with developer-provided code and a configuration folder. After installation, researchers can modify the configuration files to customize the workflow without changing any code."
       },
       {
         "type": "heading",
-        "content": "4. Distribution"
+        "content": "Team Distribution"
       },
       {
         "type": "list",
         "items": [
           "Distribute the configured executable via a secure network drive or a secure web location.",
-          "If the generic version satisfies your needs, download it from the website and configure via JSON only—no developer interaction required."
+          "If the generic version satisfies your needs, download it from the website and configure via the (YAML or JSON) file, skipping the development step entirely."
         ]
-      },
-      {
-        "type": "heading",
-        "content": "5. Researcher Onboarding"
-      },
-      {
-        "type": "text",
-        "content": "The initial configuration guides users through setup and the steps of the workflow. Once configured and distributed, researchers can run the app without writing code."
       },
       {
         "type": "heading",
@@ -152,7 +149,7 @@
     "sections": [
       {
         "type": "text",
-        "content": "This section defines core concepts used throughout VoxKit so developers and researchers share a common vocabulary."
+        "content": "VoxKit was created with a systme in mind, a system for setting up research that breaks the ground. One component of that system is an abstracted terminology which forms the basis for an ecosystem (or shared ground) which bridges the disconnect between the developer and the researcher. Here are those terms."
       },
       {
         "type": "heading",
@@ -160,7 +157,7 @@
       },
       {
         "type": "text",
-        "content": "A low-level processing component that implements a specific algorithm or toolkit (for example: forced alignment, voice activity detection, feature extraction, or model inference). Engines load models/assets, expose a simple run API, and produce machine-readable artifacts (JSON, arrays, files). Engines are intended to be implemented by developers and documented so pipelines can reference them declaratively."
+        "content": "A set of audio processing tools adapted to work on a specific task (e.g., training, alignment, GOP extraction). Engines group tools flexibly but the precedent has been to group tools that are part of the same low level library."
       },
       {
         "type": "heading",
@@ -168,7 +165,7 @@
       },
       {
         "type": "text",
-        "content": "A higher-level component that analyzes datasets, generates reports, or computes summary statistics. Analyzers are implemented by developers and documented for pipeline use."
+        "content": "A function that extacts information about a dataset, with a mechanism for visulization. Analyzers are used to provide feedback to the user about their dataset, such as the distribution of audio durations or the number of speakers."
       },
       {
         "type": "heading",
@@ -176,7 +173,7 @@
       },
       {
         "type": "text",
-        "content": "The orchestration layer that composes Engines and Analyzers into an ordered step with a GUI. The Stacker reads pipeline definitions and displays them for tailored context. Stacker configs are intentionally declarative so non-developers can modify workflows via JSON."
+        "content": "A stacker is a smaller workflow that can be used as part of a larger workflow, for example a GOP exploration/analysis pipeline might require a forced alignment stacker which allows for automated annotation of audio files. Stacker classes are defined in the code but can be reordered and enabled/disabled in the configuration file, allowing for flexible workflow design without code changes after the coding ste is complete."
       },
       {
         "type": "heading",
@@ -192,7 +189,7 @@
       },
       {
         "type": "text",
-        "content": "A developer-provided routine that runs once (or on first launch) to prepare the applications assets: verify or download model files, fetch large datasets, and perform one-time initialization. (In the future) Startup behavior can be configured in `config/startup.json`."
+        "content": "A coded routine that runs once on first launch to prepare the applications assets. (In the future) Startup behavior can be configured in `config/startup.json`."
       },
       {
         "type": "heading",
@@ -219,22 +216,7 @@
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit uses YAML configuration files in the config folder to define workflows, pipelines, and app settings. Configuration can be modified post-build without requiring code changes, enabling researchers to adapt workflows to specific studies."
-      },
-      {
-        "type": "heading",
-        "content": "Configuration Architecture"
-      },
-      {
-        "type": "text",
-        "content": "VoxKit separates configuration into two files in the config folder:"
-      },
-      {
-        "type": "list",
-        "items": [
-          "app_info.yaml: Application metadata, version info, and introduction text",
-          "pipeline_definitions.yaml: Workflow steps, stacker classes, and UI settings"
-        ]
+        "content": "VoxKit uses (YAML or JSON) configuration files in the apps config folder to define information about the app and pipeline. Configuration can be modified post-build without requiring code changes, enabling researchers to adapt workflows to specific studies."
       },
       {
         "type": "heading",
@@ -242,7 +224,7 @@
       },
       {
         "type": "text",
-        "content": "This file contains metadata about the application:"
+        "content": "Located in the apps config folder. Defines application metadata, version info, introduction text. Anything related to the app as a whole:"
       },
       {
         "type": "code",
@@ -253,9 +235,9 @@
         "type": "list",
         "items": [
           "app_name: Display name shown in the application window",
-          "version: Semantic version number (e.g., 0.1.0)",
-          "description: Brief description of the application purpose",
-          "help_url: URL to documentation/help resources",
+          "version: Version number; often linked to a tag on github (e.g., 0.1.0)",
+          "description: Brief description of the applications purpose in context",
+          "help_url: URL to documentation/help resources, flexible to support custom documentation sites",
           "introduction: Multi-line text shown to users on first launch",
           "release_date: ISO date of the current release",
           "release_notes: Multi-line changelog for this version"
@@ -267,7 +249,7 @@
       },
       {
         "type": "text",
-        "content": "This file defines the workflow steps and their display configuration:"
+        "content": "Also located in the apps config folder. Workflow steps, stacker classes, UI settings. Anything related to the workflow and user interface:"
       },
       {
         "type": "code",
@@ -365,14 +347,6 @@
           "Version control your YAML files to track workflow changes across studies",
           "Test configuration changes in a development environment before distribution"
         ]
-      },
-      {
-        "type": "heading",
-        "content": "Configuration Workflow"
-      },
-      {
-        "type": "text",
-        "content": "1. Developer creates Python stackers and registers them in STACKER_REGISTRY\n2. Researcher edits pipeline_definitions.yaml to add/remove/reorder steps\n3. Researcher customizes collapsible_sections for study-specific guidance\n4. Application is bundled with updated configuration\n5. No code changes required - just edit YAML and redistribute"
       }
     ]
   },
@@ -382,19 +356,25 @@
     "icon": "🔧",
     "sections": [
       {
+        "type": "text",
+        "content": "By voicing you're issues and the friction you run into, you can help us understand where the app is falling short and how to improve it. Don't hesitate to reach out."
+      },
+      {
         "type": "heading",
         "content": "Getting Help"
       },
+
       {
         "type": "text",
-        "content": "If your issue persists, you can:"
+        "content": "As of now, we're still working on v1, so these common scenarios aren't defined yet. In the meantime if you're having trouble:"
       },
       {
         "type": "list",
         "items": [
           "Check our GitHub issues for similar problems",
-          "Email support at bfrey6@wisc.edu",
-          "Clone the repository and debug locally"
+          "Email support at code@beckettfrey.com",
+          "Clone the repository and debug locally",
+          "Call us out on Twitter, just kidding, we don't have a Twitter"
         ]
       }
     ]
