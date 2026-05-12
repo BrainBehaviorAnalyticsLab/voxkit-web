@@ -17,13 +17,13 @@ export default function VoxKitLanding() {
       icon: <Clock className="w-8 h-8" />,
       title: "Save Time & Money",
       description:
-        "Face it, you didn't get into speech pathology to sit hunched over in a computer terminal all day. What once took days of scripting and debugging now takes minutes. Spend your time on research, not wrestling with command-line tools.",
+        "Face it, you didn't get into speech pathology to sit hunched over in a computer terminal all day. Spend your time on research, not wrestling with command-line tools.",
     },
     {
       icon: <FileCheck className="w-8 h-8" />,
       title: "Publish-Ready Outputs",
       description:
-        "TextGrids, alignments, analysis reports—all formatted and ready to go. Your reviewers will never know how easy it was.",
+        "TextGrids, datasets, analysis reports; all pre-implemented. Exercise concrete workflows, not vague suggestions.",
     },
     {
       icon: <FolderSync className="w-8 h-8" />,
@@ -35,7 +35,7 @@ export default function VoxKitLanding() {
       icon: <Users className="w-8 h-8" />,
       title: "Built by Researchers",
       description:
-        "We've been in your shoes—late nights, broken scripts, looming deadlines. VoxKit exists because we needed it too.",
+        "We've been in your shoes; broken scripts, looming deadlines. VoxKit exists to make our lives easier.",
     },
   ];
 
@@ -88,7 +88,8 @@ export default function VoxKitLanding() {
           </h1>
           <p className="text-xl sm:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
             We built VoxKit so you can focus on the science, not the software.
-            Powerful alignment and analysis tools, zero command-line headaches.
+            Compose powerful speech-processing and analysis tools into guided
+            workflows with zero command-line headaches.
           </p>
 
           {/* CTA Buttons */}
@@ -118,8 +119,8 @@ export default function VoxKitLanding() {
               Why <span className="text-cyan-400">You&apos;ll Love It</span>
             </h2>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-              Seriously, here&apos;s what we&apos;ve been hearing from labs like
-              yours.
+              Here&apos;s our pitch in a nutshell: VoxKit is like the Swiss Army
+              knife of speech pathology research.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -188,8 +189,7 @@ export default function VoxKitLanding() {
             Ready to Try It?
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-            Grab VoxKit and see for yourself. We think you&apos;ll wonder how
-            you ever managed without it.
+            It&apos;s smooth sailing from here on out.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <GridButton
