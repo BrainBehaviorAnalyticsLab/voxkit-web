@@ -6,14 +6,14 @@ export default function InspirationPage() {
   const researchFindings = [
     {
       icon: <BookOpen className="w-6 h-6" />,
-      title: "MFA Achieves Human-Level Reliability",
+      title: "MFA Approaches Human-Level Reliability",
       source: "Mahr et al., 2021",
       finding:
         "MFA-SAT reached 86% accuracy on child speech (ages 3-6), the only system approaching human interrater agreement.",
       implementation:
         "VoxKit defaults to MFA while supporting alternative engines for comparative research.",
       limitation:
-        "MFA-SAT was trained on adult speech; researchers should validate performance on their specific datasets.",
+        "MFA-SAT was trained on adult speech; researchers should validate performance for their own use case.",
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
@@ -33,20 +33,19 @@ export default function InspirationPage() {
       finding:
         "Most clinical speech datasets contain only minutes to hours of audio with uncertain labels, leading to poor generalization.",
       implementation:
-        "VoxKit enables comprehensive metadata tracking and versioned provenance for transparent reporting.",
+        "VoxKit tracks metadata and versioned provenance for transparency.",
       limitation:
-        "VoxKit facilitates rigorous documentation but cannot solve fundamental overfitting—researchers must apply appropriate validation.",
+        "VoxKit attempts rigorous documentation but cannot solve fundamental overfitting, only ensuring accidents happen less.",
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Interpretable Measures Outperform Black Boxes",
       source: "Berisha & Liss, 2024",
-      finding:
-        "Low-dimensional, clinically grounded measures (e.g., hypernasality, articulatory precision) outperform opaque embeddings.",
+      finding: "Clinically grounded measures outperform opaque embeddings.",
       implementation:
-        "VoxKit's analyzer architecture supports custom, interpretable feature extraction from alignment outputs.",
+        "VoxKit allows you to test and review this, as AI becomes more advanced, methodologies may advance as well.",
       limitation:
-        "Alignment errors can propagate to downstream measures. Researchers must validate that phonetic boundaries are reliable for their specific analyses.",
+        "Alignment errors can propagate downstream. Researchers must validate that phonetic boundaries are reliable.",
     },
   ];
 
@@ -116,43 +115,45 @@ export default function InspirationPage() {
         {/* Summary Box */}
         <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
           <h2 className="text-2xl font-bold mb-4 text-white">
-            VoxKit&apos;s Research-Driven Design
+            VoxKit&apos;s Research-Driven Approach
           </h2>
           <div className="space-y-3 text-slate-200">
             <p>
               <span className="text-cyan-400 font-semibold">
                 Guided workflows:
               </span>{" "}
-              Guidance and layout can be customized to fit the direction and use
-              case for specific studies/research
+              Guidance and layout can be customized to fit the direction for
+              specific studies/research
             </p>
             <p>
               <span className="text-cyan-400 font-semibold">
                 Flexible architecture:
               </span>{" "}
-              Base classes and modular components allow developers to extend and
-              adapt VoxKit
+              Explorative tools and pipeline steps can be reused and adapted
+              with minimal wiring, this also contributes to a more collaborative
+              mindset around research
             </p>
             <p>
               <span className="text-cyan-400 font-semibold">
                 Metadata-rich outputs:
               </span>{" "}
-              Metadata tracking enables reportable results and and reduces
-              overhead
+              Automated metadata tracking enables reportable results and and
+              reduces uncertainty around what was done
             </p>
             <p>
               <span className="text-cyan-400 font-semibold">
-                Honest positioning:
+                The WE mindset:
               </span>{" "}
-              VoxKit is research infrastructure, not a clinical decision-support
-              system, it reduces technical barriers while maintaining scientific
-              rigor
+              We hope researchers find leverage in this tool, and moreover,
+              contribute to this ecosystem so that research can become more
+              collaborative, rather than everyone reinventing the wheel and
+              working in silos
             </p>
           </div>
           <div className="mt-8 pt-6 border-t border-slate-600">
             <p className="text-sm text-slate-300 italic">
               VoxKit prioritizes usability, flexibility, and transparency to
-              empower researchers to utilize the cutting edge.
+              empower researchers to push the cutting edge.
             </p>
           </div>
         </div>
