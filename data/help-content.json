@@ -216,22 +216,7 @@
     "sections": [
       {
         "type": "text",
-        "content": "VoxKit uses YAML configuration files in the config folder to define workflows, pipelines, and app settings. Configuration can be modified post-build without requiring code changes, enabling researchers to adapt workflows to specific studies."
-      },
-      {
-        "type": "heading",
-        "content": "Configuration Architecture"
-      },
-      {
-        "type": "text",
-        "content": "VoxKit separates configuration into two files in the config folder:"
-      },
-      {
-        "type": "list",
-        "items": [
-          "app_info.yaml: Application metadata, version info, and introduction text",
-          "pipeline_definitions.yaml: Workflow steps, stacker classes, and UI settings"
-        ]
+        "content": "VoxKit uses (YAML or JSON) configuration files in the apps config folder to define information about the app and pipeline. Configuration can be modified post-build without requiring code changes, enabling researchers to adapt workflows to specific studies."
       },
       {
         "type": "heading",
@@ -239,7 +224,7 @@
       },
       {
         "type": "text",
-        "content": "This file contains metadata about the application:"
+        "content": "Located in the apps config folder. Defines application metadata, version info, introduction text. Anything related to the app as a whole:"
       },
       {
         "type": "code",
@@ -250,9 +235,9 @@
         "type": "list",
         "items": [
           "app_name: Display name shown in the application window",
-          "version: Semantic version number (e.g., 0.1.0)",
-          "description: Brief description of the application purpose",
-          "help_url: URL to documentation/help resources",
+          "version: Version number; often linked to a tag on github (e.g., 0.1.0)",
+          "description: Brief description of the applications purpose in context",
+          "help_url: URL to documentation/help resources, flexible to support custom documentation sites",
           "introduction: Multi-line text shown to users on first launch",
           "release_date: ISO date of the current release",
           "release_notes: Multi-line changelog for this version"
@@ -264,7 +249,7 @@
       },
       {
         "type": "text",
-        "content": "This file defines the workflow steps and their display configuration:"
+        "content": "Also located in the apps config folder. Workflow steps, stacker classes, UI settings. Anything related to the workflow and user interface:"
       },
       {
         "type": "code",
@@ -362,14 +347,6 @@
           "Version control your YAML files to track workflow changes across studies",
           "Test configuration changes in a development environment before distribution"
         ]
-      },
-      {
-        "type": "heading",
-        "content": "Configuration Workflow"
-      },
-      {
-        "type": "text",
-        "content": "1. Developer creates Python stackers and registers them in STACKER_REGISTRY\n2. Researcher edits pipeline_definitions.yaml to add/remove/reorder steps\n3. Researcher customizes collapsible_sections for study-specific guidance\n4. Application is bundled with updated configuration\n5. No code changes required - just edit YAML and redistribute"
       }
     ]
   },
@@ -379,19 +356,25 @@
     "icon": "🔧",
     "sections": [
       {
+        "type": "text",
+        "content": "By voicing you're issues and the friction you run into, you can help us understand where the app is falling short and how to improve it. Don't hesitate to reach out."
+      },
+      {
         "type": "heading",
         "content": "Getting Help"
       },
+
       {
         "type": "text",
-        "content": "If your issue persists, you can:"
+        "content": "As of now, we're still working on v1, so these common scenarios aren't defined yet. In the meantime if you're having trouble:"
       },
       {
         "type": "list",
         "items": [
           "Check our GitHub issues for similar problems",
-          "Email support at bfrey6@wisc.edu",
-          "Clone the repository and debug locally"
+          "Email support at code@beckettfrey.com",
+          "Clone the repository and debug locally",
+          "Call us out on Twitter, just kidding, we don't have a Twitter"
         ]
       }
     ]
