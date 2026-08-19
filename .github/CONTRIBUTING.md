@@ -41,8 +41,6 @@ branch-name ──PR──► main ──auto-deploy──► Vercel production
 | `npm run format`       | Prettier-format the whole project.            |
 | `npm run format:check` | Prettier check (no writes); fails on drift.   |
 
----
-
 ## For repo & Vercel owners
 
 You own the guardrails that make the developer workflow safe. The rules below are authoritative.
@@ -93,7 +91,34 @@ Also in `Settings → General → Pull Requests`:
 - **Environment variables**: managed in the Vercel dashboard.
   - Production secrets must be scoped **Production only** so PR previews can't read them.
   - Preview-safe variables can be scoped to Preview + Development.
+  - `CRON_SECRET` is required (see [Release data freshness](#release-data-freshness)). Vercel sends it as `Authorization: Bearer $CRON_SECRET` on cron invocations. Generate a random value; never commit it.
 - **GitHub integration**: the Vercel GitHub App must have access to this repo so it can post deployment statuses (these become required checks in branch protection).
+
+### Release data freshness
+
+`/download` is **prerendered**, not fetched in the browser. `components/DownloadButton.tsx` is a server component that resolves GitHub releases at render time via `lib/releases.ts`, then hands the data to `DownloadButtonClient.tsx` for the interactive bits. Visitors never call GitHub, so the page costs one upstream request per day instead of one per visitor — comfortably under GitHub's 60/hour unauthenticated limit.
+
+Refresh is driven by the cron in `vercel.json`:
+
+```
+0 0 * * *  →  /api/revalidate-releases
+```
+
+At midnight UTC it purges the `releases` cache tag and the prerendered `/download` page; the next visitor triggers one fresh fetch. **A new release therefore takes up to a day to appear on the site.** That delay is intentional — a grace period to pull a release that turns out to be problematic before the website advertises it.
+
+Two safety nets:
+
+- `export const revalidate` on `app/download/page.tsx` (24h) refreshes the page even if the cron stops firing. It duplicates `RELEASES_REVALIDATE_SECONDS` in `lib/releases.ts` because Next requires a literal there — change both together.
+- If GitHub is down when a refresh runs, the last good render keeps being served; visitors see nothing wrong.
+
+To publish a release immediately, either redeploy or call the endpoint by hand:
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" https://<domain>/api/revalidate-releases
+```
+
+> [!NOTE]
+> Vercel cron schedules are UTC, and on Hobby plans they run at most once a day and fire within the hour of the scheduled time. Both are fine for a daily grace period.
 
 ### Rollback
 

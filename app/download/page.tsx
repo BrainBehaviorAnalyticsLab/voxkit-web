@@ -1,6 +1,17 @@
-"use client";
+import type { Metadata } from "next";
 import { Footer, Navbar } from "../../layout";
 import DownloadButton from "../../components/DownloadButton";
+
+export const metadata: Metadata = {
+  title: "Download VoxKit",
+  description:
+    "Download the latest VoxKit release for macOS, Windows, or Linux. Built for speech pathology researchers, no command line required.",
+};
+
+// Fallback only: the nightly cron at /api/revalidate-releases is what normally
+// refreshes this page. Keep in sync with RELEASES_REVALIDATE_SECONDS (24h) --
+// Next requires a literal here, so it cannot be imported.
+export const revalidate = 86400;
 
 export default function DownloadPage() {
   return (
