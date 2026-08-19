@@ -19,8 +19,15 @@ type DownloadButtonClientProps = {
   lastUpdated: string;
 };
 
-/** Display order, and the tie-break order for the server-rendered default. */
-const OS_ORDER = ["windows", "macos", "linux"] as const;
+/** Left-to-right order of the OS tiles. */
+const OS_DISPLAY_ORDER = ["macos", "windows", "linux"] as const;
+
+/**
+ * Which OS the panel falls back to when detection fails or the visitor's OS
+ * has no build. Deliberately independent of the tile order above, so moving a
+ * tile does not change what the prerendered HTML shows.
+ */
+const OS_FALLBACK_ORDER = ["windows", "macos", "linux"] as const;
 
 // Dates are formatted in a fixed locale and timezone so the server render and
 // the hydrated client render agree. `toLocaleDateString()` would resolve
@@ -75,7 +82,7 @@ export default function DownloadButtonClient({
     pickedOS ??
     (detectedOS && releases[detectedOS]
       ? detectedOS
-      : (OS_ORDER.find((os) => releases[os]) ?? null));
+      : (OS_FALLBACK_ORDER.find((os) => releases[os]) ?? null));
 
   const getReleaseForOS = (): LatestRelease | undefined => {
     if (!selectedOS) return undefined;
@@ -150,7 +157,7 @@ export default function DownloadButtonClient({
 
         {/* OS Selection */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          {OS_ORDER.map((os) => {
+          {OS_DISPLAY_ORDER.map((os) => {
             const isSelected = selectedOS === os;
             const isDetected = detectedOS === os;
             const isAvailable = availableOSes.includes(os);
