@@ -50,6 +50,6 @@ export interface ReleasesAPIResponse {
   lastUpdated: string;
 }
 
-export interface DownloadButtonProps {
+export interface DownloadPanelProps {
   className?: string;
 }

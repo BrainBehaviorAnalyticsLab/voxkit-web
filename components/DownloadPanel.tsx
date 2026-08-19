@@ -9,7 +9,7 @@ import DownloadButtonClient from "./DownloadButtonClient";
  * Freshness is controlled by the page's `revalidate` plus the nightly cron in
  * `app/api/revalidate-releases/route.ts`, not by this component.
  */
-export default async function DownloadButton() {
+export default async function DownloadPanel() {
   const result = await getReleases();
 
   if (!result.ok) {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Footer, Navbar } from "../../layout";
-import DownloadButton from "../../components/DownloadButton";
+import DownloadPanel from "../../components/DownloadPanel";
 
 export const metadata: Metadata = {
   title: "Download VoxKit",
@@ -26,7 +26,7 @@ export default function DownloadPage() {
             Get the latest version of VoxKit for your operating system
           </p>
         </div>
-        <DownloadButton />
+        <DownloadPanel />
       </div>
       <Footer />
     </div>
