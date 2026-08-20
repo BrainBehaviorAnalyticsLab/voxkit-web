@@ -1,27 +1,39 @@
-"use client";
-import { Footer, Navbar } from "../../layout";
+import type { Metadata } from "next";
+import { Navbar } from "../../layout";
 
+export const metadata: Metadata = {
+  title: "VoxKit API Documentation",
+  description:
+    "Generated API reference for the VoxKit Python package: storage, analyzers, engines, and configuration.",
+};
+
+/**
+ * The pdoc bundle in `public/docs` is already a complete documentation site,
+ * with a sidebar pane and a content pane that scroll independently. This route
+ * hands it the whole viewport below the navbar instead of insetting it in a
+ * card, so those two are the only scrollbars on the page.
+ *
+ * `Footer` is deliberately absent. As a sibling of a viewport-height region it
+ * put a third, outer scrollbar on the window, and scrolling it slid the entire
+ * docs pane out of view.
+ */
 export default function DocsPage() {
   return (
-    <>
-      <div className="h-screen flex flex-col bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        <Navbar view="Docs" />
-
-        {/* Documentation iframe container */}
-        <div className="flex-1 px-4 sm:px-6 lg:px-8 pt-24 pb-8 overflow-hidden">
-          <div className="max-w-7xl w-full h-full mx-auto">
-            {/* Iframe wrapper with styling */}
-            <div className="h-full rounded-lg overflow-hidden shadow-2xl border border-slate-700 bg-white">
-              <iframe
-                src="/docs/index.html"
-                className="w-full h-full border-none"
-                title="VoxKit API Documentation"
-              />
-            </div>
-          </div>
-        </div>
+    <div data-full-viewport className="h-dvh overflow-hidden bg-slate-900">
+      <Navbar view="Docs" />
+      {/* Navbar is `fixed` but sets no `top`, so it renders wherever its static
+          position falls. It has to stay the first child of an unpadded parent;
+          the clearance for it belongs on this sibling instead. */}
+      <div className="h-full pt-16">
+        {/* Straight to voxkit.html. /docs/index.html is only a meta-refresh
+            stub, and in a frame that hop becomes a session history entry, so
+            pressing Back once just bounces the visitor into the docs again. */}
+        <iframe
+          src="/docs/voxkit.html"
+          title="VoxKit API documentation"
+          className="block h-full w-full border-none"
+        />
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }

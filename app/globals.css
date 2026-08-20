@@ -27,6 +27,17 @@ body {
   overflow-y: scroll;
 }
 
+/*
+ * Opt-out for pages that fill the viewport exactly and delegate scrolling to a
+ * child (see app/docs/page.tsx). There is nothing for the window to scroll, so
+ * the forced scrollbar above would render as a second, dead track beside the
+ * child's real one. No layout shift to guard against here either: the page
+ * cannot grow past the viewport.
+ */
+body:has([data-full-viewport]) {
+  overflow-y: hidden;
+}
+
 /* Hero fall-in animation for headings */
 @keyframes fallIn {
   0% {
