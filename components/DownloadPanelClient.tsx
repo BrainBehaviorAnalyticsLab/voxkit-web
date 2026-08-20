@@ -13,7 +13,7 @@ import type {
 
 type OS = OperatingSystem | null;
 
-type DownloadButtonClientProps = {
+type DownloadPanelClientProps = {
   releases: GroupedReleases;
   /** ISO timestamp of the server render that produced `releases`. */
   lastUpdated: string;
@@ -68,10 +68,10 @@ const isPreReleaseVersion = (version: string): boolean => {
   return major < 1;
 };
 
-export default function DownloadButtonClient({
+export default function DownloadPanelClient({
   releases,
   lastUpdated,
-}: DownloadButtonClientProps) {
+}: DownloadPanelClientProps) {
   const detectedOS = useSyncExternalStore(subscribeToOS, detectOS, getServerOS);
   const [pickedOS, setPickedOS] = useState<OS>(null);
 

@@ -12,7 +12,7 @@ import { fakeGitHubReleases } from "./fakeReleases";
 /**
  * Server-side resolution of the latest VoxKit release per OS.
  *
- * This runs during render (see `components/DownloadButton.tsx`), not in the
+ * This runs during render (see `components/DownloadPanel.tsx`), not in the
  * browser, so a visitor never pays for a GitHub round trip and the download
  * panel ships fully populated in the initial HTML.
  */

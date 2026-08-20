@@ -96,7 +96,7 @@ Also in `Settings → General → Pull Requests`:
 
 ### Release data freshness
 
-`/download` is **prerendered**, not fetched in the browser. `components/DownloadButton.tsx` is a server component that resolves GitHub releases at render time via `lib/releases.ts`, then hands the data to `DownloadButtonClient.tsx` for the interactive bits. Visitors never call GitHub, so the page costs one upstream request per day instead of one per visitor — comfortably under GitHub's 60/hour unauthenticated limit.
+`/download` is **prerendered**, not fetched in the browser. `components/DownloadPanel.tsx` is a server component that resolves GitHub releases at render time via `lib/releases.ts`, then hands the data to `DownloadPanelClient.tsx` for the interactive bits. Visitors never call GitHub, so the page costs one upstream request per day instead of one per visitor — comfortably under GitHub's 60/hour unauthenticated limit.
 
 Refresh is driven by the cron in `vercel.json`:
 
