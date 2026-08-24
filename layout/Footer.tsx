@@ -12,7 +12,7 @@ const columns: FooterColumn[] = [
     title: "Product",
     links: [
       { label: "Features", href: "/features" },
-      { label: "Download", href: "/download" },
+      { label: "Installation", href: "/installation" },
       { label: "Documentation", href: "/docs" },
     ],
   },
@@ -20,7 +20,7 @@ const columns: FooterColumn[] = [
     title: "Support",
     links: [
       { label: "Help Center", href: "/help" },
-      { label: "Tutorials", href: "/help/getting-started" },
+      { label: "Install Guide", href: "/installation" },
       { label: "Contact", href: `${GITHUB_URL}/issues`, external: true },
     ],
   },

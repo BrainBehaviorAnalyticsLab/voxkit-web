@@ -96,7 +96,9 @@ Also in `Settings → General → Pull Requests`:
 
 ### Release data freshness
 
-`/download` is **prerendered**, not fetched in the browser. `components/DownloadPanel.tsx` is a server component that resolves GitHub releases at render time via `lib/releases.ts`, then hands the data to `DownloadPanelClient.tsx` for the interactive bits. Visitors never call GitHub, so the page costs one upstream request per day instead of one per visitor — comfortably under GitHub's 60/hour unauthenticated limit.
+`/installation` is **prerendered**, not fetched in the browser. `components/InstallFlow.tsx` is a server component that resolves GitHub releases at render time via `lib/releases.ts`, then hands the data to `InstallFlowClient.tsx` for the interactive bits. Visitors never call GitHub, so the page costs one upstream request per day instead of one per visitor — comfortably under GitHub's 60/hour unauthenticated limit.
+
+(`/download` is the page's former URL and permanently redirects to `/installation`; the redirect is declared in `next.config.ts`.)
 
 Refresh is driven by the cron in `vercel.json`:
 
@@ -104,11 +106,11 @@ Refresh is driven by the cron in `vercel.json`:
 0 0 * * *  →  /api/revalidate-releases
 ```
 
-At midnight UTC it purges the `releases` cache tag and the prerendered `/download` page; the next visitor triggers one fresh fetch. **A new release therefore takes up to a day to appear on the site.** That delay is intentional — a grace period to pull a release that turns out to be problematic before the website advertises it.
+At midnight UTC it purges the `releases` cache tag and the prerendered `/installation` page; the next visitor triggers one fresh fetch. **A new release therefore takes up to a day to appear on the site.** That delay is intentional — a grace period to pull a release that turns out to be problematic before the website advertises it.
 
 Two safety nets:
 
-- `export const revalidate` on `app/download/page.tsx` (24h) refreshes the page even if the cron stops firing. It duplicates `RELEASES_REVALIDATE_SECONDS` in `lib/releases.ts` because Next requires a literal there — change both together.
+- `export const revalidate` on `app/installation/page.tsx` (24h) refreshes the page even if the cron stops firing. It duplicates `RELEASES_REVALIDATE_SECONDS` in `lib/releases.ts` because Next requires a literal there — change both together.
 - If GitHub is down when a refresh runs, the last good render keeps being served; visitors see nothing wrong.
 
 To publish a release immediately, either redeploy or call the endpoint by hand:
