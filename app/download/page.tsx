@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Info } from "lucide-react";
 import { Footer, Navbar } from "../../layout";
 import DownloadPanel from "../../components/DownloadPanel";
 
@@ -26,6 +27,14 @@ export default function DownloadPage() {
             Get the latest version of VoxKit for your operating system
           </p>
         </div>
+        <div className="bg-slate-800/40 border border-slate-600 rounded-xl p-4 max-w-4xl mx-auto mb-4 flex items-start gap-3">
+          <Info className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+          <p className="text-slate-300 text-sm">
+            Some researchers with university-managed devices may need to contact
+            their university&apos;s IT to install the app.
+          </p>
+        </div>
+
         <DownloadPanel />
       </div>
       <Footer />
