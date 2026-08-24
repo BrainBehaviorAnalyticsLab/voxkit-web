@@ -5,11 +5,15 @@ import {
   Clock,
   FileCheck,
   FolderSync,
+  Github,
   Users,
 } from "lucide-react";
 import WaveSeparator from "../components/WaveSeparator";
 import GridButton from "../components/GridButton";
 import { Footer, Navbar } from "../layout";
+
+const GITHUB_URL =
+  "https://github.com/BrainBehaviorAnalyticsLab/voxkit-desktop";
 
 export default function VoxKitLanding() {
   const features = [
@@ -94,12 +98,27 @@ export default function VoxKitLanding() {
 
           {/* CTA Buttons */}
 
-          <GridButton
-            href="/installation"
-            className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
-          >
-            Get Started Today
-          </GridButton>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <GridButton
+              href="/installation"
+              className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+            >
+              Get Started Today
+            </GridButton>
+            {/* Secondary to the CTA beside it: the source is for people who
+                want to read or contribute, not the path a researcher
+                installing VoxKit takes. */}
+            <GridButton
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg px-8 py-4 rounded-lg text-slate-300 border-slate-500"
+              cellColor="rgba(148, 163, 184, 0.12)"
+              rippleColor="rgba(203, 213, 225, 0.5)"
+            >
+              <Github className="w-5 h-5" /> View on GitHub
+            </GridButton>
+          </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 -mb-1">
           <WaveSeparator
