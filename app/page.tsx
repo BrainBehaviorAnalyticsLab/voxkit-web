@@ -95,7 +95,7 @@ export default function VoxKitLanding() {
           {/* CTA Buttons */}
 
           <GridButton
-            href="/help/getting-started"
+            href="/installation"
             className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
           >
             Get Started Today
@@ -199,16 +199,10 @@ export default function VoxKitLanding() {
               Expected Workflow
             </GridButton>
             <GridButton
-              href="/help/getting-started"
-              className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
-            >
-              <Users className="w-5 h-5" /> Getting Started
-            </GridButton>
-            <GridButton
               href="/installation"
               className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
             >
-              <Download className="w-5 h-5" /> Download Now
+              <Download className="w-5 h-5" /> Install VoxKit
             </GridButton>
           </div>
         </div>

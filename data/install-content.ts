@@ -5,8 +5,8 @@ import type { OperatingSystem } from "../types/releases";
  * and what to do with the build once it lands. None of it comes from GitHub, so
  * it lives here rather than in `lib/releases.ts`.
  *
- * Kept in sync by hand with the `getting-started` topic in `help-content.json`,
- * which covers the same ground for readers who arrive through the help centre.
+ * This is the only copy. The help centre's "Getting Started" topic used to say
+ * the same things a page away, and the two drifted; it now redirects here.
  */
 
 /** Identity of one step: its anchor, its heading, and the line beneath it. */
