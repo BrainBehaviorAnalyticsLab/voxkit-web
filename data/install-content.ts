@@ -101,23 +101,6 @@ export const FEEDBACK_SCALE_HIGH_LABEL = "Effortless";
 
 export const FEEDBACK_SUBJECT = "VoxKit install feedback";
 
-/**
- * Rough buckets for how long the install took. Coarse on purpose -- nobody
- * timed it, and asking for a number they would have to invent gets a worse
- * answer than asking which bracket it felt like.
- *
- * "I gave up" is the most valuable answer on the list. Someone who abandoned
- * the install is exactly who this form needs to hear from, and without an
- * option that says so they have nothing honest to pick.
- */
-export const FEEDBACK_DURATIONS = [
-  "Under 5 minutes",
-  "5 to 15 minutes",
-  "15 to 60 minutes",
-  "More than an hour",
-  "I gave up",
-];
-
 /** Answer offered when no single step was the problem. */
 export const FEEDBACK_NO_TROUBLE = "None of them";
 

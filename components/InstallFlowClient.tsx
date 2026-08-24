@@ -196,6 +196,7 @@ export default function InstallFlowClient({
   const stepState = (step: number) => ({
     isActive: activeStep === step,
     isComplete: step < furthestStep,
+    index: step,
   });
 
   /** Props for the connector sitting between `step` and the one after it. */

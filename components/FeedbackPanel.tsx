@@ -4,7 +4,6 @@ import { Check, Mail } from "lucide-react";
 import StepPanel, { type StepState } from "./StepPanel";
 import GridButton from "./GridButton";
 import {
-  FEEDBACK_DURATIONS,
   FEEDBACK_NO_TROUBLE,
   FEEDBACK_SCALE,
   FEEDBACK_SCALE_HIGH_LABEL,
@@ -163,16 +162,12 @@ export default function FeedbackPanel({
 }: FeedbackPanelProps) {
   const [rating, setRating] = useState<number | null>(null);
   const [troubleStep, setTroubleStep] = useState<string | null>(null);
-  const [duration, setDuration] = useState<string | null>(null);
   const [issues, setIssues] = useState("");
   const [sent, setSent] = useState(false);
 
   // An empty report helps nobody, but any single answer is worth having.
   const hasAnswer =
-    rating !== null ||
-    troubleStep !== null ||
-    duration !== null ||
-    issues.trim().length > 0;
+    rating !== null || troubleStep !== null || issues.trim().length > 0;
 
   const draftUrl = () => {
     const body = [
@@ -182,7 +177,6 @@ export default function FeedbackPanel({
           : `${rating} out of ${FEEDBACK_SCALE.max}`
       }`,
       `Hardest step: ${troubleStep ?? NOT_ANSWERED}`,
-      `Time taken: ${duration ?? NOT_ANSWERED}`,
       "",
       "Issues encountered:",
       issues.trim() || "(none reported)",
@@ -244,10 +238,6 @@ export default function FeedbackPanel({
   return (
     <StepPanel {...stepState} step={INSTALL_STEPS.feedback}>
       <form onSubmit={handleSubmit}>
-        <p className="text-sm text-slate-400 leading-relaxed mb-6">
-          Answer as much or as little as you like — every question is optional.
-        </p>
-
         <fieldset className="mb-6">
           <legend className={FIELD_LABEL}>
             How intuitive was the installation?
@@ -284,14 +274,6 @@ export default function FeedbackPanel({
           options={TROUBLE_OPTIONS}
           value={troubleStep}
           onPick={setTroubleStep}
-        />
-
-        <ChoiceQuestion
-          label="How long did the whole thing take?"
-          name="install-duration"
-          options={FEEDBACK_DURATIONS}
-          value={duration}
-          onPick={setDuration}
         />
 
         <TextQuestion

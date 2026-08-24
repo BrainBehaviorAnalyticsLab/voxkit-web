@@ -149,7 +149,8 @@ body:has([data-full-viewport]) {
     transition-property: background-color, border-color, box-shadow !important;
   }
   [data-step-card] h2,
-  [data-step-card] svg {
+  [data-step-card] svg,
+  [data-step-mark] > * {
     transition-property: color, opacity !important;
   }
 }
