@@ -1,5 +1,5 @@
 "use client";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import RequirementsPanel from "./RequirementsPanel";
 import DownloadPanel from "./DownloadPanel";
 import GettingStartedPanel from "./GettingStartedPanel";
@@ -34,6 +34,37 @@ const OS_FALLBACK_ORDER = ["windows", "macos", "linux"] as const;
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** Height of the fixed navbar (`h-16`), which the open panel must clear. */
+const NAVBAR_HEIGHT = 64;
+
+/**
+ * How long to keep re-aiming after a step change. The panels ease open over
+ * 300ms, so the thing being centred is still growing while we centre it; this
+ * runs a little past that to let the geometry settle.
+ */
+const CENTRE_SETTLE_MS = 420;
+
+/**
+ * Time constant for the centring follow, in milliseconds. Expressed as a decay
+ * rather than a per-frame fraction so the motion is identical at 60Hz and
+ * 120Hz.
+ */
+const CENTRE_TAU = 90;
+
+/**
+ * Scroll position that puts `element` in the middle of the strip below the
+ * navbar.
+ *
+ * A panel taller than that strip cannot be centred without pushing its own
+ * heading off the top, so those clamp to sitting just under the navbar instead.
+ */
+const centredScrollTop = (element: HTMLElement) => {
+  const rect = element.getBoundingClientRect();
+  const strip = window.innerHeight - NAVBAR_HEIGHT;
+  const slack = Math.max(0, (strip - rect.height) / 2);
+  return window.scrollY + rect.top - NAVBAR_HEIGHT - slack;
+};
 
 /**
  * Drives the installation page: which step is open, how far the visitor has
@@ -72,19 +103,95 @@ export default function InstallFlowClient({
       ? detectedOS
       : (OS_FALLBACK_ORDER.find((os) => releases[os]) ?? null));
 
+  // Anchor to bring into view once the step change has actually been painted.
+  // Null between navigations, which is also how the effect below knows not to
+  // scroll on first render.
+  const scrollTargetId = useRef<string | null>(null);
+
   const goToStep = (step: number) => {
+    scrollTargetId.current = INSTALL_STEP_ORDER[step].id;
     setActiveStep(step);
     setFurthestStep((furthest) => Math.max(furthest, step));
-
-    // Wait a frame so the panel has expanded to its real height before we
-    // scroll to it; `scroll-mt-24` on the card keeps it clear of the navbar.
-    requestAnimationFrame(() => {
-      document.getElementById(INSTALL_STEP_ORDER[step].id)?.scrollIntoView({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-        block: "start",
-      });
-    });
   };
+
+  /*
+   * Centre the newly opened panel in the space below the navbar.
+   *
+   * This cannot be a `scrollIntoView`, because there is no fixed position to
+   * aim at when the scroll begins. Two panels are resizing at once -- the old
+   * one collapsing, the new one easing open -- so the target's height and its
+   * distance down the page are both still changing. A single scroll issued at
+   * the start of that, smooth or not, is aiming at geometry that will not exist
+   * by the time it arrives.
+   *
+   * So instead of computing a destination once, this recomputes it every frame
+   * and eases towards whatever it currently is. The target stops moving when
+   * the panels finish, the follow converges on it, and the whole thing reads as
+   * one motion rather than a scroll and an expansion happening at each other.
+   *
+   * Decay is time-based rather than a fixed slice per frame, so it behaves the
+   * same on a 60Hz and a 120Hz display.
+   */
+  useEffect(() => {
+    const targetId = scrollTargetId.current;
+    if (!targetId) return;
+    scrollTargetId.current = null;
+
+    const element = document.getElementById(targetId);
+    if (!element) return;
+
+    if (prefersReducedMotion()) {
+      window.scrollTo({ top: centredScrollTop(element), behavior: "auto" });
+      return;
+    }
+
+    let frame = 0;
+    let lastTime = performance.now();
+    const startTime = lastTime;
+
+    const settle = () => {
+      window.scrollTo({ top: centredScrollTop(element), behavior: "auto" });
+      stop();
+    };
+
+    const follow = (now: number) => {
+      const elapsed = now - startTime;
+      const delta = now - lastTime;
+      lastTime = now;
+
+      const target = centredScrollTop(element);
+      const remaining = target - window.scrollY;
+
+      if (elapsed >= CENTRE_SETTLE_MS || Math.abs(remaining) < 0.5) {
+        settle();
+        return;
+      }
+
+      window.scrollTo({
+        top: window.scrollY + remaining * (1 - Math.exp(-delta / CENTRE_TAU)),
+        behavior: "auto",
+      });
+      frame = requestAnimationFrame(follow);
+    };
+
+    // Any deliberate scroll of their own wins immediately: nothing is more
+    // irritating than a page dragging the view back while you are reading it.
+    // Only real input counts -- listening for `scroll` would catch this
+    // component's own writes and cancel on the first frame.
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("wheel", stop);
+      window.removeEventListener("touchstart", stop);
+      window.removeEventListener("keydown", stop);
+    };
+
+    window.addEventListener("wheel", stop, { passive: true });
+    window.addEventListener("touchstart", stop, { passive: true });
+    window.addEventListener("keydown", stop);
+
+    frame = requestAnimationFrame(follow);
+    return stop;
+  }, [activeStep]);
 
   const stepState = (step: number) => ({
     isActive: activeStep === step,
@@ -110,7 +217,11 @@ export default function InstallFlowClient({
   };
 
   return (
-    <div>
+    // The attribute is a styling hook, not state: it lets one rule in
+    // globals.css flatten every transition in the flow under
+    // prefers-reduced-motion, which is otherwise unreachable from utility
+    // classes scattered across four panels and three connectors.
+    <div data-install-flow>
       <RequirementsPanel {...stepState(STEP_REQUIREMENTS)} />
       <StepConnector {...connector(STEP_REQUIREMENTS)} />
       <DownloadPanel

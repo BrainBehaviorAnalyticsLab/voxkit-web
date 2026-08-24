@@ -36,6 +36,13 @@ type StepConnectorProps = {
  * no pulse -- because offering a retreat as insistently as the way forward
  * makes a sequence feel like a decision instead of a path.
  *
+ * Every role occupies the same fixed height, with the rail segments flexing to
+ * absorb the difference. Three differently sized connectors would shift the
+ * whole column each time the active step moved, and that shift cannot simply be
+ * animated away: the flow scrolls to a step's top edge as soon as the state
+ * changes, so anything above that edge has to have finished moving already.
+ * Equal heights mean nothing above it moves at all.
+ *
  * The dormant connectors are hidden from assistive tech: the step headings
  * already convey the order, and a row of identical inert chevrons in the tab
  * order would be noise. The live labels name their destination rather than
@@ -53,63 +60,71 @@ export default function StepConnector({
       ? "bg-cyan-400/25"
       : "bg-slate-600";
 
-  const railSegment = (height: string) => (
+  const railSegment = (
     <span
       aria-hidden="true"
-      className={`w-px ${height} transition-colors duration-300 ${rail}`}
+      className={`w-px flex-1 transition-colors duration-300 ${rail}`}
     />
   );
-
-  if (role === "none") {
-    return (
-      <div className="flex flex-col items-center" aria-hidden="true">
-        {railSegment("h-5")}
-        <span className="my-1 p-1.5">
-          <ChevronDown
-            className={`w-5 h-5 transition-colors duration-300 ${
-              isComplete ? "text-cyan-400/60" : "text-slate-500"
-            }`}
-          />
-        </span>
-        {railSegment("h-5")}
-      </div>
-    );
-  }
 
   const isForward = role === "forward";
   const Chevron = isForward ? ChevronDown : ChevronUp;
 
   return (
-    <div className="flex flex-col items-center">
-      {railSegment("h-4")}
-      <button
-        type="button"
-        onClick={onNavigate}
-        aria-label={
-          isForward ? `Continue to ${targetTitle}` : `Back to ${targetTitle}`
-        }
-        className={
-          isForward
-            ? "step-advance-pulse my-2 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-cyan-400/70 bg-cyan-400/10 text-cyan-300 transition-all duration-200 hover:scale-110 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
-            : "my-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-slate-500 text-slate-400 transition-all duration-200 hover:scale-105 hover:border-slate-300 hover:bg-white/5 hover:text-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
-        }
-      >
-        <Chevron
-          className={isForward ? "step-chevron-glide h-6 w-6" : "h-5 w-5"}
-          strokeWidth={isForward ? 2.5 : 2}
-        />
-      </button>
-      {/* The button's aria-label already names the destination, so this is
-          duplicate wording for assistive tech and visual affordance only. */}
-      <span
-        aria-hidden="true"
-        className={`mt-1 mb-2 text-[11px] font-semibold uppercase tracking-[0.15em] ${
-          isForward ? "text-cyan-400/90" : "text-slate-500"
-        }`}
-      >
-        {isForward ? "Continue" : "Back"}
-      </span>
-      {railSegment("h-4")}
+    <div
+      className="flex h-32 flex-col items-center"
+      // The whole connector is decoration unless it is one of the two live
+      // controls.
+      aria-hidden={role === "none" ? "true" : undefined}
+    >
+      {railSegment}
+
+      {role === "none" ? (
+        <span className="py-1">
+          <ChevronDown
+            className={`h-5 w-5 transition-colors duration-300 ${
+              isComplete ? "text-cyan-400/60" : "text-slate-500"
+            }`}
+          />
+        </span>
+      ) : (
+        <div className="flex flex-col items-center py-1.5">
+          <button
+            type="button"
+            onClick={onNavigate}
+            aria-label={
+              isForward
+                ? `Continue to ${targetTitle}`
+                : `Back to ${targetTitle}`
+            }
+            // Transitions are limited to transform and colour on purpose --
+            // animating the size difference between the forward and back
+            // buttons would move the column while the flow is scrolling.
+            className={`flex cursor-pointer items-center justify-center rounded-full transition-[transform,background-color,border-color,color] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 ${
+              isForward
+                ? "step-advance-pulse h-12 w-12 border border-cyan-400/70 bg-cyan-400/10 text-cyan-300 hover:scale-110 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-200"
+                : "h-10 w-10 border border-slate-500 text-slate-400 hover:scale-105 hover:border-slate-300 hover:bg-white/5 hover:text-slate-200"
+            }`}
+          >
+            <Chevron
+              className={isForward ? "step-chevron-glide h-6 w-6" : "h-5 w-5"}
+              strokeWidth={isForward ? 2.5 : 2}
+            />
+          </button>
+          {/* The button's aria-label already names the destination, so this is
+              duplicate wording for assistive tech and visual affordance only. */}
+          <span
+            aria-hidden="true"
+            className={`mt-1 text-[11px] font-semibold uppercase tracking-[0.15em] ${
+              isForward ? "text-cyan-400/90" : "text-slate-500"
+            }`}
+          >
+            {isForward ? "Continue" : "Back"}
+          </span>
+        </div>
+      )}
+
+      {railSegment}
     </div>
   );
 }

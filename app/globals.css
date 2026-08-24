@@ -71,6 +71,21 @@ body:has([data-full-viewport]) {
 } */
 
 /*
+ * Opting out of the browser's scroll anchoring for the installation flow.
+ *
+ * Collapsing a step removes several hundred pixels from above the viewport, and
+ * Chrome and Firefox respond by silently adjusting scrollTop to keep whatever
+ * they picked as the anchor node still. The flow is already scrolling to a step
+ * it chose deliberately, so that correction is a second hand on the wheel: the
+ * two arrive at different answers mid-transition and the result reads as the
+ * scrollbar twitching. One mechanism has to own scroll position, and it is the
+ * one that knows which step the visitor asked for.
+ */
+[data-install-flow] {
+  overflow-anchor: none;
+}
+
+/*
  * The chevron on an installation-step connector, gliding down its rail to mark
  * where the flow continues. Loops indefinitely because it is the page's only
  * "do this next" signal once the step numbers came out of the panel corners.
@@ -110,7 +125,10 @@ body:has([data-full-viewport]) {
 
 /* Indefinite loops are exactly what this preference is for. The button keeps
    its ring, fill, and label, so it is no less obviously a control without the
-   motion; only the attention-grabbing halo and glide stop. */
+   motion; only the attention-grabbing halo and glide stop.
+   The panels open and close on transitions rather than keyframes, and those are
+   spread across utility classes on four panels and three connectors -- one
+   scoped rule collapses them all rather than hunting each down. */
 @media (prefers-reduced-motion: reduce) {
   .step-chevron-glide {
     animation: none;
@@ -118,6 +136,21 @@ body:has([data-full-viewport]) {
   }
   .step-advance-pulse {
     animation: none;
+  }
+  /* Drop the transitions that move things -- the height ease, the padding, the
+     heading resize -- and keep the ones that only recolour or fade. A
+     cross-fade carries no motion, so it costs the preference nothing, and it
+     leaves the open and closed states still visibly connected rather than
+     replacing one with the other between frames. */
+  [data-step-body] {
+    transition-property: opacity !important;
+  }
+  [data-step-card] {
+    transition-property: background-color, border-color, box-shadow !important;
+  }
+  [data-step-card] h2,
+  [data-step-card] svg {
+    transition-property: color, opacity !important;
   }
 }
 

@@ -43,11 +43,18 @@ type StepPanelProps = StepState & {
  * size, and the supporting line -- not dimness. A step you cannot read yet is
  * not a preview of where you are going, just a smudge.
  *
- * Collapsed bodies stay mounted behind the `hidden` attribute rather than being
- * unmounted. The release data is server-rendered specifically so crawlers and a
- * no-JS reader can see version numbers, and conditionally rendering the body
- * would throw that away the moment the flow gained a gate. `hidden` also keeps
- * collapsed content out of the accessibility tree.
+ * The open/close animation is a `grid-template-rows` transition between `0fr`
+ * and `1fr`. That is the one way to ease to a content-determined height without
+ * measuring it in JavaScript or inventing a max-height that content will one
+ * day outgrow. The collapsed body therefore stays laid out rather than being
+ * `display: none`, which also keeps the server-rendered version numbers in the
+ * HTML for crawlers and no-JS readers; `inert` is what takes it out of the tab
+ * order and the accessibility tree in its place.
+ *
+ * Nothing above a panel's own top edge is transitioned -- the header morphs and
+ * the body eases, but both happen below it. The flow relies on that: it scrolls
+ * to a step's top edge immediately, and a target that drifted for 300ms while
+ * the animation settled would land in the wrong place.
  */
 export default function StepPanel({
   step,
@@ -55,55 +62,60 @@ export default function StepPanel({
   isComplete,
   children,
 }: StepPanelProps) {
-  // Horizontal padding is identical in every state so the left edge of the
-  // content never shifts as steps open and close; only vertical padding
-  // tightens when a panel collapses.
-  const frame = isActive
-    ? "bg-slate-800/60 border-slate-500 shadow-xl shadow-black/20 py-6 sm:py-8"
-    : "bg-slate-800/40 border-slate-600 py-5";
-
-  const optionalChip = step.optional && (
-    <span className="flex-shrink-0 rounded-full border border-slate-500 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider text-slate-400">
-      Optional
-    </span>
-  );
-
   return (
     <section
       id={step.id}
-      className={`scroll-mt-24 backdrop-blur-sm border rounded-2xl px-6 sm:px-8 transition-colors duration-300 ${frame}`}
+      data-step-card
+      className={`scroll-mt-24 backdrop-blur-sm border rounded-2xl px-6 sm:px-8 transition-[padding,background-color,border-color,box-shadow] duration-300 ease-out ${
+        isActive
+          ? "bg-slate-800/60 border-slate-500 shadow-xl shadow-black/20 py-6 sm:py-8"
+          : "bg-slate-800/40 border-slate-600 py-5"
+      }`}
     >
-      {isActive ? (
-        <header className="mb-6 pb-6 border-b border-slate-600">
-          <div className="flex items-center gap-3 mb-2">
-            <h2 className="text-2xl font-semibold text-white">{step.title}</h2>
-            {optionalChip}
-          </div>
-          <p className="text-sm text-slate-400 leading-relaxed">
+      <div className="flex items-center gap-3">
+        {/* Always laid out, even before it is earned, so the title keeps the
+            same left edge in every state and does not jog sideways when a step
+            completes. */}
+        <Check
+          aria-hidden="true"
+          className={`h-5 w-5 flex-shrink-0 text-cyan-400 transition-all duration-300 ease-out ${
+            isComplete ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          }`}
+        />
+        <h2
+          className={`font-semibold transition-[font-size,line-height,color] duration-300 ease-out ${
+            isActive
+              ? "text-2xl text-white"
+              : isComplete
+                ? "text-lg text-slate-200"
+                : "text-lg text-slate-300"
+          }`}
+        >
+          {step.title}
+        </h2>
+        {step.optional && (
+          <span className="flex-shrink-0 rounded-full border border-slate-500 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider text-slate-400">
+            Optional
+          </span>
+        )}
+      </div>
+
+      <div
+        data-step-body
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+          isActive ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div
+          className="overflow-hidden"
+          aria-hidden={!isActive}
+          inert={!isActive}
+        >
+          <p className="pt-2 pb-6 mb-6 border-b border-slate-600 text-sm text-slate-400 leading-relaxed">
             {step.description}
           </p>
-        </header>
-      ) : (
-        <h2 className="flex items-center gap-3 text-lg font-semibold">
-          {isComplete ? (
-            <Check
-              className="w-5 h-5 text-cyan-400 flex-shrink-0"
-              aria-hidden="true"
-            />
-          ) : (
-            /* Placeholder keeps the title on the same left edge as the checked
-               rows above it, so the column does not jog. */
-            <span aria-hidden="true" className="w-5 flex-shrink-0" />
-          )}
-          <span className={isComplete ? "text-slate-200" : "text-slate-300"}>
-            {step.title}
-          </span>
-          {optionalChip}
-        </h2>
-      )}
-
-      <div id={`${step.id}-body`} hidden={!isActive}>
-        {children}
+          {children}
+        </div>
       </div>
     </section>
   );
