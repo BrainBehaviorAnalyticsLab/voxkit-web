@@ -138,36 +138,28 @@ export default function DownloadPanelClient({
     : null;
 
   return (
-    <>
-      {hasPreReleaseVersion && (
-        <div className="bg-amber-900/30 border border-amber-600/50 rounded-xl p-4 max-w-4xl mx-auto mb-4 flex items-start gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <p className="text-amber-200 text-sm">{PRE_RELEASE_DISCLAIMER}</p>
-        </div>
-      )}
+    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl shadow-black/20">
+      <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center gap-2 text-white">
+        <Download className="w-6 h-6 text-cyan-400" />
+        Download VoxKit
+      </h3>
+      <p className="text-center text-slate-400 mb-6 text-sm">
+        Select your operating system
+      </p>
 
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-8 max-w-4xl mx-auto shadow-xl shadow-black/20">
-        <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center gap-2 text-white">
-          <Download className="w-6 h-6 text-cyan-400" />
-          Download VoxKit
-        </h3>
-        <p className="text-center text-slate-400 mb-6 text-sm">
-          Select your operating system
-        </p>
+      {/* OS Selection */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {OS_DISPLAY_ORDER.map((os) => {
+          const isSelected = selectedOS === os;
+          const isDetected = detectedOS === os;
+          const isAvailable = availableOSes.includes(os);
 
-        {/* OS Selection */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          {OS_DISPLAY_ORDER.map((os) => {
-            const isSelected = selectedOS === os;
-            const isDetected = detectedOS === os;
-            const isAvailable = availableOSes.includes(os);
-
-            return (
-              <GridButton
-                key={os}
-                onClick={() => setPickedOS(os)}
-                disabled={!isAvailable}
-                className={`
+          return (
+            <GridButton
+              key={os}
+              onClick={() => setPickedOS(os)}
+              disabled={!isAvailable}
+              className={`
                   px-6 py-4 text-sm font-medium transition-all
                   ${isAvailable ? "" : "opacity-50 cursor-not-allowed"}
                   ${
@@ -176,95 +168,101 @@ export default function DownloadPanelClient({
                       : "bg-slate-700/50 text-slate-300 border border-slate-600"
                   }
                 `}
-              >
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center justify-center mb-2">
-                    {os === "windows" && <WindowsIcon />}
-                    {os === "macos" && <AppleIcon />}
-                    {os === "linux" && <LinuxIcon />}
-                  </div>
-                  <div className="font-semibold">{getOSDisplayName(os)}</div>
-                  {isDetected && (
-                    <div className="text-xs text-cyan-400 mt-1">Detected</div>
-                  )}
-                  {!isAvailable && (
-                    <div className="text-xs text-red-400 mt-1">
-                      Not Available
-                    </div>
-                  )}
+            >
+              <div className="flex flex-col items-center">
+                <div className="flex items-center justify-center mb-2">
+                  {os === "windows" && <WindowsIcon />}
+                  {os === "macos" && <AppleIcon />}
+                  {os === "linux" && <LinuxIcon />}
                 </div>
-              </GridButton>
-            );
-          })}
-        </div>
+                <div className="font-semibold">{getOSDisplayName(os)}</div>
+                {isDetected && (
+                  <div className="text-xs text-cyan-400 mt-1">Detected</div>
+                )}
+                {!isAvailable && (
+                  <div className="text-xs text-red-400 mt-1">Not Available</div>
+                )}
+              </div>
+            </GridButton>
+          );
+        })}
+      </div>
 
-        {/* Release Download */}
-        {currentRelease ? (
-          <div className="bg-slate-700/30 border border-slate-600 rounded-lg p-4">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex-1">
-                <h5 className="text-lg font-semibold text-white mb-1">
-                  {getOSDisplayName(selectedOS)} • v{currentRelease.version}
-                </h5>
-                <p className="text-sm text-slate-400">
-                  Released{" "}
-                  {RELEASE_DATE_FORMAT.format(
-                    new Date(currentRelease.publishedAt),
-                  )}
+      {/* Separates picking an OS from the release it resolves to, so the
+          caveat lands on the build about to be downloaded. */}
+      {hasPreReleaseVersion ? (
+        <div className="bg-amber-900/30 border border-amber-600/50 rounded-xl p-4 mb-6 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <p className="text-amber-200 text-sm">{PRE_RELEASE_DISCLAIMER}</p>
+        </div>
+      ) : (
+        <div className="border-t border-slate-600 mb-6" />
+      )}
+
+      {/* Release Download */}
+      {currentRelease ? (
+        <div className="bg-slate-700/30 border border-slate-600 rounded-lg p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1">
+              <h5 className="text-lg font-semibold text-white mb-1">
+                {getOSDisplayName(selectedOS)} • v{currentRelease.version}
+              </h5>
+              <p className="text-sm text-slate-400">
+                Released{" "}
+                {RELEASE_DATE_FORMAT.format(
+                  new Date(currentRelease.publishedAt),
+                )}
+              </p>
+              {bestAsset && (
+                <p className="text-xs text-slate-500 mt-1">
+                  {bestAsset.name} • {formatFileSize(bestAsset.size)}
                 </p>
-                {bestAsset && (
-                  <p className="text-xs text-slate-500 mt-1">
-                    {bestAsset.name} • {formatFileSize(bestAsset.size)}
-                  </p>
-                )}
-              </div>
-              <div className="flex gap-2">
-                {bestAsset ? (
-                  <GridButton
-                    onClick={() => handleDownload(bestAsset)}
-                    className="text-small px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
-                    rippleColor="rgba(255, 255, 255, 0.5)"
-                  >
-                    <Download className="w-4 h-4" />
-                    Download
-                  </GridButton>
-                ) : (
-                  <span className="text-slate-400 text-sm px-6 py-2">
-                    No assets
-                  </span>
-                )}
+              )}
+            </div>
+            <div className="flex gap-2">
+              {bestAsset ? (
                 <GridButton
-                  onClick={() => window.open(currentRelease.htmlUrl, "_blank")}
-                  className="text-small px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+                  onClick={() => handleDownload(bestAsset)}
+                  className="text-small px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+                  rippleColor="rgba(255, 255, 255, 0.5)"
                 >
-                  View Release
+                  <Download className="w-4 h-4" />
+                  Download
                 </GridButton>
-              </div>
+              ) : (
+                <span className="text-slate-400 text-sm px-6 py-2">
+                  No assets
+                </span>
+              )}
+              <GridButton
+                onClick={() => window.open(currentRelease.htmlUrl, "_blank")}
+                className="text-small px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
+              >
+                View Release
+              </GridButton>
             </div>
           </div>
-        ) : (
-          <div className="bg-slate-700/30 border border-slate-600 rounded-lg p-4 text-center text-slate-400">
-            No release available for {getOSDisplayName(selectedOS) || "this OS"}
-            .
-          </div>
-        )}
-
-        {/* Footer */}
-        <div className="mt-8 text-center border-t border-slate-600 pt-6">
-          <p className="text-slate-400 text-sm">
-            Last updated: {LAST_UPDATED_FORMAT.format(new Date(lastUpdated))}{" "}
-            UTC
-          </p>
-          <a
-            href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || "owner"}/${process.env.NEXT_PUBLIC_GITHUB_REPO || "repo"}/releases`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-400 text-sm underline mt-2 inline-block"
-          >
-            View all releases on GitHub
-          </a>
         </div>
+      ) : (
+        <div className="bg-slate-700/30 border border-slate-600 rounded-lg p-4 text-center text-slate-400">
+          No release available for {getOSDisplayName(selectedOS) || "this OS"}.
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="mt-8 text-center border-t border-slate-600 pt-6">
+        <p className="text-slate-400 text-sm">
+          Last updated: {LAST_UPDATED_FORMAT.format(new Date(lastUpdated))} UTC
+        </p>
+        <a
+          href={`https://github.com/${process.env.NEXT_PUBLIC_GITHUB_OWNER || "owner"}/${process.env.NEXT_PUBLIC_GITHUB_REPO || "repo"}/releases`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 text-sm underline mt-2 inline-block"
+        >
+          View all releases on GitHub
+        </a>
       </div>
-    </>
+    </div>
   );
 }
