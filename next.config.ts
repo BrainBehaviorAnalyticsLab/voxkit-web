@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // /download became /installation when the page grew from a single download
+  // panel into the three-step install sequence. Permanent, so the links already
+  // in the wild -- and anything a search engine indexed -- keep working.
+  async redirects() {
+    return [
+      {
+        source: "/download",
+        destination: "/installation",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

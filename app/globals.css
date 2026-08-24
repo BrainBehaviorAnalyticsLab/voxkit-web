@@ -70,6 +70,57 @@ body:has([data-full-viewport]) {
   .fall-in { animation: none !important; transform: none !important; }
 } */
 
+/*
+ * The chevron on an installation-step connector, gliding down its rail to mark
+ * where the flow continues. Loops indefinitely because it is the page's only
+ * "do this next" signal once the step numbers came out of the panel corners.
+ */
+@keyframes stepChevronGlide {
+  0%,
+  100% {
+    transform: translateY(-3px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+.step-chevron-glide {
+  animation: stepChevronGlide 1.6s ease-in-out infinite;
+}
+
+/*
+ * A halo expanding out of the live connector button. The rail around it is
+ * deliberately quiet, so this is what says "press this" from across the page.
+ * cyan-400 (#22d3ee) to match the ring the button already carries.
+ */
+@keyframes stepAdvancePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(34, 211, 238, 0);
+  }
+}
+.step-advance-pulse {
+  animation: stepAdvancePulse 2.4s ease-out infinite;
+}
+
+/* Indefinite loops are exactly what this preference is for. The button keeps
+   its ring, fill, and label, so it is no less obviously a control without the
+   motion; only the attention-grabbing halo and glide stop. */
+@media (prefers-reduced-motion: reduce) {
+  .step-chevron-glide {
+    animation: none;
+    opacity: 1;
+  }
+  .step-advance-pulse {
+    animation: none;
+  }
+}
+
 @keyframes gradient-shift {
   0%,
   100% {

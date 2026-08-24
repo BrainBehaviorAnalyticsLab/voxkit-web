@@ -36,7 +36,7 @@
       {
         "type": "list",
         "items": [
-          "Download the appropriate asset for your operating system from the VoxKit website (This Website). Click `download` in the Navigation menu above to do that.",
+          "Download the appropriate asset for your operating system from the VoxKit website (This Website). Click `Installation` in the Navigation menu above to do that.",
           "If you plan to use Montreal Forced Aligner, be sure you have the CLI setup correctly prior to installation. See the current MFA documentation for instructions.",
           "Once an asset is successfully downloaded, follow the correct instructions below for additional steps. If you're having issues see the troubleshooting section of the help page (go back), or email support at code@beckettfrey.com."
         ]

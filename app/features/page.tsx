@@ -352,7 +352,7 @@ export default function FeaturesPage() {
               Research Foundations
             </GridButton>
             <GridButton
-              href="/download"
+              href="/installation"
               className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
             >
               Download VoxKit

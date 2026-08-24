@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const ALL_VIEWS = [
   "Home",
-  "Download",
+  "Installation",
   "Features",
   "Foundations",
   "Docs",

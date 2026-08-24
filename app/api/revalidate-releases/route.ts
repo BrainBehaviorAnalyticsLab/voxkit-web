@@ -5,7 +5,7 @@ import { RELEASES_CACHE_TAG } from "../../../lib/releases";
 /**
  * Cron target, wired to midnight UTC daily in `vercel.json`.
  *
- * Drops both the cached GitHub response and the prerendered download page, so
+ * Drops both the cached GitHub response and the prerendered installation page, so
  * the first visitor after midnight triggers one fresh fetch. New releases are
  * therefore picked up with up to a day's delay — a deliberate grace period in
  * case a release turns out to be problematic.
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   }
 
   revalidateTag(RELEASES_CACHE_TAG, "max");
-  revalidatePath("/download");
+  revalidatePath("/installation");
 
   return NextResponse.json({
     revalidated: true,
