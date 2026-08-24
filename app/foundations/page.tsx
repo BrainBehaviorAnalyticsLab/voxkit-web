@@ -113,7 +113,7 @@ export default function InspirationPage() {
         </div>
 
         {/* Summary Box */}
-        <div className="bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-10 tile">
           <h2 className="text-2xl font-bold mb-4 text-white">
             VoxKit&apos;s Research-Driven Approach
           </h2>
