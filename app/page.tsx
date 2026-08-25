@@ -1,15 +1,21 @@
 "use client";
 import {
-  Download,
   ChevronDown,
   Clock,
   FileCheck,
   FolderSync,
+  Github,
   Users,
 } from "lucide-react";
+import Image from "next/image";
 import WaveSeparator from "../components/WaveSeparator";
 import GridButton from "../components/GridButton";
 import { Footer, Navbar } from "../layout";
+
+const GITHUB_URL =
+  "https://github.com/BrainBehaviorAnalyticsLab/voxkit-desktop";
+
+const INTERSPEECH_URL = "https://interspeech2026.org/";
 
 export default function VoxKitLanding() {
   const features = [
@@ -92,14 +98,38 @@ export default function VoxKitLanding() {
             workflows with zero command-line headaches.
           </p>
 
-          {/* CTA Buttons */}
-
-          <GridButton
-            href="/installation"
-            className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
-          >
-            Get Started Today
-          </GridButton>
+          {/* Interspeech 2026 Show & Tell badge.
+              The conference wordmark is dark-on-transparent artwork, so it sits
+              on a white chip rather than being recoloured to suit the hero.
+              Below sm the chip stands alone -- the two lines of text do not fit
+              beside it at that width, and the logo already carries the year. */}
+          <div className="flex justify-center">
+            <a
+              href={INTERSPEECH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-full border border-cyan-400/40 bg-slate-900/60 backdrop-blur-sm py-1.5 pl-1.5 pr-1.5 sm:pr-5 hover:border-cyan-400/70 transition-colors"
+            >
+              <span className="rounded-full bg-white px-2.5 py-1.5">
+                <Image
+                  src="/interspeech-2026.png"
+                  alt="Interspeech 2026"
+                  width={400}
+                  height={141}
+                  className="h-9 w-auto"
+                  priority
+                />
+              </span>
+              <span className="hidden sm:block text-sm text-left leading-tight">
+                <span className="block font-semibold text-white">
+                  Catch our Show &amp; Tell demo
+                </span>
+                <span className="block text-slate-400">
+                  ICC Sydney &middot; 27 Sep &ndash; 1 Oct 2026
+                </span>
+              </span>
+            </a>
+          </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 -mb-1">
           <WaveSeparator
@@ -193,16 +223,23 @@ export default function VoxKitLanding() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <GridButton
-              href="/help/expected-workflow"
-              className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
-            >
-              Expected Workflow
-            </GridButton>
-            <GridButton
               href="/installation"
-              className="text-lg px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white border-white"
+              className="text-lg px-8 py-4 rounded-lg text-cyan-400 border-cyan-400"
             >
-              <Download className="w-5 h-5" /> Install VoxKit
+              Get Started Today
+            </GridButton>
+            {/* Secondary to the CTA beside it: the source is for people who
+                want to read or contribute, not the path a researcher
+                installing VoxKit takes. */}
+            <GridButton
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg px-8 py-4 rounded-lg text-slate-300 border-slate-500"
+              cellColor="rgba(148, 163, 184, 0.12)"
+              rippleColor="rgba(203, 213, 225, 0.5)"
+            >
+              <Github className="w-5 h-5" /> View on GitHub
             </GridButton>
           </div>
         </div>

@@ -128,7 +128,7 @@ export default function FeaturesPage() {
         </div>
 
         {/* Mission Statement */}
-        <div className="mb-20 bg-gradient-to-r from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-500 rounded-2xl p-10 tile">
+        <div className="mb-20 bg-slate-800/50 backdrop-blur-sm border border-slate-600 rounded-2xl p-10 tile">
           <h2 className="text-3xl font-bold mb-4 text-white text-center">
             Mission
           </h2>
